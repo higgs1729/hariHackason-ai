@@ -13,7 +13,7 @@ backend/    Spring Boot 4.1 / Java 21 (Maven)  http://localhost:8080
 ```
 
 Requests from the frontend to `/api/*` are forwarded to the backend by the Vite dev proxy, so no CORS setup is needed.
-Smoke test: open the frontend and it shows the result of `GET /api/hello`.
+Smoke test for the backend: `GET http://localhost:8080/api/hello`.
 
 ## Prerequisites
 
@@ -38,6 +38,28 @@ npm run dev
 ```
 
 Open <http://localhost:5173>.
+
+## UI mock (current state)
+
+Single-theme React mock of the 8 screens on the presentation poster (`image-1.png`, see `DESIGN.md`).
+Screens are wired in the poster's flow order; tapping the primary action moves to the next screen.
+Photos, the "ai" logo lettering and the capsule illustration are gradient placeholders until generated images land
+(swap them in `frontend/src/assets/index.ts`). Illegible poster text is inferred and tagged in `frontend/MOCK_SPEC.md`.
+
+![All 8 mock screens](docs/mock/all-screens.png)
+
+| Route | Screen | Preview |
+|---|---|---|
+| `/` | Home | ![Home](docs/mock/01-home.png) |
+| `/camera` | Camera | ![Camera](docs/mock/02-camera.png) |
+| `/album/new` | Album create | ![Album create](docs/mock/03-album-create.png) |
+| `/album/decorate` | Decorate | ![Decorate](docs/mock/04-decorate.png) |
+| `/album/share` | Share | ![Share](docs/mock/05-share.png) |
+| `/capsule/new` | Time capsule create | ![Time capsule create](docs/mock/06-capsule-create.png) |
+| `/capsule/done` | Time capsule done | ![Time capsule done](docs/mock/07-capsule-done.png) |
+| `/album/detail` | Album detail | ![Album detail](docs/mock/08-detail.png) |
+
+Screenshots are taken from `npm run build` output at 390×844 (headless Chrome). Regenerate them when a screen changes.
 
 ## Workflow
 
