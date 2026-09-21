@@ -31,3 +31,10 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Runtime ###
+# Secrets. Variable names live in .env.example.
+.env
+# H2 database files and uploaded photos — both regenerate, neither belongs in git.
+data/
+storage/
