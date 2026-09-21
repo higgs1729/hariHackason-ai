@@ -1,0 +1,13 @@
+.bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 44px;
+  padding: 0 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  flex-shrink: 0;
+}
+.light { color: var(--white); }
+.icons { display: inline-flex; gap: 4px; align-items: center; }

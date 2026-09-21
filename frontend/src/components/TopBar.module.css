@@ -1,0 +1,26 @@
+.bar {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  padding: 0 8px;
+  color: var(--text);
+  flex-shrink: 0;
+}
+.light { color: var(--white); }
+.slot { width: 44px; display: flex; align-items: center; }
+.right { justify-content: flex-end; }
+.spacer { flex: 1; }
+.title {
+  flex: 1;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+}
+.btn {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+}

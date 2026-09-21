@@ -1,0 +1,80 @@
+.screen {
+  height: 100%;
+  min-height: 100dvh;
+  background: var(--navy-900);
+}
+
+.header {
+  flex-shrink: 0;
+  background: var(--navy-900);
+  color: var(--white);
+}
+
+.more {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-pill);
+  color: var(--white);
+}
+
+.sky {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  min-height: 540px;
+  padding: 32px 20px 72px;
+}
+
+.card {
+  width: 100%;
+  max-width: 390px;
+  padding: 28px 24px 24px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.88);
+  color: var(--navy-900);
+  box-shadow: 0 12px 35px rgba(20, 38, 77, 0.12);
+  text-align: center;
+}
+
+.card h1 {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+.message {
+  margin-top: 17px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 2;
+}
+
+.divider {
+  height: 1px;
+  margin: 23px 0 16px;
+  background: var(--border);
+}
+
+.date {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.primary {
+  width: 100%;
+  min-height: 52px;
+  margin-top: 24px;
+  border-radius: var(--radius-pill);
+  background: var(--navy-900);
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+@media (min-width: 480px) {
+  .screen { min-height: 100%; }
+}

@@ -17,3 +17,6 @@ Thumbs.db
 .idea/
 .vscode/
 *.iml
+
+# Claude desktop app local config
+.claude/

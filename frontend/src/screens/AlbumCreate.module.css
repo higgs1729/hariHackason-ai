@@ -1,0 +1,179 @@
+.screen {
+  min-height: 100%;
+  background: var(--white);
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  height: clamp(360px, 55dvh, 465px);
+  color: var(--white);
+}
+
+.more {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-pill);
+  color: var(--white);
+}
+
+.scribble {
+  position: absolute;
+  top: 112px;
+  left: 19px;
+  width: 35px;
+  height: 24px;
+  border-top: 1.5px solid var(--white);
+  border-left: 1.5px solid var(--white);
+  border-radius: 50%;
+  transform: rotate(-30deg);
+}
+
+.scribble::after {
+  position: absolute;
+  top: 7px;
+  left: 6px;
+  width: 28px;
+  height: 15px;
+  border-top: 1px solid var(--white);
+  border-radius: 50%;
+  content: '';
+}
+
+.lettering {
+  position: absolute;
+  top: 130px;
+  left: 47px;
+  font-family: var(--font-hand);
+  font-size: 26px;
+  line-height: 1.45;
+  text-shadow: 0 1px 6px rgba(20, 38, 77, 0.35);
+  transform: rotate(-8deg);
+}
+
+.letterSparkle {
+  position: absolute;
+  top: -14px;
+  right: -22px;
+  transform: rotate(12deg);
+}
+
+.heroHeart {
+  position: absolute;
+  right: 38px;
+  top: 166px;
+  transform: rotate(18deg);
+}
+
+.heroSparkle {
+  position: absolute;
+  left: 24px;
+  bottom: 75px;
+  transform: rotate(-20deg);
+}
+
+.editor {
+  flex: 1;
+  padding: 0 16px 16px;
+}
+
+.tools {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  gap: 17px;
+  margin-top: -25px;
+}
+
+.tools button {
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.88);
+  color: var(--navy-800);
+  box-shadow: 0 3px 12px rgba(20, 38, 77, 0.12);
+}
+
+.dateRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 62px;
+  color: var(--navy-900);
+}
+
+.dateRow h1 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 9px;
+  row-gap: 12px;
+}
+
+.tile {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 5px;
+  padding: 0;
+  text-align: left;
+}
+
+.tilePhoto {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 12px;
+}
+
+.heartBadge {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  display: grid;
+  place-items: center;
+  width: 21px;
+  height: 21px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.86);
+  color: var(--navy-700);
+}
+
+.caption {
+  padding-left: 2px;
+  color: var(--navy-900);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.footer {
+  position: sticky;
+  z-index: 2;
+  bottom: 0;
+  margin-top: auto;
+  padding: 12px 16px max(18px, env(safe-area-inset-bottom));
+  background: var(--white);
+}
+
+.primary {
+  display: block;
+  width: 100%;
+  min-height: 52px;
+  border-radius: var(--radius-pill);
+  background: var(--navy-900);
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 700;
+}

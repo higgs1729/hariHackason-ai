@@ -1,0 +1,200 @@
+.screen {
+  min-height: 100%;
+  background: var(--blue-50);
+}
+
+.save {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-pill);
+  color: var(--navy-900);
+}
+
+.paper {
+  position: relative;
+  flex: 1;
+  padding: 4px 16px 20px;
+  overflow: hidden;
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  min-height: 64px;
+  color: var(--navy-900);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.heading span {
+  color: var(--pink-400);
+  font-family: var(--font-hand);
+  font-size: 34px;
+  font-weight: 400;
+  transform: rotate(14deg);
+}
+
+.headingHeart {
+  margin-right: 7px;
+  color: var(--pink-400);
+  transform: rotate(-19deg);
+}
+
+.canvas {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 525px;
+  padding: 18px 3px 25px;
+}
+
+.polaroid {
+  position: relative;
+  z-index: 1;
+  width: min(80%, 288px);
+  padding: 8px 8px 24px;
+  background: var(--white);
+  box-shadow: 0 8px 24px rgba(20, 38, 77, 0.16);
+}
+
+.firstPolaroid {
+  margin-left: 16px;
+  transform: rotate(-3deg);
+}
+
+.secondPolaroid {
+  align-self: flex-end;
+  margin-right: 13px;
+  transform: rotate(2deg);
+}
+
+.collage {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+  height: 158px;
+}
+
+.collagePhoto {
+  min-width: 0;
+  height: 100%;
+}
+
+.sticker {
+  position: absolute;
+  right: -14px;
+  bottom: -13px;
+  display: grid;
+  place-items: center;
+  width: 43px;
+  height: 33px;
+  border-radius: var(--radius-pill);
+  background: var(--white);
+  color: var(--navy-700);
+  box-shadow: 0 2px 9px rgba(20, 38, 77, 0.13);
+  transform: rotate(12deg);
+}
+
+.notes {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  height: 66px;
+  color: var(--navy-800);
+}
+
+.best {
+  font-family: var(--font-hand);
+  font-size: 20px;
+  font-weight: 700;
+  transform: rotate(-9deg);
+}
+
+.date {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  transform: rotate(5deg);
+}
+
+.noteHeart {
+  color: var(--pink-400);
+  transform: rotate(-17deg);
+}
+
+.scribble {
+  position: absolute;
+  bottom: 8px;
+  left: 41%;
+  width: 120px;
+  height: 10px;
+  border-top: 1.5px solid var(--navy-700);
+  border-radius: 50%;
+  transform: rotate(-7deg);
+}
+
+.sparkleLeft,
+.sparkleRight {
+  position: absolute;
+  color: var(--blue-500);
+}
+
+.sparkleLeft {
+  z-index: 2;
+  top: 6px;
+  right: 6px;
+  transform: rotate(15deg);
+}
+
+.sparkleRight {
+  right: 2px;
+  bottom: 21px;
+  transform: rotate(-15deg);
+}
+
+.heartLeft,
+.heartRight {
+  position: absolute;
+  color: var(--pink-400);
+}
+
+.heartLeft {
+  z-index: 2;
+  bottom: 90px;
+  left: 1px;
+  transform: rotate(-26deg);
+}
+
+.heartRight {
+  z-index: 2;
+  top: 172px;
+  right: 2px;
+  transform: rotate(20deg);
+}
+
+.footer {
+  position: sticky;
+  z-index: 3;
+  bottom: 0;
+  margin-top: auto;
+  padding: 12px 16px max(18px, env(safe-area-inset-bottom));
+  background: var(--blue-50);
+}
+
+.primary {
+  display: block;
+  width: 100%;
+  min-height: 52px;
+  border-radius: var(--radius-pill);
+  background: var(--navy-900);
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 700;
+}

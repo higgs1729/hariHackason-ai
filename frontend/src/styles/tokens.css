@@ -1,0 +1,35 @@
+/* Single theme, taken from the poster (image-1.png). No theme switching. */
+:root {
+  /* brand indigo (藍) */
+  --navy-900: #14264d;
+  --navy-800: #1d3566;
+  --navy-700: #2a4a86;
+  --navy-600: #3560a8;
+  --blue-500: #4f86d9;
+  --blue-300: #9dc3f2;
+  --blue-100: #dceaf9;
+  --blue-50: #eef5fc;
+  --white: #ffffff;
+  --pink-400: #ff7fb0; /* hand-drawn hearts / doodles */
+
+  --bg: var(--blue-50);
+  --surface: var(--white);
+  --surface-muted: var(--blue-50);
+  --border: #d7e4f4;
+  --text: var(--navy-900);
+  --text-2: #5a6f95;
+  --text-3: #9aacc8;
+  --accent: var(--navy-700);
+  --on-accent: var(--white);
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+
+  --font-ui: 'BIZ UDPGothic', 'Meiryo UI', 'Yu Gothic UI', system-ui, sans-serif;
+  --font-hand: 'Segoe Script', 'Segoe Print', 'Brush Script MT', cursive;
+
+  --phone-w: 390px;
+  --phone-h: 844px;
+}

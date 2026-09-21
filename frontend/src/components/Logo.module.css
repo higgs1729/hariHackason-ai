@@ -1,0 +1,17 @@
+.logo {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+}
+.eye {
+  width: 0.55em;
+  height: auto;
+  margin-bottom: 0.02em;
+}
+.word {
+  font-family: var(--font-hand);
+  font-size: 1em;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}

@@ -1,0 +1,134 @@
+.screen {
+  height: 100%;
+  min-height: 100dvh;
+  color: var(--white);
+}
+
+.night {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 100%;
+  color: var(--white);
+}
+
+.more {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-pill);
+  color: var(--white);
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: var(--radius-pill);
+  background: var(--white);
+  opacity: 0.85;
+}
+
+.starOne { top: 17%; left: 18%; }
+.starTwo { top: 23%; right: 16%; }
+.starThree { top: 35%; left: 10%; }
+.starFour { top: 42%; right: 10%; }
+.starFive { top: 68%; left: 22%; }
+.starSix { top: 73%; right: 21%; }
+
+.celebration {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 28px;
+  padding: 56px 20px 40px;
+  text-align: center;
+}
+
+.celebration h1 {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.85;
+  letter-spacing: 0.04em;
+}
+
+.illustration {
+  position: relative;
+  margin-top: 70px;
+  width: 230px;
+  height: 180px;
+}
+
+.capsule {
+  position: absolute;
+  top: 60px;
+  left: 59px;
+  width: 112px;
+  height: 62px;
+  border: 3px solid var(--white);
+  border-radius: var(--radius-pill);
+  transform: rotate(-35deg);
+}
+
+.seam {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  border-left: 3px solid var(--white);
+}
+
+.sparkle {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+}
+
+.sparkle::before,
+.sparkle::after {
+  position: absolute;
+  display: block;
+  background: var(--white);
+  content: '';
+}
+
+.sparkle::before {
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  transform: translateY(-50%);
+}
+
+.sparkle::after {
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 100%;
+  transform: translateX(-50%);
+}
+
+.sparkleOne { top: 18px; left: 36px; transform: rotate(35deg); }
+.sparkleTwo { top: 33px; right: 18px; transform: rotate(45deg) scale(0.8); }
+.sparkleThree { bottom: 20px; left: 20px; transform: rotate(45deg) scale(0.75); }
+.sparkleFour { right: 28px; bottom: 10px; transform: rotate(35deg) scale(1.15); }
+
+.primary {
+  display: block;
+  width: calc(100% - 24px);
+  margin-top: 140px;
+  min-height: 52px;
+  border-radius: var(--radius-pill);
+  background: var(--white);
+  color: var(--navy-900);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+@media (min-width: 480px) {
+  .screen { min-height: 100%; }
+}

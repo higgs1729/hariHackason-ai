@@ -1,0 +1,209 @@
+.screen {
+  min-height: 100%;
+  background: var(--white);
+}
+
+.more {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-pill);
+  color: var(--navy-900);
+}
+
+.content {
+  flex: 1;
+  padding: 4px 20px 32px;
+}
+
+.friends {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  min-height: 96px;
+  padding: 8px 0 12px;
+}
+
+.friend {
+  display: flex;
+  flex: 0 0 51px;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: var(--navy-800);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.avatarFrame {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 2px solid transparent;
+  border-radius: var(--radius-pill);
+}
+
+.selected {
+  border-color: var(--navy-900);
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-pill);
+}
+
+.friendsChevron {
+  flex-shrink: 0;
+  margin-left: auto;
+  color: var(--navy-800);
+}
+
+.sectionHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 55px;
+  color: var(--navy-900);
+}
+
+.sectionHeading h1,
+.sectionHeading h2 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.albumCard,
+.recipientCard {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--white);
+}
+
+.albumCard {
+  padding: 12px;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 10px;
+}
+
+.chips span {
+  display: inline-flex;
+  min-height: 25px;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--blue-50);
+  color: var(--navy-700);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.albumPreview {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 40px;
+  align-items: center;
+  gap: 9px;
+}
+
+.albumPhoto {
+  width: 100%;
+  height: 160px;
+  border-radius: 12px;
+}
+
+.albumMembers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+}
+
+.memberAvatar {
+  width: 38px;
+  height: 38px;
+  border: 2px solid var(--white);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 1px 5px rgba(20, 38, 77, 0.12);
+}
+
+.aiNote {
+  margin-top: 10px;
+  color: var(--navy-700);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.recipientCard {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  min-height: 146px;
+  padding: 16px 12px;
+}
+
+.recipientPhoto {
+  flex: 0 0 100px;
+  width: 100px;
+  height: 100px;
+  border-radius: 12px;
+}
+
+.recipients {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+  gap: 9px;
+  align-self: flex-start;
+  padding: 3px 51px 0 0;
+}
+
+.recipient {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 23px;
+  color: var(--navy-800);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.recipient svg {
+  flex-shrink: 0;
+  color: var(--navy-700);
+}
+
+.send {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-pill);
+  background: var(--navy-900);
+  color: var(--white);
+}
+
+.caption {
+  padding: 15px 2px;
+  color: var(--text-2);
+  font-size: 12px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+@media (max-width: 375px) {
+  .friends { gap: 10px; }
+  .content { padding-right: 16px; padding-left: 16px; }
+}

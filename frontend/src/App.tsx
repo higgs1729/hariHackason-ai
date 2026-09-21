@@ -1,41 +1,31 @@
-import { useEffect, useState } from 'react'
-import './App.css'
-
-type HelloResponse = {
-  message: string
-  serverTime: string
-}
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { PhoneFrame } from './components/PhoneFrame'
+import { routes } from './routes'
+import { Home } from './screens/Home'
+import { Camera } from './screens/Camera'
+import { AlbumCreate } from './screens/AlbumCreate'
+import { Decorate } from './screens/Decorate'
+import { Share } from './screens/Share'
+import { CapsuleCreate } from './screens/CapsuleCreate'
+import { CapsuleDone } from './screens/CapsuleDone'
+import { Detail } from './screens/Detail'
 
 function App() {
-  const [hello, setHello] = useState<HelloResponse | null>(null)
-  const [error, setError] = useState<string | null>(null)
-
-  useEffect(() => {
-    fetch('/api/hello')
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        return res.json() as Promise<HelloResponse>
-      })
-      .then(setHello)
-      .catch((e: Error) => setError(e.message))
-  }, [])
-
   return (
-    <main className="app">
-      <h1>Hanamizuki AI</h1>
-      <p className="status">
-        backend:{' '}
-        {hello ? (
-          <span className="ok">
-            {hello.message} ({hello.serverTime})
-          </span>
-        ) : error ? (
-          <span className="ng">not connected ({error}) — start the backend</span>
-        ) : (
-          <span>connecting...</span>
-        )}
-      </p>
-    </main>
+    <BrowserRouter>
+      <PhoneFrame>
+        <Routes>
+          <Route path={routes.home} element={<Home />} />
+          <Route path={routes.camera} element={<Camera />} />
+          <Route path={routes.albumCreate} element={<AlbumCreate />} />
+          <Route path={routes.decorate} element={<Decorate />} />
+          <Route path={routes.share} element={<Share />} />
+          <Route path={routes.capsuleCreate} element={<CapsuleCreate />} />
+          <Route path={routes.capsuleDone} element={<CapsuleDone />} />
+          <Route path={routes.detail} element={<Detail />} />
+        </Routes>
+      </PhoneFrame>
+    </BrowserRouter>
   )
 }
 
