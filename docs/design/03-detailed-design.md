@@ -1,166 +1,191 @@
 # 03 — Detailed Design / 詳細設計
 
-> 実装に落とせる粒度。テーブル定義・API仕様・アルゴリズム・設定・テスト。
+> 実装に落とせる粒度。API仕様・アルゴリズム・設定・テスト。
 > 前提: `01-requirements.md`, `02-basic-design.md`
+> **スキーマの正: `backend/sql/create_table.sql`**
 
 ---
 
-## 1. Database schema
+## 1. Schema
 
-> テーブル定義。H2 file mode。`ddl-auto=update` で開発し、DDLは記録用。
+> スキーマ。列定義はSQLファイルが唯一の正。ここには設計判断だけを残す。
 
-### 1.1 Tables
+`backend/sql/create_table.sql` is the single source of truth. This document does
+**not** restate column definitions — duplicating them guarantees they drift.
 
-> 全12テーブル。UUIDは`CHAR(36)`、日時は`TIMESTAMP WITH TIME ZONE`。
+### 1.1 Conventions baked into the DDL
 
-**`users`**
+| 規約 | 内容 |
+| --- | --- |
+| 主キー | `bigint auto_increment` |
+| 列名 | camelCase（`userAccount`, `createTime`, `takenTime`） |
+| 論理削除 | 主エンティティは `isDelete tinyint`。関係表・行為表は物理削除 |
+| 外部キー | **張らない。** 整合性はアプリ層。索引は検索に必要な分だけ |
+| 時刻 | `datetime`。業務時刻は別名（`takenTime` / `openTime`）で `createTime` と混ぜない |
+| 文字コード | `utf8mb4_unicode_ci` |
 
-| Column | Type | Constraint |
+### 1.2 Tables
+
+全13テーブル。
+
+| Table | 論理削除 | 役割 |
 | --- | --- | --- |
-| `id` | CHAR(36) | PK |
-| `email` | VARCHAR(255) | UNIQUE, NOT NULL |
-| `password_hash` | VARCHAR(60) | NOT NULL (BCrypt) |
-| `display_name` | VARCHAR(32) | NOT NULL |
-| `avatar_path` | VARCHAR(255) | NULL |
-| `created_at` | TIMESTAMPTZ | NOT NULL |
-| `deleted_at` | TIMESTAMPTZ | NULL |
+| `user` | ○ | アカウント。`userRole` = user/admin/ban、`lineUserId` は予約 |
+| `refresh_token` | × | リフレッシュトークン。ハッシュで保持、`familyId` で盗用検知 |
+| `friend` | × | 双方向2行。`status` 0=待通過 1=已通過 |
+| `block` | × | **単向**。拉黑は相手に見えない |
+| `photo` | ○ | 写真そのもの。EXIF由来の `takenTime` / 緯度経度 / `sha256` |
+| `album` | ○ | アルバム。`aiGenerated` で文案の出どころ、`version` で楽観ロック |
+| `album_member` | × | `memberRole` = owner/editor |
+| `album_photo` | ○ | **「この写真 × このアルバム」**。説明・並び順・装飾・`version` |
+| `album_share` | × | `shareToken` は乱数。`revokeTime` 非空で410 |
+| `capsule` | ○ | `openTime` 前は中身を返さない |
+| `capsule_recipient` | × | 0件なら「自分だけ」。`notifyTime` で重複通知を防ぐ |
+| `album_job` | × | 非同期成册タスク。`progress` / `idempotencyKey` |
+| `notification` | × | `payload` は json。種別ごとに列を増やさない |
 
-`INDEX idx_users_email (email)`
+### 1.2.1 Denormalisation policy
 
-**`refresh_tokens`**
+> 冗余方針。一覧も詳細も join しない。代償は整合性なので、規則を先に決める。
 
-| Column | Type | Constraint |
+Three house rules, taken from the team's reference schema:
+
+1. **カウントは冗余列。** `count(*)` を撃たない（`post.thumbNum` に倣う）
+2. **配列は varchar の json。** 子テーブルに割らない（`post.tags` に倣う）
+3. **表示に要る他表の列は、当該表へ複製する。** join を消す
+
+Rule 3 is what makes this rigorous or sloppy, depending on discipline. Every
+redundant column in `create_table.sql` is annotated with three things:
+
+| 注記 | 意味 |
+| --- | --- |
+| `[源]` | 権威データはどこか |
+| `[同步]` | いつ複製を書くか |
+| `[漂移]` | ずれたら何が起きるか |
+
+**同期タイミングは2種類だけ。3つ目を発明しないこと。**
+
+| モード | 意味 | 例 |
 | --- | --- | --- |
-| `id` | CHAR(36) | PK |
-| `user_id` | CHAR(36) | FK → users |
-| `token_hash` | CHAR(64) | UNIQUE (SHA-256) |
-| `family_id` | CHAR(36) | NOT NULL — ローテーション系列 |
-| `expires_at` | TIMESTAMPTZ | NOT NULL |
-| `revoked_at` | TIMESTAMPTZ | NULL |
-| `user_agent` | VARCHAR(255) | NULL |
+| **快照 / snapshot** | 書き込み時に1回だけ複製。以後、源が変わっても追随しない | `album_share.albumTitle` — 送ったリンクの中身が後から変わるべきではない |
+| **跟随 / follow** | 源の更新時に必ず複製も更新する | `user.userName` → `friend.friendUserName` |
 
-`INDEX idx_rt_user (user_id)`, `INDEX idx_rt_family (family_id)`
+### 1.2.2 Sync rules — 全冗余列
 
-**`friendships`** — 承認時に双方向2行を書く
+> 同期規則。実装時はこの表を見て、源を更新する箇所にすべて同期処理を入れる。
 
-| Column | Type | Constraint |
+**follow（源の更新時に同期が必要）**
+
+| 源 | 複製先 | 同期の起点 |
 | --- | --- | --- |
-| `id` | CHAR(36) | PK |
-| `user_id` | CHAR(36) | FK → users |
-| `friend_id` | CHAR(36) | FK → users |
-| `status` | VARCHAR(16) | `PENDING` / `ACCEPTED` |
-| `requested_by` | CHAR(36) | FK → users |
-| `created_at` | TIMESTAMPTZ | NOT NULL |
-| `responded_at` | TIMESTAMPTZ | NULL |
+| `user.userName` | `friend.friendUserName`, `photo.userName`, `album.userName`, `album_member.userName` | `PATCH /api/users/me` |
+| `user.userAvatar` | `friend.friendUserAvatar`, `album_member.userAvatar` | `PUT /api/users/me/avatar` |
+| `album.title` | `album_member.albumTitle` | `PATCH /api/albums/{id}` |
+| `album.coverPhotoId` | `album.coverPhotoUrl`, `album.coverThumbUrl` | 表紙変更時（同一行なので同時更新） |
+| `album_share.shareToken` | `album.shareToken` | 分享作成時に書き、撤回時に `null` |
+| `album_share.viewNum` | `album.viewNum` | 公開ページ閲覧時 |
 
-`UNIQUE (user_id, friend_id)`, `INDEX idx_fs_user_status (user_id, status)`
+**counter（増減時に ±1）**
 
-**`blocks`** — `UNIQUE (user_id, blocked_user_id)`
+| 冗余列 | 源 | 増える時 | 減る時 |
+| --- | --- | --- | --- |
+| `user.photoNum` | `photo` | 写真アップロード | 写真削除 |
+| `user.albumNum` | `album_member` | アルバム作成・招待 | 退出・削除 |
+| `user.friendNum` | `friend` (`status=1`) | 友達承認 | 友達削除・ブロック |
+| `user.capsuleNum` | `capsule` | カプセル作成 | カプセル削除 |
+| `photo.albumNum` | `album_photo` | アルバムへ追加 | アルバムから除外 |
+| `album.photoNum` | `album_photo` | 写真追加 | 写真除外 |
+| `album.memberNum` | `album_member` | 招待 | 退出 |
+| `capsule.recipientNum` | `capsule_recipient` | 宛先追加 | 宛先削除 |
 
-**`photos`**
+`photo.albumNum = 0` が「未成册」の定義。画面03の写真グリッドはこの1列で絞る
+（`idx_userId_albumNum`）。`album_photo` への `not exists` を撃たない。
 
-| Column | Type | Constraint |
+**snapshot（書き込み時に1回だけ。追随しない）**
+
+| 複製先 | 源 | 追随しない理由 |
 | --- | --- | --- |
-| `id` | CHAR(36) | PK |
-| `owner_id` | CHAR(36) | FK → users |
-| `storage_path` | VARCHAR(255) | NOT NULL |
-| `sha256` | CHAR(64) | NOT NULL |
-| `width` / `height` | INT | NOT NULL (回転補正後) |
-| `bytes` | BIGINT | NOT NULL |
-| `taken_at` | TIMESTAMPTZ | NOT NULL |
-| `taken_at_source` | VARCHAR(8) | `EXIF` / `UPLOAD` |
-| `lat` / `lng` | DOUBLE | NULL |
-| `created_at` | TIMESTAMPTZ | NOT NULL |
-| `deleted_at` | TIMESTAMPTZ | NULL |
+| `album_share.albumTitle` / `albumSummary` / `albumDate` / `coverPhotoUrl` / `photoNum` | `album` | **送信済みリンクの内容が後から変わるべきではない。** OGカードの内容を固定する |
+| `capsule.albumTitle` / `coverPhotoUrl` / `photoNum` | `album` | 封印したのは「その時点のアルバム」 |
+| `album_photo.photoUrl` / `thumbUrl` / `picWidth` / `picHeight` / `picScale` / `takenTime` | `photo` | 原図パスは入庫後に変化しない。安全な快照 |
+| `notification.*` | 各業務表 | 通知は「その時起きたこと」。履歴を書き換えない |
+| `block.blockedUserName`, `capsule_recipient.userName` | `user` | 表示のみ。ずれても実害なし |
 
-`UNIQUE (owner_id, sha256)`, `INDEX idx_photos_owner_taken (owner_id, taken_at)`
+### 1.2.3 Drift recovery
 
-**`albums`**
+> 漂移の兜底。冗余列は必ず源から再計算できること。
 
-| Column | Type | Constraint |
+**すべての冗余列は源から再構築できる。** `POST /api/dev/rebuild-denorm`
+（devプロファイル）が全件を再計算する。デモ前に1回流す。
+
+> ⚠️ **冗余列を唯一のデータ源にしないこと。** `album_share.albumTitle` しか
+> タイトルを持たない状態を作ってはいけない。源は常に `album.title` で、
+> 分享行はその複製にすぎない。この原則が崩れると再計算が不可能になる。
+
+`photo` を物理削除しない（`isDelete`）のも同じ理由 —— `album_photo.photoUrl`
+の快照が指す先を消さないため。
+
+### 1.3 Changes on 2026-09-22
+
+> 09-22の変更。スキーマは要件の全件を収容する方針に統一した（Q-11）。
+
+**追加した列**
+
+| 列 | 理由 |
+| --- | --- |
+| `album_photo.overlayData` (`json`) | PNGだけでは**刷新後に一筆撤销も貼紙の移動もできない**。要素配列を真実とし、PNGは描画キャッシュに降格。座標は 0〜1 正規化（390px と 1200px でずれるため） |
+| `album_job.progress` (`int`) | ENRICHING は20枚で30秒かかりうる。進捗がないとフロントは干転圈しかできない（NFR-01.2） |
+| `album_job.idempotencyKey` | 再送でClaudeが2回走るのを防ぐ（Q-10）。`uk_userId_idempotencyKey` で一意 |
+| `album_job.finishTime` | `createTime` との差が生成所要時間。デモで「20枚18秒」と言える |
+| `album.version` / `album_photo.version` | 楽観ロック（FR-09.2）。ETag / If-Match の実体 |
+| `photo.sha256` | 重複アップロード検出。`idx_userId_sha256` |
+| `photo.takenTimeSource` | `takenTime` がEXIF由来か上传時刻回落かの区別。「時間」行の信頼度表示に使う |
+
+**復活させた表**
+
+| 表 | 対応する要件 |
+| --- | --- |
+| `refresh_token` | FR-07.1 ログイン状態の保持 |
+| `block` | FR-12 ブロック |
+| `notification` | FR-11 通知 |
+| `capsule_recipient` | FR-06 カプセルの複数宛先 |
+
+**方針**: P1/P2 の機能でも、**列と表だけは最初から用意する**。実装順で絞るのは
+よいが、スキーマで絞ると後から「動いているコードに触ってテーブルを足す」作業に
+なる。DDLを一度で確定させる方が安い。
+
+### 1.4 Deliberately absent
+
+> それでも意図的に持たないもの。
+
+| 無いもの | 判断 |
+| --- | --- |
+| `decoration` 表 | 装飾は `album_photo` の3列（`overlayData`/`overlayPath`/`compositePath`）で持つ。1:1 の別表にする理由がない。**ただし実装側には独立した `Decoration` エンティティが存在する — Q-12 で決着させること** |
+| 外部キー制約 | 家の規約。整合性はアプリ層、索引は検索に必要な分だけ |
+| `album_member` の `viewer` ロール | 画面05に閲覧専用メンバーの概念がない。共有リンクがその役目 |
+
+### 1.5 ⚠️ Entity / SQL mismatch (2026-09-22)
+
+> 実装中の実体クラスとSQLが一致していない。着手前に片方へ寄せること。
+
+`backend/src/main/java/.../domain/` の13クラスは、**本書の初版（H2 + UUID +
+snake_case）**を見て書かれており、`create_table.sql` と一致しない。
+
+| | `create_table.sql`（正） | 実体クラス（要修正） |
 | --- | --- | --- |
-| `id` | CHAR(36) | PK |
-| `title` | VARCHAR(64) | NOT NULL |
-| `summary` | VARCHAR(255) | NULL |
-| `cover_photo_id` | CHAR(36) | FK → photos, NULL |
-| `date` | DATE | NOT NULL |
-| `place` | VARCHAR(64) | NULL |
-| `ai_generated` | BOOLEAN | NOT NULL |
-| `version` | INT | NOT NULL DEFAULT 0 — `@Version` |
-| `created_at` | TIMESTAMPTZ | NOT NULL |
-| `deleted_at` | TIMESTAMPTZ | NULL |
+| 主キー | `bigint auto_increment` | `UUID` 文字列 `CHAR(36)` |
+| テーブル名 | `user` / `album` / `photo` | `users` / `albums` / `photos` |
+| 列名 | camelCase `createTime` | snake_case `created_at` |
+| 論理削除 | `isDelete tinyint` | `deleted_at` + `@SQLRestriction` |
+| ログインID | `userAccount` | `email` |
+| 装飾 | `album_photo` の3列 | 独立した `Decoration` エンティティ |
 
-**`album_members`** — `UNIQUE (album_id, user_id)`, `role` ∈ `OWNER`/`EDITOR`/`VIEWER`
+**一致するテーブルは1つもない。** 現在 H2 + `ddl-auto=update` で起動できるのは
+Hibernateが実体から別のスキーマを勝手に作っているからで、`create_table.sql` は
+使われていない。MySQL + `ddl-auto=none` に切り替えた瞬間に起動不能になる。
 
-**`album_photos`**
-
-| Column | Type | Constraint |
-| --- | --- | --- |
-| `id` | CHAR(36) | PK |
-| `album_id` | CHAR(36) | FK → albums |
-| `photo_id` | CHAR(36) | FK → photos |
-| `position` | INT | NOT NULL |
-| `caption` | VARCHAR(16) | NULL |
-| `place` | VARCHAR(64) | NULL |
-| `weather` | VARCHAR(8) | NULL |
-| `comment` | VARCHAR(255) | NULL |
-| `music` | VARCHAR(128) | NULL |
-| `version` | INT | NOT NULL DEFAULT 0 |
-
-`UNIQUE (album_id, photo_id)`, `INDEX idx_ap_album_pos (album_id, position)`
-
-**`decorations`**
-
-| Column | Type | Constraint |
-| --- | --- | --- |
-| `album_photo_id` | CHAR(36) | PK, FK → album_photos |
-| `elements_json` | CLOB | NOT NULL |
-| `rendered_path` | VARCHAR(255) | NULL |
-| `revision` | INT | NOT NULL DEFAULT 0 |
-| `updated_by` | CHAR(36) | FK → users |
-| `updated_at` | TIMESTAMPTZ | NOT NULL |
-
-**`generate_jobs`**
-
-| Column | Type | Constraint |
-| --- | --- | --- |
-| `id` | CHAR(36) | PK |
-| `user_id` | CHAR(36) | FK → users |
-| `status` | VARCHAR(16) | §3.1 の状態 |
-| `progress` | INT | 0–100 |
-| `photo_ids` | CLOB | JSON配列 |
-| `album_ids` | CLOB | JSON配列、NULL |
-| `error_code` | VARCHAR(32) | NULL |
-| `idempotency_key` | CHAR(36) | NOT NULL |
-| `created_at` / `finished_at` | TIMESTAMPTZ | |
-
-`UNIQUE (user_id, idempotency_key)`
-
-**`shares`**
-
-| Column | Type | Constraint |
-| --- | --- | --- |
-| `token` | VARCHAR(24) | PK (base64url, 128bit) |
-| `album_id` | CHAR(36) | FK → albums, UNIQUE |
-| `created_by` | CHAR(36) | FK → users |
-| `expires_at` | TIMESTAMPTZ | NULL |
-| `view_count` | INT | NOT NULL DEFAULT 0 |
-| `revoked_at` | TIMESTAMPTZ | NULL |
-
-**`capsules`** — `album_id` UNIQUE, `open_at` NOT NULL, `opened_at` NULL,
-`message` VARCHAR(500)
-
-**`capsule_recipients`** — `UNIQUE (capsule_id, user_id)`
-
-**`notifications`** — `type`, `payload_json`, `read_at`;
-`INDEX idx_nt_user_read (user_id, read_at)`
-
-### 1.2 Soft delete
-
-> 論理削除。`deleted_at IS NULL` を必ず条件に入れる。
-
-`users` / `photos` / `albums` は論理削除。JPA では `@Where(clause = "deleted_at
-is null")` を付け、物理削除は30日後のバッチ（実装しない。設計上の宣言のみ）。
+`create_table.sql` を正とし、実体クラスを寄せること（§6.2 の `ddl-auto=none`）。
+`Decoration` の扱いだけ Q-12 の決定を待つ。
 
 ---
 
@@ -171,24 +196,23 @@ is null")` を付け、物理削除は30日後のバッチ（実装しない。�
 | Class | Responsibility |
 | --- | --- |
 | `JwtFilter` | `Authorization` を検証し `SecurityContext` に載せる |
-| `JwtIssuer` | access/refresh の発行・検証・ローテーション |
+| `JwtIssuer` | JWTの発行と検証（リフレッシュなし） |
 | `GlobalExceptionHandler` | 例外 → `ApiError` の一元変換 |
-| `PhotoService` | 取込（回転・EXIF抽出・ハッシュ・サムネ）、一覧、削除 |
+| `PhotoService` | 取込（回転・EXIF抽出・サムネ）、一覧、論理削除 |
 | `ExifReader` | `DateTimeOriginal` / GPS / `Orientation` の抽出のみ |
-| `ImageProcessor` | 回転・縮小・EXIF除去・合成。状態を持たない |
+| `ImageProcessor` | 回転・縮小・EXIF除去・合成。**状態を持たない** |
 | `PhotoClusterer` | 撮影時刻からクラスタ分割。**純関数、DBに触らない** |
-| `AlbumGenerationService` | ジョブの状態遷移。`@Async` の入口 |
+| `AlbumGenerationService` | ジョブの状態遷移と進捗更新。`@Async` の入口 |
 | `ClaudeAlbumEnricher` | Claude呼び出しと結果の検証。失敗時は例外を投げるだけ |
-| `AlbumService` | アルバムCRUD、メンバー、楽観ロック |
-| `DecorationService` | 要素JSONとレンダリング済みPNGの保存 |
+| `AlbumService` | アルバムCRUD、メンバー、権限判定 |
+| `DecorationService` | `overlayData` の保存と PNG / 合成画像の受け取り |
 | `ShareService` | トークン発行・失効、公開DTOへの射影 |
 | `ShareViewController` | `/s/{token}` のSSR（Thymeleaf） |
 | `CollageRenderer` | OG画像 1200x630 の生成 |
 | `CapsuleService` | 封印・開封。**開封前は中身を組み立てない** |
-| `AlbumEventPublisher` | SSE配信（`SseEmitter` の保持と送出） |
 
-`PhotoClusterer` を純関数にするのは、ここが唯一まともに単体テストできる
-ロジックだから。DBもAIも要らない。
+`PhotoClusterer` と `ImageProcessor` を純粋に保つのは、ここが唯一まともに
+単体テストできるロジックだから。DBもAIも要らない。
 
 ---
 
@@ -200,17 +224,19 @@ is null")` を付け、物理削除は30日後のバッチ（実装しない。�
 
 | 項目 | 仕様 |
 | --- | --- |
-| ID | UUID v4 文字列。`AlbumPhoto` のみ JSON上は `ap_` 接頭辞 |
+| ID | `bigint`。JSONでは **数値**（文字列化しない） |
+| JSONキー | camelCase。DBの列名とそろえる |
 | 日時 | ISO-8601 オフセット付き `2026-09-20T17:30:00+09:00` |
-| 認証 | `Authorization: Bearer <jwt>`。`/api/auth/**`, `/api/health`, `/s/**`, `/og/**`, `/api/share/**` は不要 |
+| 認証 | `Authorization: Bearer <jwt>`。access 15分 / refresh 30日 |
+| 認証不要 | `/api/auth/**`, `/api/health`, `/s/**`, `/og/**`, `/api/share/**` |
 | ページング | `?limit=20&cursor=` → `{items, nextCursor, total}`。max 100 |
-| 楽観ロック | `Album` / `AlbumPhoto` / `Decoration` は `ETag` + `If-Match` 必須。未指定は 428 |
-| 冪等性 | `POST /api/photos`, `POST /api/albums/generate` は `Idempotency-Key` 必須 |
+| 楽観ロック | `album` / `album_photo` は `version` を `ETag` で返す。更新は `If-Match` 必須、未指定は **428** |
+| 冪等性 | `POST /api/albums/generate` は `Idempotency-Key: <uuid>` 必須。24時間以内の再送は元の応答を返す |
 | アップロード | `multipart/form-data`, field `files`, 10MB/枚, 20枚/回 |
 
 ### 3.2 Error codes
 
-> エラーコード一覧。フロントはこの`code`で分岐する。
+> エラーコード一覧。フロントはこの `code` で分岐する。
 
 ```json
 { "code": "ALBUM_FORBIDDEN", "message": "…", "details": null, "traceId": "b3f1…" }
@@ -219,21 +245,23 @@ is null")` を付け、物理削除は30日後のバッチ（実装しない。�
 | HTTP | code | 発生条件 |
 | --- | --- | --- |
 | 400 | `VALIDATION_FAILED` | 入力不正。`details` にフィールド別メッセージ |
-| 400 | `UNSUPPORTED_MEDIA` | JPEG/PNG/HEIC 以外 |
-| 400 | `IDEMPOTENCY_KEY_REQUIRED` | ヘッダ欠落 |
-| 401 | `TOKEN_EXPIRED` | access期限切れ → refreshして再送 |
-| 401 | `TOKEN_INVALID` | 不正・失効 → ログアウト |
+| 400 | `UNSUPPORTED_MEDIA` | JPEG/PNG 以外 |
+| 400 | `IDEMPOTENCY_KEY_REQUIRED` | `Idempotency-Key` ヘッダ欠落 |
+| 401 | `TOKEN_EXPIRED` | access期限切れ → **1回だけ refresh して再送** |
+| 401 | `TOKEN_INVALID` | 不正・失効 → ログイン画面へ |
 | 401 | `CREDENTIALS_INVALID` | ログイン失敗 |
+| 403 | `ACCOUNT_BANNED` | `userRole = 'ban'` |
 | 403 | `ALBUM_FORBIDDEN` | メンバーでない |
-| 403 | `ROLE_INSUFFICIENT` | VIEWER が書き込み |
+| 403 | `ROLE_INSUFFICIENT` | owner専用操作をeditorが実行 |
 | 403 | `NOT_FRIENDS` | 友達でないユーザーを招待 |
-| 403 | `USER_BLOCKED` | ブロック関係 |
-| 404 | `USER_NOT_FOUND` / `PHOTO_NOT_FOUND` / `ALBUM_NOT_FOUND` / `CAPSULE_NOT_FOUND` | |
-| 409 | `VERSION_CONFLICT` | `If-Match` 不一致。`details.current` に現在値 |
+| 403 | `USER_BLOCKED` | ブロック関係にある |
+| 404 | `USER_NOT_FOUND` / `PHOTO_NOT_FOUND` / `ALBUM_NOT_FOUND` / `CAPSULE_NOT_FOUND` / `JOB_NOT_FOUND` | |
+| 409 | `ACCOUNT_EXISTS` | `userAccount` 重複 |
+| 409 | `VERSION_CONFLICT` | `If-Match` 不一致。`details.current` に現在値を載せる |
 | 409 | `FRIEND_REQUEST_EXISTS` | 申請重複 |
-| 409 | `CAPSULE_NOT_YET_OPEN` | `now < openAt` |
+| 409 | `CAPSULE_NOT_YET_OPEN` | `now < openTime` |
 | 409 | `JOB_ALREADY_RUNNING` | 同一ユーザーの生成が実行中 |
-| 410 | `SHARE_REVOKED` / `SHARE_EXPIRED` | 死んだトークン |
+| 410 | `SHARE_REVOKED` | `revokeTime` が非空 |
 | 413 | `FILE_TOO_LARGE` | 10MB超 |
 | 422 | `NO_VALID_PHOTOS` | クラスタリング対象が0件 |
 | 428 | `IF_MATCH_REQUIRED` | 楽観ロック対象で `If-Match` 未指定 |
@@ -243,10 +271,12 @@ is null")` を付け、物理削除は30日後のバッチ（実装しない。�
 
 | Route | Limit |
 | --- | --- |
-| `POST /api/albums/generate` | 20 / user / day、同時1件 |
+| `POST /api/albums/generate` | 20 / user / day、**同時1件（409 `JOB_ALREADY_RUNNING`）** |
 | `POST /api/photos` | 200 files / user / hour |
 | `POST /api/auth/login` | 10 / IP / 5min |
 | その他 | 120 / user / min |
+
+同時1件の制限が、冪等キーが無い状態での二重実行対策を兼ねる（§1.4）。
 
 ---
 
@@ -258,130 +288,162 @@ is null")` を付け、物理削除は30日後のバッチ（実装しない。�
 
 | | Path | P | Request → Response |
 | --- | --- | --- | --- |
-| POST | `/signup` | P0 | `{email,password,displayName}` → `{accessToken,refreshToken,user}` |
-| POST | `/login` | P0 | `{email,password}` → 同上 |
-| POST | `/refresh` | P0 | `{refreshToken}` → 新しいペア（ローテーション） |
-| POST | `/logout` | P1 | `{refreshToken}` → 204 |
-| POST | `/logout-all` | P2 | → 204 |
-| GET | `/me` | P0 | → `UserSelf` |
-| POST | `/password` | P2 | `{currentPassword,newPassword}` → 204、全セッション失効 |
+| POST | `/register` | P0 | `{userAccount,userPassword,userName}` → `{accessToken,refreshToken,user}` |
+| POST | `/login` | P0 | `{userAccount,userPassword}` → 同上 |
+| POST | `/refresh` | P0 | `{refreshToken}` → 新しいペア（**ローテーション**） |
+| POST | `/logout` | P1 | `{refreshToken}` → 204。該当行に `revokeTime` |
+| POST | `/logout-all` | P2 | → 204。そのユーザーの全 `refresh_token` を失効 |
+| GET | `/me` | P0 | → `User` |
 
-パスワードは8文字以上。BCrypt cost **10**（12はデモ機で体感できるほど遅い）。
+`userAccount` は4文字以上、`userPassword` は8文字以上。BCrypt cost **10**
+（12はデモ機で体感できるほど遅い）。`userRole = 'ban'` は 403 `ACCOUNT_BANNED`。
+
+リフレッシュは使い捨て。使ったトークンに `revokeTime` を打ち、同じ `familyId`
+で新しい行を作る。**失効済みトークンが再使用されたら盗用とみなし、その
+`familyId` 全体を失効させる。**
 
 ### 4.2 User `/api/users`
 
 | | Path | P | Notes |
 | --- | --- | --- | --- |
-| GET | `/me` | P0 | → `UserSelf`（`email` を含む） |
-| PATCH | `/me` | P1 | `{displayName}` |
-| PUT | `/me/avatar` | P1 | multipart `file` → `{avatarUrl}` |
-| DELETE | `/me/avatar` | P2 | |
-| GET | `/me/stats` | P2 | `{albumCount,photoCount,capsuleCount,friendCount}` |
-| GET | `/{id}` | P1 | → `User`（公開項目のみ） |
-| GET | `/search?q=` | P1 | → `User[]`。自分・友達・ブロックを除外 |
-| GET | `/{id}/avatar` | P1 | 画像バイト |
-| DELETE | `/me` | P2 | 論理削除 |
+| GET | `/me` | P0 | → `User` |
+| PATCH | `/me` | P1 | `{userName, userProfile}` |
+| PUT | `/me/avatar` | P1 | multipart `file` → `{userAvatar}` |
+| GET | `/{id}` | P1 | 公開プロフィール |
+| GET | `/search?q=` | P1 | `userAccount` / `userName` 前方一致。自分と既存の友達を除外 |
 
 ```json
-// User（公開）                          // UserSelf（自分のみ email を追加）
-{"id":"…","displayName":"わたし","avatarUrl":"/api/users/…/avatar"}
+// User
+{"id":12,"userAccount":"nao","userName":"わたし",
+ "userAvatar":"/storage/avatars/12.jpg","userProfile":null,"userRole":"user"}
 ```
+
+`userPassword` は**いかなる応答にも含めない**。
 
 ### 4.3 Friends `/api/friends`
 
 | | Path | P | Notes |
 | --- | --- | --- | --- |
-| GET | `` | P0 | → `User[]`（`ACCEPTED` のみ） |
-| POST | `/requests` | P1 | `{userId}` → 201。重複は 409 |
+| GET | `` | P0 | → `User[]`（`status=1` のみ） |
+| POST | `/requests` | P1 | `{userId}` → 201。重複は409 |
 | GET | `/requests` | P1 | `{incoming:[],outgoing:[]}` |
-| POST | `/requests/{id}/accept` | P1 | **双方向2行を書く** → 204 |
-| POST | `/requests/{id}/reject` | P2 | |
-| DELETE | `/requests/{id}` | P2 | 自分の申請を取消 |
+| POST | `/requests/{id}/accept` | P1 | **双方向2行にする** → 204 |
+| POST | `/requests/{id}/reject` | P2 | 行を削除 |
 | DELETE | `/{userId}` | P2 | 双方向削除 |
-| POST | `/api/blocks` | P2 | `{userId}`。友達関係も削除 |
-| GET | `/api/blocks` | P2 | |
-| DELETE | `/api/blocks/{userId}` | P2 | |
+| POST | `/api/blocks` | P2 | `{userId}`。**友達関係も同時に双方向削除** |
+| GET | `/api/blocks` | P2 | → `User[]` |
+| DELETE | `/api/blocks/{userId}` | P2 | 解除 |
+
+ブロックは **単向**（相手には見えない）。ブロック中は検索結果・友達申請・
+アルバム招待の3か所で除外する。
+
+申請時は `userId → friendId` の1行のみ（`status=0`）。承認時に逆向きの行を
+追加し、両方を `status=1` にする。これで友達一覧は
+`where userId = ? and status = 1` の単列クエリで済む。
 
 ### 4.4 Photos `/api/photos`
 
 | | Path | P | Notes |
 | --- | --- | --- | --- |
-| POST | `` | P0 | multipart。`Idempotency-Key` 必須 |
+| POST | `` | P0 | multipart `files` |
 | GET | `` | P0 | `?unassigned=true&from=&to=&limit=&cursor=` |
 | GET | `/{id}` | P0 | バイト。`Cache-Control: public,max-age=31536000,immutable` |
 | GET | `/{id}/thumb?w=400` | P1 | `w` ∈ {200,400,800} |
-| GET | `/{id}/meta` | P1 | EXIF由来の値 |
-| POST | `/batch-delete` | P2 | `{photoIds:[]}` |
-| DELETE | `/{id}` | P2 | 所有者のみ |
-| POST | `/{id}/restore` | P2 | 30日以内 |
+| DELETE | `/{id}` | P2 | 所有者のみ、`isDelete=1` |
 
-アップロード応答は **1件の失敗が全体を落とさない** よう3分割する:
+アップロード応答は **1件の失敗が全体を落とさない** よう2分割する:
 
 ```json
 {
-  "uploaded": [{"id":"…","url":"/api/photos/…","width":4032,"height":3024,
-                "takenAt":"2026-09-20T17:30:00+09:00","lat":34.7025,"lng":135.4959}],
-  "duplicates": [{"filename":"IMG_2011.jpg","existingPhotoId":"…"}],
-  "rejected":   [{"filename":"movie.mov","code":"UNSUPPORTED_MEDIA"}]
+  "uploaded": [{"id":101,"url":"/api/photos/101","picWidth":4032,"picHeight":3024,
+                "takenTime":"2026-09-20T17:30:00+09:00",
+                "latitude":34.7025000,"longitude":135.4959000}],
+  "rejected": [{"filename":"movie.mov","code":"UNSUPPORTED_MEDIA"}]
 }
 ```
+
+重複検出は行わない（`sha256` 列なし）。同じ写真を2回上げれば2行できる。
 
 ### 4.5 Albums `/api/albums`
 
 | | Path | P | Notes |
 | --- | --- | --- | --- |
-| POST | `/generate` | P0 | `{photoIds:[]}` → 202 `{jobId}` |
-| GET | `/jobs/{id}` | P0 | `{status,progress,albumIds,errorCode}` |
-| GET | `/jobs/{id}/stream` | P1 | SSE 進捗 |
+| POST | `/generate` | P0 | `{photoIds:[]}` + `Idempotency-Key` → 202 `{jobId}`。実行中なら409 |
+| GET | `/jobs/{id}` | P0 | `{status,progress,albumIds,errorMsg,finishTime}` |
 | DELETE | `/jobs/{id}` | P2 | `ENRICHING` 完了前なら中断 |
-| POST | `` | P1 | 手動作成（AIなし） |
-| GET | `` | P0 | `?q=&from=&to=&limit=&cursor=` |
-| GET | `/{id}` | P0 | → `Album`。`ETag` 付き |
-| PATCH | `/{id}` | P1 | `{title,coverPhotoId,summary}`、`If-Match` |
+| GET | `` | P0 | 自分がメンバーのアルバム。`?limit=&cursor=` |
+| GET | `/{id}` | P0 | → `Album`（`photos[]` 込み）、`ETag: "<version>"` |
+| PATCH | `/{id}` | P1 | `{title,coverPhotoId,summary}`、**`If-Match` 必須** |
 | POST | `/{id}/photos` | P1 | `{photoIds:[]}` 追加 |
-| PATCH | `/{id}/photos/{apId}` | P1 | 画面08の6行、`If-Match` |
-| DELETE | `/{id}/photos/{apId}` | P2 | アルバムから外す（写真は残る） |
+| PATCH | `/{id}/photos/{albumPhotoId}` | P1 | 画面08の行を編集、**`If-Match` 必須** |
+| DELETE | `/{id}/photos/{albumPhotoId}` | P2 | アルバムから外す（写真は残る） |
 | PUT | `/{id}/photos/order` | P2 | `{albumPhotoIds:[]}` |
-| POST | `/{id}/regenerate` | P2 | AI再実行 |
 | GET | `/{id}/members` | P1 | |
-| POST | `/{id}/members` | P1 | `{userId,role}`。友達でなければ 403 |
-| PATCH | `/{id}/members/{userId}` | P2 | ロール変更 |
-| DELETE | `/{id}/members/{userId}` | P2 | 所有者、または自分（退出） |
-| GET | `/{id}/stream` | P1 | SSE 共同編集イベント |
-| DELETE | `/{id}` | P2 | 所有者のみ、論理削除 |
+| POST | `/{id}/members` | P1 | `{userId}` → 友達でなければ403 |
+| DELETE | `/{id}/members/{userId}` | P2 | owner、または自分（退出） |
+| DELETE | `/{id}` | P2 | ownerのみ、`isDelete=1` |
 
 ```json
-// Album
+// Album — album 1行 + album_photo N行。join なし
 {
-  "id":"…","version":7,
-  "title":"最高の1日","summary":"テスト終わりの放課後、みんなで梅田へ。",
-  "date":"2026-09-20","place":"梅田",
-  "aiGenerated":true,"coverPhotoId":"…","myRole":"OWNER",
-  "members":[/* User[] */],
-  "photos":[{
-    "id":"ap_…",                       // ← 装飾・メタデータはこのIDで指す
-    "photoId":"…","url":"/api/photos/…","thumbUrl":"/api/photos/…/thumb?w=400",
-    "position":0,"version":3,
-    "caption":"放課後","place":"梅田","weather":"晴れ",
-    "comment":"テスト終わりの放課後、最高だった♡","music":null,
-    "decoration":{"revision":2,"renderedUrl":"/api/albums/…/photos/ap_…/rendered?r=2"}
+  "id": 55,
+  "version": 7,                       // ETag の実体
+  "title": "最高の1日",
+  "summary": "テスト終わりの放課後、みんなで梅田へ。",
+  "albumDate": "2026-09-20",
+  "place": "梅田",
+  "aiGenerated": 1,
+  "aiModel": "claude-opus-4-8",
+  "coverPhotoId": 101,
+  "coverThumbUrl": "/storage/thumbs/101_400.jpg",   // 冗余。photo を引かない
+  "userId": 12,
+  "userName": "わたし",                              // 冗余
+  "photoNum": 6, "memberNum": 3, "viewNum": 14,      // 冗余カウント
+  "shareToken": "kQ3n…",                             // 冗余。null なら未共有
+  "myRole": "owner",
+  "members": [                                       // album_member をそのまま
+    {"userId": 12, "userName": "わたし", "userAvatar": "…", "memberRole": "owner"}
+  ],
+  "photos": [{
+    "id": 901,                        // ← album_photo.id。装飾・メタデータはこれで指す
+    "photoId": 101,
+    "version": 3,
+    "position": 0,
+    "photoUrl": "/storage/photos/2026/09/101.jpg",   // 冗余
+    "thumbUrl": "/storage/thumbs/101_400.jpg",       // 冗余
+    "picWidth": 4032, "picHeight": 3024, "picScale": 1.333,
+    "takenTime": "2026-09-20T17:30:00+09:00",        // 冗余。画面08「時間」行
+    "caption": "放課後",
+    "place": "梅田",
+    "weather": "晴れ",
+    "photoComment": "テスト終わりの放課後、最高だった♡",
+    "music": null,
+    "hasOverlay": true,
+    "overlayUserName": "あやか",
+    "compositeUrl": "/api/albums/55/photos/901/composite?t=1758556800"
   }]
 }
 ```
 
-### 4.6 Decoration `/api/albums/{id}/photos/{apId}`
+**この応答は `album` 1行と `album_photo` N行だけで組み立てる。** `photo` にも
+`user` にも触らない —— それが §1.2.1 の冗余方針の目的。
+
+`compositeUrl` の `t` は `overlayUpdateTime` のエポック秒。リビジョン列が無い
+ためキャッシュ破棄はこれで行う。`hasOverlay` は `overlayData is not null`。
+
+### 4.6 Decoration `/api/albums/{id}/photos/{albumPhotoId}`
 
 | | Path | P | Notes |
 | --- | --- | --- | --- |
-| GET | `/decoration` | P0 | → 要素配列 + `revision`、`ETag` |
-| PUT | `/decoration` | P0 | 全置換、`If-Match: "<revision>"` |
-| POST | `/decoration/rendered` | P0 | クライアント描画済みPNGを保存 |
-| DELETE | `/decoration` | P1 | クリア（新revision） |
-| GET | `/rendered?r=` | P0 | 写真＋装飾の合成。共有・OGが使う |
+| GET | `/decoration` | P0 | → `{elements, overlayUserId, overlayUpdateTime}`、`ETag: "<version>"` |
+| PUT | `/decoration` | P0 | 全置換。`overlayData` を書き `overlayUserId` を記録。**`If-Match` 必須** |
+| POST | `/decoration/rendered` | P0 | multipart `overlay`(PNG) + `composite`(JPEG) |
+| DELETE | `/decoration` | P1 | `overlayData=null`、PNGも消す |
+| GET | `/composite?t=` | P0 | 合成画像。共有・OGが使う |
 | GET | `/api/stickers` | P2 | スタンプ一覧 |
 
 ```json
-// PUT /decoration — 座標は 0..1 に正規化する
+// PUT /decoration — 座標はすべて 0..1 正規化
 {"elements":[
   {"id":"e1","type":"stroke","color":"#ff6b9d","width":0.008,
    "points":[[0.12,0.33],[0.14,0.35],[0.19,0.41]]},
@@ -393,55 +455,69 @@ is null")` を付け、物理削除は30日後のバッチ（実装しない。�
 ]}
 ```
 
+描画は**クライアントが行う**（§5.4）。サーバーは `overlayData` を保存し、
+送られてきたPNGとJPEGをそのまま `overlayPath` / `compositePath` に置く。
+
+`GET /composite` は `compositePath` が無ければ **元画像にフォールバック**する。
+共有リンクが描画アップロードの失敗で壊れてはいけない。
+
 ### 4.7 Share
 
 | | Path | P | Auth | Notes |
 | --- | --- | --- | --- | --- |
-| POST | `/api/albums/{id}/share` | P0 | 要 | `{expiresInDays?}` → `{token,shareUrl}` |
+| POST | `/api/albums/{id}/share` | P0 | 要 | → `{shareToken, shareUrl}` |
 | GET | `/api/albums/{id}/share` | P1 | 要 | 現在のリンクと `viewCount` |
-| DELETE | `/api/albums/{id}/share` | P2 | 要 | 失効 |
-| GET | `/s/{token}` | P0 | 不要 | **SSR HTML + OGタグ** |
+| DELETE | `/api/albums/{id}/share` | P2 | 要 | `revokeTime` を打つ |
+| GET | `/s/{token}` | P0 | 不要 | **SSR HTML + OGタグ**、`viewCount++` |
 | GET | `/api/share/{token}` | P0 | 不要 | 公開アルバムJSON |
 | GET | `/og/{token}.jpg` | P0 | 不要 | 1200x630 コラージュ |
-| GET | `/s/{token}/photos/{apId}` | P1 | 不要 | 合成画像 |
 
 公開JSONは **内部 `Album` とは別のDTO** にする。使い回すと必ず何かが漏れる
-（メンバーのID、`photoId`、`version`）。
+（メンバーの `userAccount`、`photoId`、`userId`）。公開DTOに含めてよいのは
+タイトル・要約・日付・場所・`userName`・画像URLだけ。
 
 ### 4.8 Capsule `/api/capsules`
 
 | | Path | P | Notes |
 | --- | --- | --- | --- |
-| POST | `` | P1 | `{albumId,openAt,message,recipientIds[]}` |
+| POST | `` | P1 | `{albumId, openTime, capsuleMsg}` |
 | GET | `` | P1 | → `Capsule[]` + `daysRemaining` |
-| GET | `/{id}` | P1 | **封印中は中身を含めない** |
-| POST | `/{id}/open` | P1 | 早すぎれば 409 `CAPSULE_NOT_YET_OPEN` |
-| PATCH | `/{id}` | P2 | 封印中のみメッセージ編集可 |
+| GET | `/{id}` | P1 | **封印中は `capsuleMsg` と `album` を含めない** |
+| POST | `/{id}/open` | P1 | 早すぎれば409 `CAPSULE_NOT_YET_OPEN` |
 | DELETE | `/{id}` | P2 | 所有者のみ |
 | POST | `/{id}/unseal-now` | P1 | **devプロファイルのみ** |
 
 ```json
-// SEALED                                 // OPENED
-{"id":"…","status":"SEALED",              {"id":"…","status":"OPENED",
- "openAt":"2027-09-20T00:00:00+09:00",     "message":"1年後の自分へ…",
- "daysRemaining":363,                      "album":{/* Album 全体 */}}
- "coverBlurUrl":"/api/capsules/…/blur"}
+// SEALED                                  // OPENED
+{"id":7,"status":"SEALED",                 {"id":7,"status":"OPENED",
+ "openTime":"2027-09-20T00:00:00+09:00",    "openTime":"…","openedTime":"…",
+ "daysRemaining":363}                       "capsuleMsg":"1年後の自分へ…",
+                                            "album":{/* Album 全体 */}}
 ```
 
-### 4.9 Notifications / Ops
+### 4.9 Notifications `/api/notifications`
 
 | | Path | P | Notes |
 | --- | --- | --- | --- |
-| GET | `/api/notifications` | P2 | `?unreadOnly=true` |
-| GET | `/api/notifications/unread-count` | P2 | バッジ |
-| POST | `/api/notifications/{id}/read` | P2 | |
-| POST | `/api/notifications/read-all` | P2 | |
-| GET | `/api/health` | P0 | `{status,db,aiReachable,diskFreeMb}` |
-| GET | `/api/version` | P2 | git sha + build time |
-| POST | `/api/dev/seed` | P1 | **devのみ** 4ユーザー・友達・20枚・2アルバム |
+| GET | `` | P2 | `?unreadOnly=true`、ページング |
+| GET | `/unread-count` | P2 | バッジ用 |
+| POST | `/{id}/read` | P2 | `readTime` を打つ |
+| POST | `/read-all` | P2 | |
 
-通知種別: `FRIEND_REQUEST`, `FRIEND_ACCEPTED`, `ALBUM_INVITED`,
-`ALBUM_UPDATED`, `CAPSULE_OPENABLE`, `SHARE_VIEWED`.
+`notifyType`: `FRIEND_REQUEST` / `FRIEND_ACCEPTED` / `ALBUM_INVITED` /
+`ALBUM_UPDATED` / `CAPSULE_OPENABLE` / `SHARE_VIEWED`。
+型ごとの追加情報は `payload`（json）に入れ、**列を増やさない**。
+
+### 4.10 Ops
+
+| | Path | P | Notes |
+| --- | --- | --- | --- |
+| GET | `/api/health` | P0 | `{status, db, aiReachable, diskFreeMb}` |
+| POST | `/api/dev/seed` | P1 | **devのみ** 4ユーザー・友達・20枚・2アルバム |
+| POST | `/api/dev/rebuild-denorm` | P1 | **devのみ** 全冗余列を源から再計算（§1.2.3） |
+
+`/api/dev/seed` は1時間かける価値がある。**舞台上で再起動したあとに手作業で
+デモ状態を作り直すのが、デモが死ぬ典型パターン。**
 
 ---
 
@@ -456,18 +532,18 @@ is null")` を付け、物理削除は30日後のバッチ（実装しない。�
 ```
 for each uploaded file:
   1. MIME/拡張子チェック         → 不可なら rejected[] に積んで次へ
-  2. sha256 を計算               → 既存と一致なら duplicates[] に積んで次へ
-  3. EXIF を読む                 ← 削除より先に必ず読む
-       DateTimeOriginal → takenAt（無ければ now、source=UPLOAD）
-       GPSLatitude/Longitude → lat/lng
+  2. EXIF を読む                 ← 削除より先に必ず読む
+       DateTimeOriginal → takenTime（無ければ now）
+       GPSLatitude/Longitude → latitude / longitude
        Orientation → 1..8
-  4. Orientation に従い画素を物理回転
-  5. EXIF を全除去して保存        ← 共有時に自宅座標を漏らさない
-  6. width/height を「回転後」の値で記録
-  7. サムネイル 200/400/800px を生成
+  3. Orientation に従い画素を物理回転
+  4. EXIF を全除去して保存        ← 共有時に自宅座標を漏らさない
+  5. picWidth / picHeight は「回転後」の値を記録
+  6. picSize / picFormat を記録
+  7. サムネイル 200/400/800px を生成 → thumbPath
 ```
 
-Orientation の8値はすべて処理する。3, 6, 8 だけ対応した実装は必ずどこかで
+Orientation の8値はすべて処理する。3・6・8 だけ対応した実装は必ずどこかで
 横倒しの写真を出す。
 
 | value | 操作 | | value | 操作 |
@@ -489,7 +565,7 @@ List<List<Photo>> cluster(List<Photo> photos)
 ```
 
 ```
-1. takenAt 昇順にソート
+1. takenTime 昇順にソート
 2. 直前との差が GAP_MINUTES (=30) を超えたら新しいクラスタを開始
 3. 1枚だけのクラスタは、時間的に最も近い隣のクラスタへ併合
      （写真1枚のアルバムは「アルバム」として成立しない）
@@ -498,8 +574,8 @@ List<List<Photo>> cluster(List<Photo> photos)
 5. 空入力なら 422 NO_VALID_PHOTOS
 ```
 
-定数 `GAP_MINUTES` は `application.properties` に出す。放課後の3時間は1つの
-アルバム、翌日は別のアルバム —— 30分はその直感に合う。
+`GAP_MINUTES` は設定に出す。放課後の3時間は1つのアルバム、翌日は別のアルバム
+—— 30分はその直感に合う。
 
 ### 5.3 Claude enrichment
 
@@ -510,7 +586,7 @@ List<List<Photo>> cluster(List<Photo> photos)
 **Request**
 - 画像: 各写真を長辺1080pxに縮小 → base64。**縮小は必須**（原寸だと1枚で
   約4,800トークン、1080pなら約2,000トークン）
-- テキスト: 各写真の `photoId`, `takenAt`, GPS（あれば）の一覧
+- テキスト: 各写真の `photoId`, `takenTime`, 緯度経度（あれば）の一覧
 - `thinking: adaptive`（`budget_tokens` は 4.8 では 400 になる）
 - `effort: medium`、`temperature` は指定しない（同じく 400）
 - timeout 60s
@@ -521,12 +597,12 @@ List<List<Photo>> cluster(List<Photo> photos)
 ```java
 record AlbumDraft(
     String title,          // 「最高の1日」短く、日本語
-    String coverPhotoId,   // 入力に含まれるIDであること
+    Long coverPhotoId,     // 入力に含まれるIDであること
     String summary,        // 1文
     List<PhotoInsight> photos) {}
 
 record PhotoInsight(
-    String photoId,
+    Long photoId,
     String caption,        // 2〜5文字「放課後」
     String place,          // 推定できなければ null
     String weather,        // 晴れ / 曇り / 雨 / 雪 / null
@@ -537,15 +613,15 @@ record PhotoInsight(
 
 ```
 - photoId が入力に無い PhotoInsight は捨てる
-- coverPhotoId が不明なら takenAt 最古にフォールバック
-- caption は10文字で切る、comment は255文字で切る
-- weather が4種以外なら null にする
+- coverPhotoId が不明なら takenTime 最古にフォールバック
+- caption は10文字、comment は255文字で切る（列長に合わせる）
+- weather が4種以外なら null
 - title が空なら "YYYY.MM.DD のアルバム"
 ```
 
 **Failure policy** — 429/5xx は1回だけ指数バックオフで再試行。それでもダメなら
 例外を投げ、`AlbumGenerationService` が規則ベースにフォールバックして
-`READY(aiGenerated=false)` で完了する。**`AI_UNAVAILABLE` をアルバム生成の
+`READY` / `aiGenerated=0` で完了する。**`AI_UNAVAILABLE` をアルバム生成の
 フローに出さない。**
 
 **Cost** — 1080px 1枚 ≈ 2,000トークン。12枚で約25,000入力トークン ≈ **$0.13**。
@@ -557,8 +633,9 @@ record PhotoInsight(
 
 | | 担当 | 保存先 |
 | --- | --- | --- |
-| 要素データ（真実） | クライアントが生成、サーバーが保存 | `decorations.elements_json` |
-| 描画結果（キャッシュ） | **クライアントが Canvas で描画**して送る | `rendered/{apId}_{rev}.jpg` |
+| 要素データ（真実） | クライアントが生成、サーバーが保存 | `album_photo.overlayData` |
+| 透過PNG（キャッシュ） | **クライアントが Canvas で描画** | `album_photo.overlayPath` |
+| 合成JPEG（キャッシュ） | **クライアントが合成** | `album_photo.compositePath` |
 
 クライアントに描かせるのは、Canvasも手書き風フォントも既にそちらにあるから。
 Java2D で日本語手書きフォントを1px違わず再現するのは1日仕事で、誰も見比べない。
@@ -566,22 +643,25 @@ Java2D で日本語手書きフォントを1px違わず再現するのは1日仕
 **座標は 0..1 正規化**。スマホのCanvasは390px幅、OG画像は1200px幅。絶対座標で
 持つとスタンプが全部ずれる。
 
-`GET /rendered` は、PNGが無ければ **元画像にフォールバック**して返す。共有リンクが
-描画アップロードの失敗で壊れてはいけない。
+保存は `PUT /decoration`（JSON）と `POST /decoration/rendered`（画像2枚）の
+2回に分ける。JSONだけ届いて画像が届かなくても、**要素データは失われない**。
 
 ### 5.5 Share token & OG image
 
 > 共有トークンとOG画像。トークンは推測不能、URLはHostから組み立てる。
 
 ```java
-byte[] raw = new byte[16];                    // 128 bit
+byte[] raw = new byte[24];                    // 192 bit
 SecureRandom.getInstanceStrong().nextBytes(raw);
-String token = Base64.getUrlEncoder().withoutPadding().encodeToString(raw);  // 22 chars
+String token = Base64.getUrlEncoder().withoutPadding().encodeToString(raw);  // 32 chars
 ```
 
+自增 `id` を公開URLに使わないこと。**公開ページのIDが推測できると、他人の
+アルバムが総当たりで読める。**
+
 **共有URLは必ずリクエストの `Host` ヘッダから組み立てる。**
-`application.properties` にベースURLを書いた瞬間、トンネル再接続で既存リンクが
-全部死ぬ（`02-basic-design.md` R-4）。
+設定ファイルにベースURLを書いた瞬間、トンネル再接続で既存リンクが全部死ぬ
+（`02-basic-design.md` R-4）。
 
 **OG collage** — 1200x630 JPEG、`CollageRenderer`:
 
@@ -590,7 +670,8 @@ String token = Base64.getUrlEncoder().withoutPadding().encodeToString(raw);  // 
 枚数 2 → 縦2分割
 枚数 3 → 左1枚 + 右上下2枚
 枚数 4+ → 2x2（表紙を左上に固定）
-出力: quality 0.85、og/{token}.jpg にキャッシュ
+入力は compositePath（装飾込み）。無ければ filePath
+出力: quality 0.85、storage/og/{shareToken}.jpg にキャッシュ
 ```
 
 **SSR head**（Thymeleaf）:
@@ -608,13 +689,13 @@ String token = Base64.getUrlEncoder().withoutPadding().encodeToString(raw);  // 
 > 封印。DTOを組み立てる前に判定する。
 
 ```java
-if (capsule.getOpenedAt() == null) {
-    return CapsuleSealedDto.of(capsule);   // message も album も積まない
+if (capsule.getOpenedTime() == null) {
+    return CapsuleSealedDto.of(capsule);   // capsuleMsg も album も積まない
 }
 return CapsuleOpenedDto.of(capsule, albumService.get(capsule.getAlbumId()));
 ```
 
-封印中のDTOに `message` フィールドを持たせて `null` を入れる実装にしない。
+封印中のDTOに `capsuleMsg` フィールドを持たせて `null` を入れる実装にしない。
 **フィールドごと存在しない型を返す。** そうすれば「うっかり詰める」事故が
 型レベルで起きない。
 
@@ -622,15 +703,43 @@ return CapsuleOpenedDto.of(capsule, albumService.get(capsule.getAlbumId()));
 
 ## 6. Configuration
 
-> 設定。秘密情報は `.env` にのみ置く。
+> 設定。現状はH2向けなので、MySQLへ切り替える差分を示す。
 
-**`application.properties`**
+### 6.1 `pom.xml` — 要変更
+
+```diff
+-<dependency>
+-    <groupId>com.h2database</groupId>
+-    <artifactId>h2</artifactId>
+-    <scope>runtime</scope>
+-</dependency>
++<dependency>
++    <groupId>com.mysql</groupId>
++    <artifactId>mysql-connector-j</artifactId>
++    <scope>runtime</scope>
++</dependency>
+```
+
+追加が必要: `spring-boot-starter-security`, `io.jsonwebtoken:jjwt-*`,
+`com.drewnoakes:metadata-extractor`, `com.anthropic:anthropic-java`,
+`spring-boot-starter-thymeleaf`（SSR用）。
+
+### 6.2 `application.properties` — 要変更
 
 ```properties
 spring.application.name=backend
 server.port=8080
-spring.datasource.url=jdbc:h2:file:./data/hanamizuki;AUTO_SERVER=TRUE
-spring.jpa.hibernate.ddl-auto=update
+
+spring.datasource.url=jdbc:mysql://localhost:3306/hanamizuki?useSSL=false&serverTimezone=Asia/Tokyo&characterEncoding=utf8mb4
+spring.datasource.username=hanamizuki
+spring.datasource.password=hanamizuki
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# DDL は backend/sql/create_table.sql が唯一の正。
+# Hibernate にスキーマを触らせない（update にすると二重管理になる）。
+spring.jpa.hibernate.ddl-auto=none
+spring.jpa.open-in-view=false
+
 spring.servlet.multipart.max-file-size=10MB
 spring.servlet.multipart.max-request-size=200MB
 
@@ -644,14 +753,17 @@ app.jwt.access-ttl-minutes=15
 app.jwt.refresh-ttl-days=30
 ```
 
-**`.env.example`**（値は書かない。名前だけ）
+> ⚠️ `ddl-auto=update` は使わない。エンティティとSQLファイルの両方がスキーマを
+> 定義してしまい、どちらが正か分からなくなる。**SQLファイルが正。**
+
+### 6.3 `.env.example`
 
 ```
 ANTHROPIC_API_KEY=
 APP_JWT_SECRET=
 ```
 
-**`application-dev.properties`** — `/api/dev/**` と `unseal-now` はこちらでのみ有効化。
+`.env` は `.gitignore` 済み。`data/` はH2の名残なので `storage/` だけ残せばよい。
 
 ---
 
@@ -664,11 +776,11 @@ APP_JWT_SECRET=
 | `PhotoClusterer` | 単体 | 境界（29分/30分/31分）、1枚クラスタ併合、13枚分割、空入力 |
 | `ImageProcessor` | 単体 | Orientation 1〜8 の全8ケース |
 | Claude応答検証 | 単体 | 不明ID混入、cover不正、超過長、weather不正値 |
-| 機能縮退 | 結合 | AIを強制失敗させ `READY(aiGenerated=false)` に到達すること |
-| 楽観ロック | 結合 | 同一 `If-Match` の二重更新が 409 |
-| **カプセル封印** | 結合 | **封印中の直叩きに `message` が含まれないこと** |
-| 共有 | 手動 | 実機でLINEに貼り、プレビューカードが出ること |
-| 権限 | 手動 | 他人のアルバムID直叩きで 403 |
+| 機能縮退 | 結合 | AIを強制失敗させ `READY / aiGenerated=0` に到達すること |
+| **カプセル封印** | 結合 | **封印中の直叩きに `capsuleMsg` が含まれないこと** |
+| 権限 | 結合 | 他人の `albumId` 直叩きで403 |
+| 共有トークン | 結合 | 撤回後のアクセスが410 |
+| 共有プレビュー | 手動 | 実機でLINEに貼り、カードが出ること |
 | デモ導線 | 手動 | `01-requirements.md` §8 を実機で2回通す |
 
 単体テストは `PhotoClusterer` と `ImageProcessor` に集中させる。この2つは
@@ -682,16 +794,17 @@ APP_JWT_SECRET=
 
 | # | Slice | 参照 | 目安 |
 | --- | --- | --- | --- |
-| 1 | Entity + H2 + エラーハンドラ + `/api/health` | §1, §3.2 | 2h |
-| 2 | 認証（JWT + refresh） | §4.1 | 3h |
+| 0 | MySQL切替（pom / properties / docker compose） | §6 | 1h |
+| 1 | Entity + Repository + エラーハンドラ + `/api/health` | §1, §3.2 | 2h |
+| 2 | 認証（JWT） | §4.1 | 2h |
 | 3 | ユーザー + 友達 | §4.2, §4.3 | 2h |
 | 4 | 写真取込（EXIF・回転・サムネ） | §4.4, §5.1 | 3h |
 | 5 | クラスタリング + ジョブ基盤（AIなし） | §4.5, §5.2 | 2h |
 | 6 | Claude連携 | §5.3 | 3h |
-| 7 | 装飾（要素 + rendered） | §4.6, §5.4 | 2h |
+| 7 | 装飾（overlayData + 画像受け取り） | §4.6, §5.4 | 2h |
 | 8 | 共有 SSR + OG | §4.7, §5.5 | 3h |
 | 9 | カプセル | §4.8, §5.6 | 2h |
-| 10 | 通知・SSE・seed | §4.9 | 2h |
+| 10 | seed + 仕上げ | §4.9 | 2h |
 
-**1〜8 がデモ本体（20時間）。9〜10 は緩衝。**
+**0〜8 がデモ本体（20時間）。9〜10 は緩衝。**
 各スライスで1ブランチ1PR（`README.md` の workflow に従う）。

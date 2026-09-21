@@ -1,0 +1,35 @@
+# MySQL for local development. `docker compose up -d` and the schema is ready —
+# nobody has to install MySQL or run create_table.sql by hand.
+#
+# 開発用 MySQL。docker compose up -d だけでスキーマまで用意される。
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: hanamizuki-mysql
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: hanamizuki
+      MYSQL_DATABASE: hanamizuki
+      MYSQL_USER: hanamizuki
+      MYSQL_PASSWORD: hanamizuki
+      TZ: Asia/Tokyo
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --default-time-zone=+09:00
+    volumes:
+      # Runs ONLY on first start, i.e. while the volume below is still empty.
+      # After changing create_table.sql:  docker compose down -v && docker compose up -d
+      # 初回起動時のみ実行される。SQLを変えたら -v 付きで作り直すこと。
+      - ./backend/sql/create_table.sql:/docker-entrypoint-initdb.d/01-create_table.sql:ro
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-phanamizuki"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  mysql-data:
