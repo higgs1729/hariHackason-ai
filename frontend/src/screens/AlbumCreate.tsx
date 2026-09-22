@@ -1,30 +1,67 @@
-import { IconDots, IconHeart, IconPhoto, IconPencil, IconSparkles, IconSticker, IconTypography, IconWand } from '@tabler/icons-react'
+import { useState } from 'react'
+import { IconCheck, IconDots, IconHeart, IconPhoto, IconSparkles } from '@tabler/icons-react'
 import { useNavigate } from 'react-router-dom'
+import { api, type ApiError } from '../api'
+import { ErrorNote, Loading } from '../components/Notice'
 import { Photo } from '../components/Photo'
 import { Screen } from '../components/Screen'
 import { StatusBar } from '../components/StatusBar'
 import { TopBar } from '../components/TopBar'
 import { routes } from '../routes'
+import { toApiError, useAsync } from '../state/useAsync'
 import styles from './AlbumCreate.module.css'
 
-const tiles = [
-  { asset: 'tile1', caption: '放課後' },
-  { asset: 'tile2', caption: '梅田' },
-  { asset: 'tile3', caption: 'みんなで' },
-  { asset: 'tile4', caption: '夕日' },
-  { asset: 'tile5', caption: '帰り道' },
-  { asset: 'tile6', caption: 'ピース' },
-] as const
+const fmtDate = (iso: string) => iso.slice(0, 10).replace(/-/g, '.')
+const fmtTime = (iso: string) => iso.slice(11, 16)
 
+/**
+ * Screen 03: pick unassigned photos, hand them to the AI.
+ * `GET /photos?unassigned=true` → `POST /albums/generate` → job screen.
+ */
 export function AlbumCreate() {
   const navigate = useNavigate()
+  const photos = useAsync(() => api.photos.list({ unassigned: true, limit: 100 }), [])
+  const [excluded, setExcluded] = useState<Set<number>>(new Set())
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState<ApiError | null>(null)
+
+  const items = photos.data?.items ?? []
+  const selected = items.filter((p) => !excluded.has(p.id))
+  const hero = selected[0] ?? items[0] ?? null
+
+  const toggle = (id: number) =>
+    setExcluded((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+
+  const generate = async () => {
+    if (selected.length === 0) return
+    setBusy(true)
+    setError(null)
+    try {
+      // One key per click: a retry of the same click replays, a new click is a new job.
+      const { jobId } = await api.albums.generate(
+        selected.map((p) => p.id),
+        crypto.randomUUID(),
+      )
+      navigate(routes.albumGenerating(jobId))
+    } catch (err) {
+      const e = toApiError(err)
+      setError(e)
+    } finally {
+      setBusy(false)
+    }
+  }
 
   return (
     <Screen className={styles.screen}>
-      <Photo asset="friendsSunset" className={styles.hero} label="夕暮れの友達との思い出">
+      <Photo asset="friendsSunset" src={hero?.url} className={styles.hero} label="選んだ写真のプレビュー">
         <StatusBar tone="light" />
         <TopBar
-          to={routes.camera}
+          to={routes.camera()}
           tone="light"
           right={
             <button type="button" className={styles.more} aria-label="その他のオプション">
@@ -42,39 +79,46 @@ export function AlbumCreate() {
       </Photo>
 
       <div className={styles.editor}>
-        <div className={styles.tools} aria-label="編集ツール">
-          <button type="button" aria-label="スタンプ"><IconSticker size={22} stroke={1.7} /></button>
-          <button type="button" aria-label="文字"><IconTypography size={22} stroke={1.7} /></button>
-          <button type="button" aria-label="ペン"><IconPencil size={22} stroke={1.7} /></button>
-          <button type="button" aria-label="フィルター"><IconWand size={22} stroke={1.7} /></button>
-        </div>
-
         <div className={styles.dateRow}>
-          <h1>2025.09.20</h1>
-          <IconPhoto size={23} stroke={1.7} aria-hidden="true" />
+          <h1>{hero ? fmtDate(hero.takenTime) : 'まだ写真がありません'}</h1>
+          <span className={styles.count}>
+            <IconPhoto size={20} stroke={1.7} aria-hidden="true" />
+            {selected.length}/{items.length}
+          </span>
         </div>
 
-        <div className={styles.grid}>
-          {tiles.map((tile) => (
-            <button
-              key={tile.asset}
-              type="button"
-              className={styles.tile}
-              onClick={() => navigate(routes.decorate)}
-              aria-label={`${tile.caption}の写真をデコレーションする`}
-            >
-              <Photo asset={tile.asset} className={styles.tilePhoto}>
-                <span className={styles.heartBadge}><IconHeart size={13} stroke={1.7} aria-hidden="true" /></span>
-              </Photo>
-              <span className={styles.caption}>{tile.caption}</span>
-            </button>
-          ))}
-        </div>
+        {photos.loading ? (
+          <Loading />
+        ) : (
+          <div className={styles.grid}>
+            {items.map((photo) => {
+              const on = !excluded.has(photo.id)
+              return (
+                <button
+                  key={photo.id}
+                  type="button"
+                  className={styles.tile}
+                  onClick={() => toggle(photo.id)}
+                  aria-pressed={on}
+                  aria-label={`${fmtTime(photo.takenTime)}の写真を${on ? '外す' : '入れる'}`}
+                >
+                  <Photo src={photo.thumbUrl ?? photo.url} className={`${styles.tilePhoto} ${on ? '' : styles.tileOff}`}>
+                    <span className={styles.heartBadge}>
+                      {on ? <IconCheck size={13} stroke={2.2} aria-hidden="true" /> : <IconHeart size={13} stroke={1.7} aria-hidden="true" />}
+                    </span>
+                  </Photo>
+                  <span className={styles.caption}>{fmtTime(photo.takenTime)}</span>
+                </button>
+              )
+            })}
+          </div>
+        )}
+        <ErrorNote error={photos.error ?? error} />
       </div>
 
       <div className={styles.footer}>
-        <button type="button" className={styles.primary} onClick={() => navigate(routes.decorate)}>
-          AIでアルバムにまとめる
+        <button type="button" className={styles.primary} disabled={busy || selected.length === 0} onClick={generate}>
+          {busy ? '送信中…' : `AIでアルバムにまとめる（${selected.length}枚）`}
         </button>
       </div>
     </Screen>

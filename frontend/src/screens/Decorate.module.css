@@ -198,3 +198,115 @@
   font-size: 14px;
   font-weight: 700;
 }
+
+.target {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+}
+
+.targetPhoto {
+  width: 100%;
+  height: 100%;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.captionLine {
+  display: block;
+  margin-top: 6px;
+  color: var(--navy-800);
+  font-family: var(--font-hand);
+  font-size: 14px;
+  text-align: center;
+}
+
+.collageButton {
+  min-width: 0;
+  padding: 0;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: var(--blue-50);
+}
+
+.toolbar > button {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: var(--white);
+  color: var(--navy-800);
+}
+
+.toolbar > button:disabled {
+  opacity: 0.4;
+}
+
+.toolOn {
+  background: var(--navy-900) !important;
+  color: var(--white) !important;
+}
+
+.colors {
+  display: flex;
+  gap: 6px;
+  margin-left: auto;
+}
+
+.swatch {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--white);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 0 0 1px var(--border);
+}
+
+.swatchOn {
+  box-shadow: 0 0 0 2px var(--navy-900);
+}
+
+.primary:disabled,
+.save:disabled {
+  opacity: 0.5;
+}
+
+.textEntry {
+  display: flex;
+  gap: 8px;
+  padding: 0 16px 6px;
+  background: var(--blue-50);
+}
+
+.textEntry input {
+  flex: 1;
+  min-width: 0;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: var(--white);
+  color: var(--navy-900);
+  font-size: 14px;
+}
+
+.textEntry button {
+  height: 40px;
+  padding: 0 14px;
+  border-radius: var(--radius-pill);
+  background: var(--navy-900);
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 700;
+}

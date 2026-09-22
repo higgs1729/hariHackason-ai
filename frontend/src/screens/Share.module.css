@@ -3,13 +3,21 @@
   background: var(--white);
 }
 
+.header {
+  flex-shrink: 0;
+  background: linear-gradient(180deg, #034885 0%, #05599c 100%);
+  color: var(--white);
+}
+.header > :first-child { height: 38px; }
+.header > :nth-child(2) { height: 45px; }
+
 .more {
   display: grid;
   place-items: center;
   width: 44px;
   height: 44px;
   border-radius: var(--radius-pill);
-  color: var(--navy-900);
+  color: var(--white);
 }
 
 .content {
@@ -21,7 +29,7 @@
   display: flex;
   align-items: center;
   gap: 15px;
-  min-height: 96px;
+  min-height: 108px;
   padding: 8px 0 12px;
 }
 
@@ -77,9 +85,9 @@
 
 .albumCard,
 .recipientCard {
-  border: 1px solid var(--border);
+  border: 0;
   border-radius: var(--radius-md);
-  background: var(--white);
+  background: #eef5fe;
 }
 
 .albumCard {
@@ -141,18 +149,19 @@
 }
 
 .recipientCard {
+  margin-right: 10px;
   position: relative;
   display: flex;
   align-items: center;
   gap: 15px;
-  min-height: 146px;
+  min-height: 250px;
   padding: 16px 12px;
 }
 
 .recipientPhoto {
-  flex: 0 0 100px;
-  width: 100px;
-  height: 100px;
+  flex: 0 0 156px;
+  width: 156px;
+  height: 156px;
   border-radius: 12px;
 }
 
@@ -185,13 +194,13 @@
 .send {
   position: absolute;
   right: 12px;
-  bottom: 12px;
+  bottom: 14px;
   display: grid;
   place-items: center;
-  width: 52px;
-  height: 52px;
-  border-radius: var(--radius-pill);
-  background: var(--navy-900);
+  width: 86px;
+  height: 78px;
+  border-radius: 18px;
+  background: #bee2fd;
   color: var(--white);
 }
 
@@ -206,4 +215,23 @@
 @media (max-width: 375px) {
   .friends { gap: 10px; }
   .content { padding-right: 16px; padding-left: 16px; }
+}
+
+.hint {
+  color: var(--text-3);
+  font-size: 12px;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 8px 16px 0;
+  color: var(--navy-700);
+  font-size: 11px;
+  word-break: break-all;
+}
+
+.send:disabled {
+  opacity: 0.5;
 }

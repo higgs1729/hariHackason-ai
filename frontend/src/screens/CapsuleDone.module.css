@@ -132,3 +132,13 @@
 @media (min-width: 480px) {
   .screen { min-height: 100%; }
 }
+
+.remaining {
+  font-size: 13px;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+.primary:disabled {
+  opacity: 0.5;
+}

@@ -3,13 +3,20 @@
   background: var(--white);
 }
 
+.header {
+  flex-shrink: 0;
+  background: linear-gradient(180deg, #054e8c, #0b5d9d);
+  color: var(--white);
+}
+.header > :nth-child(2) { height: 49px; }
+
 .more {
   display: grid;
   place-items: center;
   width: 44px;
   height: 44px;
   border-radius: var(--radius-pill);
-  color: var(--navy-900);
+  color: var(--white);
 }
 
 .content {
@@ -18,8 +25,8 @@
 }
 
 .albumHeader {
-  padding: 5px 0 16px;
-  border-bottom: 1px solid var(--border);
+  padding: 40px 0 52px;
+  border-bottom: 1px solid #e7f3fd;
 }
 
 .titleRow,
@@ -41,8 +48,8 @@
   width: 44px;
   height: 44px;
   border-radius: var(--radius-pill);
-  background: var(--blue-100);
-  color: var(--navy-700);
+  background: #9bc5f1;
+  color: var(--white);
 }
 
 .subtitleRow {
@@ -71,19 +78,20 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  min-height: 56px;
-  border-bottom: 1px solid var(--border);
+  min-height: 92px;
+  border-bottom: 1px solid #e7f3fd;
 }
+.row:first-child { min-height: 125px; }
 
 .iconBox {
   display: grid;
-  flex: 0 0 36px;
+  flex: 0 0 42px;
   place-items: center;
-  width: 36px;
-  height: 36px;
+  width: 42px;
+  height: 42px;
   border-radius: var(--radius-sm);
-  background: var(--blue-100);
-  color: var(--navy-700);
+  background: #84aada;
+  color: var(--white);
 }
 
 .thumbnail {
@@ -119,4 +127,86 @@
 .chevron {
   flex-shrink: 0;
   color: var(--navy-700);
+}
+
+.capsuleMsg {
+  margin: 0 16px 8px;
+  padding: 12px 14px;
+  border-left: 3px solid var(--pink-400);
+  border-radius: var(--radius-sm);
+  background: var(--blue-50);
+  color: var(--navy-900);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.capsuleMsg span {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--text-2);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.strip {
+  display: flex;
+  gap: 8px;
+  padding: 4px 16px 12px;
+  overflow-x: auto;
+}
+
+.stripItem,
+.stripOn {
+  flex: 0 0 auto;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 10px;
+}
+
+.stripOn {
+  border-color: var(--navy-900);
+}
+
+.stripPhoto {
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+}
+
+.commentEdit {
+  display: grid;
+  gap: 8px;
+  padding: 12px 16px;
+}
+
+.commentEdit textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--white);
+  color: var(--navy-900);
+  font: inherit;
+  font-size: 14px;
+  resize: none;
+}
+
+.commentActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.commentActions button {
+  min-height: 36px;
+  padding: 0 14px;
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy-700);
+}
+
+.commentActions .commentSave {
+  background: var(--navy-900);
+  color: var(--white);
 }

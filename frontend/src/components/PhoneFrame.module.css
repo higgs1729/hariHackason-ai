@@ -15,6 +15,7 @@
     background: linear-gradient(180deg, #dbe9f9, #eef5fc);
   }
   .phone {
+    box-sizing: content-box; /* the border sits outside the 390x844 screen */
     width: var(--phone-w);
     height: var(--phone-h);
     border-radius: 44px;

@@ -1,9 +1,12 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { PhoneFrame } from './components/PhoneFrame'
-import { routes } from './routes'
+import { RequireAuth } from './components/RequireAuth'
+import { paths } from './routes'
+import { AuthProvider } from './state/auth'
 import { Home } from './screens/Home'
 import { Camera } from './screens/Camera'
 import { AlbumCreate } from './screens/AlbumCreate'
+import { AlbumGenerating } from './screens/AlbumGenerating'
 import { Decorate } from './screens/Decorate'
 import { Share } from './screens/Share'
 import { CapsuleCreate } from './screens/CapsuleCreate'
@@ -13,18 +16,23 @@ import { Detail } from './screens/Detail'
 function App() {
   return (
     <BrowserRouter>
-      <PhoneFrame>
-        <Routes>
-          <Route path={routes.home} element={<Home />} />
-          <Route path={routes.camera} element={<Camera />} />
-          <Route path={routes.albumCreate} element={<AlbumCreate />} />
-          <Route path={routes.decorate} element={<Decorate />} />
-          <Route path={routes.share} element={<Share />} />
-          <Route path={routes.capsuleCreate} element={<CapsuleCreate />} />
-          <Route path={routes.capsuleDone} element={<CapsuleDone />} />
-          <Route path={routes.detail} element={<Detail />} />
-        </Routes>
-      </PhoneFrame>
+      <AuthProvider>
+        <PhoneFrame>
+          <Routes>
+            <Route path={paths.home} element={<Home />} />
+            <Route element={<RequireAuth />}>
+              <Route path={paths.camera} element={<Camera />} />
+              <Route path={paths.albumCreate} element={<AlbumCreate />} />
+              <Route path={paths.albumGenerating} element={<AlbumGenerating />} />
+              <Route path={paths.decorate} element={<Decorate />} />
+              <Route path={paths.share} element={<Share />} />
+              <Route path={paths.capsuleCreate} element={<CapsuleCreate />} />
+              <Route path={paths.capsuleDone} element={<CapsuleDone />} />
+              <Route path={paths.detail} element={<Detail />} />
+            </Route>
+          </Routes>
+        </PhoneFrame>
+      </AuthProvider>
     </BrowserRouter>
   )
 }

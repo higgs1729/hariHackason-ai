@@ -61,3 +61,40 @@
     min-height: 100%;
   }
 }
+
+.sheet {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0 16px max(24px, env(safe-area-inset-bottom));
+  padding: 16px;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--navy-900);
+}
+
+.sheet h2 {
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.field {
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--white);
+  color: var(--navy-900);
+  font-size: 14px;
+}
+
+.sheet .start {
+  border: 1px solid var(--navy-900);
+  background: var(--navy-900);
+  color: var(--white);
+}
+
+.sheet .login {
+  color: var(--navy-700);
+}

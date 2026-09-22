@@ -177,3 +177,20 @@
   font-size: 14px;
   font-weight: 700;
 }
+
+.count {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--navy-700);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.tileOff {
+  opacity: 0.45;
+}
+
+.primary:disabled {
+  opacity: 0.5;
+}
