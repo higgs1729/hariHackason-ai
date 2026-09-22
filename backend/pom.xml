@@ -48,6 +48,13 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 
+		<!-- EXIF: capture time, GPS and orientation. -->
+		<dependency>
+			<groupId>com.drewnoakes</groupId>
+			<artifactId>metadata-extractor</artifactId>
+			<version>2.19.0</version>
+		</dependency>
+
 		<!-- Boot manages no JWT library, so these carry their own version. -->
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>

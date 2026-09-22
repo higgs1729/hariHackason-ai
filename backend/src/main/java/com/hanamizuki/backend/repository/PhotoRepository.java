@@ -1,6 +1,7 @@
 package com.hanamizuki.backend.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Limit;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,4 +14,7 @@ public interface PhotoRepository extends JpaRepository<Photo, Long> {
 
     /** albumNum = 0 is the definition of "not in any album yet" (screen 03). */
     List<Photo> findByUserIdAndAlbumNumOrderByTakenTimeAsc(Long userId, int albumNum, Limit limit);
+
+    /** Same uploader, same bytes: a repeat upload, not a new photo. */
+    Optional<Photo> findByUserIdAndSha256(Long userId, String sha256);
 }
