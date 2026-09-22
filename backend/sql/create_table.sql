@@ -101,6 +101,31 @@ create table if not exists friend
 ) comment '好友关系' collate = utf8mb4_unicode_ci;
 
 
+-- 好友二维码表（硬删除）
+-- iOS Safari 没有 Web Bluetooth / Web NFC，「近くのスマホで友達追加」只能改成扫码。
+--
+-- token 用随机值而不是 userId：二维码被人拍一张照就能永久加你，
+-- 跟「自增 id 不能放在无鉴权入口」是同一个道理（03-detailed-design §1.1.2）。
+-- 10 分钟过期 + 用后作废，保证只能当面扫一次。
+--
+-- row 12（要求好友在场才能开胶囊）复用本表：开封时提交最近扫到的 token 列表，
+-- 服务端反查 userId 并与 capsule.requiredUserIds 比对。
+create table if not exists friend_qr
+(
+    id         bigint auto_increment comment 'id' primary key,
+    qrToken    varchar(64)                        not null comment '二维码 token（SecureRandom 16 字节 → base64url 22 位）',
+    userId     bigint                             not null comment '出示二维码的用户 id',
+    expireTime datetime                           not null comment '过期时间，签发后 10 分钟',
+    usedTime   datetime                           null comment '被扫时间，非空表示已使用',
+    usedUserId bigint                             null comment '扫码方用户 id',
+    createTime datetime default CURRENT_TIMESTAMP not null comment '创建时间',
+    updateTime datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间',
+    unique key uk_qrToken (qrToken),
+    index idx_userId (userId),
+    index idx_expireTime (expireTime)
+) comment '好友二维码' collate = utf8mb4_unicode_ci;
+
+
 -- 拉黑表（硬删除，单向）
 -- 与 friend 不同，拉黑不对称：A 拉黑 B 时 B 不知道。
 -- 拉黑后需同时删除双向好友关系，并在「用户搜索 / 好友申请 / 相册邀请」三处过滤。
@@ -135,6 +160,12 @@ create table if not exists photo
     picSize         bigint                             null comment '图片体积（字节）',
     picFormat       varchar(32)                        null comment '图片格式：jpeg/png',
     sha256          char(64)                           null comment '原图内容哈希，同一用户同哈希视为重复上传',
+
+    -- 视频预留。当前只收照片，列先留着，实现顺序上砍、schema 上不砍。
+    -- 注意：视频没有 EXIF DateTimeOriginal，takenTime 要回落到容器的 creationTime；
+    -- 且 Claude 看不了视频，要进自动成册必须先抽帧。
+    mediaType       varchar(32)  default 'photo'       not null comment '媒体类型：photo/video。当前只接受 photo，video 为预留',
+    durationSec     int                                null comment '视频时长（秒）。mediaType=photo 时为 null',
 
     takenTime       datetime                           null comment '拍摄时间（EXIF DateTimeOriginal，取不到回落为上传时间）',
     takenTimeSource varchar(32)  default 'UPLOAD'      not null comment '拍摄时间来源：EXIF / UPLOAD。为 UPLOAD 时「時間」行需标注为推测值',
@@ -247,6 +278,11 @@ create table if not exists album_photo
     photoComment      varchar(1024)                      null comment 'コメント（AI 生成，用户可改）',
     music             varchar(512)                       null comment '音楽（只能用户手填，无自动来源）',
 
+    -- 5 秒语音备忘预留（必要な機能 row 3）。P2，9/26 前不实现。
+    -- iOS MediaRecorder 产出 audio/mp4，不是 webm，转码不要做，直接存原始容器。
+    audioPath         varchar(1024)                      null comment '语音备忘路径（audio/mp4）。P2 预留',
+    audioDurationSec  int                                null comment '语音时长（秒），上限 5',
+
     -- 涂鸦。overlayData 是真实数据源，两个路径是它的渲染缓存
     overlayData       json                               null comment '涂鸦元素数据，真实数据源。stroke/text/sticker/filter，坐标归一化 0~1（手机画布 390px、OG 图 1200px，存绝对坐标必然错位）。只存 PNG 的话刷新后无法撤销单笔、无法再拖贴纸',
     overlayPath       varchar(1024)                      null comment '手写涂鸦层 PNG 路径（透明底，与原图同比例）。overlayData 的渲染缓存，丢了可重建',
@@ -316,6 +352,11 @@ create table if not exists capsule
 
     capsuleMsg    varchar(2048)                      null comment '给未来的留言。封存期间绝不下发',
     openTime      datetime                           not null comment '可开启时间',
+
+    -- 「友達が近くにいないと開けない」（必要な機能 row 12）。P1。
+    -- null / 空数组 = 只看 openTime。非空 = 还要求这些人当场扫码在线，
+    -- 开封时校验 presentTokens 覆盖全部 requiredUserIds，否则 409 CAPSULE_MEMBERS_MISSING。
+    requiredUserIds varchar(1024)                    null comment '解锁必须在场的用户 id 列表（json 数组）。null 表示不要求',
     openedTime    datetime                           null comment '实际开启时间，非空表示已开启',
     recipientNum  int      default 0                 not null comment '接收人数（冗余，源：capsule_recipient）。0 表示只给自己',
 
