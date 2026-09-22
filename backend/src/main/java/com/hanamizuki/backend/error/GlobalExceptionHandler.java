@@ -114,7 +114,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         if (status.isSameCodeAs(HttpStatus.UNSUPPORTED_MEDIA_TYPE)) {
             return ErrorCode.UNSUPPORTED_MEDIA;
         }
-        if (status.isSameCodeAs(HttpStatus.PAYLOAD_TOO_LARGE)) {
+        if (status.isSameCodeAs(HttpStatus.CONTENT_TOO_LARGE)) {
             return ErrorCode.FILE_TOO_LARGE;
         }
         if (status.is4xxClientError()) {

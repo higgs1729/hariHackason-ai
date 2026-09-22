@@ -38,3 +38,5 @@ build/
 # H2 database files and uploaded photos — both regenerate, neither belongs in git.
 data/
 storage/
+# Local smoke-test profile writes here.
+storage-local/

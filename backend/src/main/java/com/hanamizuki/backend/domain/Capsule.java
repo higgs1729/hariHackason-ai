@@ -1,47 +1,66 @@
 package com.hanamizuki.backend.domain;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Index;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.SQLRestriction;
 
 /**
- * A sealed album with a message to the future.
+ * An album sealed until a date.
  *
- * <p>While {@code openedAt} is null and {@code now < openAt}, neither
- * {@code message} nor the album contents may leave the server. That check
- * belongs in {@code CapsuleService}, which must not even assemble the payload
- * before the seal breaks — hiding the fields in the frontend is not the
- * feature, and anyone with the browser console open would see through it.
+ * <p>While sealed, the API must not return {@code capsuleMsg} or the album.
+ * That check belongs on the server: hiding the fields in the frontend is not
+ * the feature, and anyone with dev tools would see through it.
+ *
+ * <p>The album fields are a snapshot — what was sealed is the album as it was
+ * that day, not whatever it has been renamed to since.
  */
 @Entity
-@Table(name = "capsules", indexes = @Index(name = "idx_cp_user", columnList = "user_id"))
+@Table(name = "capsule")
+@SQLRestriction("isDelete = 0")
 @Getter
 @Setter
 public class Capsule extends BaseEntity {
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "album_id", nullable = false, unique = true)
-    private Album album;
+    @Column(nullable = false)
+    private Long albumId;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @Column(nullable = false)
+    private Long userId;
 
-    @Column(length = 500)
-    private String message;
+    @Column(length = 512)
+    private String albumTitle;
 
-    @Column(name = "open_at", nullable = false)
-    private OffsetDateTime openAt;
+    /** Only used to render the blurred teaser while sealed. */
+    @Column(length = 1024)
+    private String coverPhotoUrl;
 
-    @Column(name = "opened_at")
-    private OffsetDateTime openedAt;
+    @Column(nullable = false)
+    private int photoNum;
+
+    /** Never leaves the server before {@link #openedTime} is set. */
+    @Column(length = 2048)
+    private String capsuleMsg;
+
+    @Column(nullable = false)
+    private LocalDateTime openTime;
+
+    private LocalDateTime openedTime;
+
+    /**
+     * Reserved for "friends must be present": a json array of user ids who have
+     * to be scanned in before the capsule opens. Null means time alone decides.
+     */
+    @Column(length = 1024)
+    private String requiredUserIds;
+
+    @Column(nullable = false)
+    private int recipientNum;
+
+    @Column(nullable = false)
+    private boolean isDelete;
 }

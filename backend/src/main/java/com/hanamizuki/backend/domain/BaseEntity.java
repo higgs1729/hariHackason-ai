@@ -1,22 +1,31 @@
 package com.hanamizuki.backend.domain;
 
-import java.time.OffsetDateTime;
-import java.util.UUID;
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.PrePersist;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Shared identity and creation timestamp.
+ * Identity and timestamps, shared by every table.
  *
- * <p>Ids are UUID v4 strings stored as CHAR(36) rather than a database sequence,
- * so a row can be referenced before it is flushed. {@code Decoration} and
- * {@code Share} do not extend this — their primary keys are borrowed from
- * another table and a share token respectively.
+ * <p>Ids are {@code bigint auto_increment}, not UUIDs. InnoDB clusters on the
+ * primary key and repeats it in every secondary index leaf, so a 36-byte key
+ * would inflate all three indexes on {@code album_photo}; a random UUID would
+ * also scatter inserts across the tree instead of appending to one hot page.
+ * The cost is that ids are guessable, which is why public entry points use a
+ * random token and every authenticated endpoint checks ownership
+ * (03-detailed-design section 1.1).
+ *
+ * <p>The DDL also defaults these two columns, but Hibernate fills them so the
+ * value is present on the object that just got saved, without a re-read.
  */
 @MappedSuperclass
 @Getter
@@ -24,19 +33,13 @@ import lombok.Setter;
 public abstract class BaseEntity {
 
     @Id
-    @Column(length = 36, nullable = false, updatable = false)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private OffsetDateTime createdAt;
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime createTime;
 
-    @PrePersist
-    void assignIdAndTimestamp() {
-        if (id == null) {
-            id = UUID.randomUUID().toString();
-        }
-        if (createdAt == null) {
-            createdAt = OffsetDateTime.now();
-        }
-    }
+    @UpdateTimestamp
+    private LocalDateTime updateTime;
 }

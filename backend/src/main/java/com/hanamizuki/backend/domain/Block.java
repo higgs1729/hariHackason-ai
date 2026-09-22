@@ -1,28 +1,29 @@
 package com.hanamizuki.backend.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import lombok.Getter;
 import lombok.Setter;
 
-/** One-way block. Checked before friend requests and album invitations. */
+/**
+ * One-way, unlike {@link Friend}: the blocked user is not told.
+ *
+ * <p>Blocking also deletes both friendship rows, and the blocked user has to be
+ * filtered out of user search, friend requests and album invitations.
+ */
 @Entity
-@Table(name = "blocks",
-        uniqueConstraints = @UniqueConstraint(name = "uk_bl_user_blocked",
-                columnNames = {"user_id", "blocked_user_id"}))
+@Table(name = "block")
 @Getter
 @Setter
 public class Block extends BaseEntity {
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @Column(nullable = false)
+    private Long userId;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "blocked_user_id", nullable = false)
-    private User blockedUser;
+    @Column(nullable = false)
+    private Long blockedUserId;
+
+    @Column(length = 256)
+    private String blockedUserName;
 }

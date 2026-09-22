@@ -1,28 +1,35 @@
 package com.hanamizuki.backend.domain;
 
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import lombok.Getter;
 import lombok.Setter;
 
-/** Who else gets notified when a capsule becomes openable. */
+/**
+ * Who else receives a capsule. No rows means the creator only, which is the
+ * poster's original 「1年後の自分へ」.
+ */
 @Entity
-@Table(name = "capsule_recipients",
-        uniqueConstraints = @UniqueConstraint(name = "uk_cr_capsule_user",
-                columnNames = {"capsule_id", "user_id"}))
+@Table(name = "capsule_recipient")
 @Getter
 @Setter
 public class CapsuleRecipient extends BaseEntity {
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "capsule_id", nullable = false)
-    private Capsule capsule;
+    @Column(nullable = false)
+    private Long capsuleId;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @Column(nullable = false)
+    private Long userId;
+
+    @Column(length = 256)
+    private String userName;
+
+    @Column(length = 1024)
+    private String userAvatar;
+
+    /** Set once notified, so a retry does not send twice. */
+    private LocalDateTime notifyTime;
 }

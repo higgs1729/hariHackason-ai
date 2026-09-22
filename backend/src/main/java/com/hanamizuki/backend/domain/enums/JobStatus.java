@@ -1,22 +1,12 @@
 package com.hanamizuki.backend.domain.enums;
 
 /**
- * Album generation states.
+ * {@code album_job.status}. Stored as the constant name, so no converter.
  *
- * <p>CLUSTERING is pure EXIF work and always succeeds. ENRICHING is the Claude
- * call; when it fails the job still reaches READY, with the album flagged
- * {@code aiGenerated = false} and rule-based titles. FAILED is reserved for
- * losing the photos themselves, not for losing the AI.
- *
- * <p>Note: {@code 03-detailed-design.md} cites "section 3.1" for these values,
- * but that section is the conventions table and does not list them. These are
- * reconstructed from ENRICHING and READY as used elsewhere in the document —
- * confirm before relying on the exact spelling.
+ * <p>A failed Claude call does not reach FAILED. It falls back to rule-based
+ * titles and still ends READY with {@code aiGenerated = false} — the demo must
+ * not be able to show an error screen (01-requirements NFR-02).
  */
 public enum JobStatus {
-    PENDING,
-    CLUSTERING,
-    ENRICHING,
-    READY,
-    FAILED
+    PENDING, CLUSTERING, ENRICHING, READY, FAILED, CANCELLED
 }

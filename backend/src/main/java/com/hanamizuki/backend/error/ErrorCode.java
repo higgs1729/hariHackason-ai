@@ -22,6 +22,8 @@ public enum ErrorCode {
     TOKEN_INVALID(HttpStatus.UNAUTHORIZED),
     CREDENTIALS_INVALID(HttpStatus.UNAUTHORIZED),
 
+    /** {@code user.userRole = 'ban'}: the credentials were right, the account is not. */
+    ACCOUNT_BANNED(HttpStatus.FORBIDDEN),
     ALBUM_FORBIDDEN(HttpStatus.FORBIDDEN),
     ROLE_INSUFFICIENT(HttpStatus.FORBIDDEN),
     NOT_FRIENDS(HttpStatus.FORBIDDEN),
@@ -39,7 +41,10 @@ public enum ErrorCode {
     PHOTO_NOT_FOUND(HttpStatus.NOT_FOUND),
     ALBUM_NOT_FOUND(HttpStatus.NOT_FOUND),
     CAPSULE_NOT_FOUND(HttpStatus.NOT_FOUND),
+    JOB_NOT_FOUND(HttpStatus.NOT_FOUND),
 
+    /** {@code userAccount} is taken. */
+    ACCOUNT_EXISTS(HttpStatus.CONFLICT),
     /** If-Match did not match; {@code details.current} carries the live version. */
     VERSION_CONFLICT(HttpStatus.CONFLICT),
     FRIEND_REQUEST_EXISTS(HttpStatus.CONFLICT),
@@ -49,8 +54,8 @@ public enum ErrorCode {
     SHARE_REVOKED(HttpStatus.GONE),
     SHARE_EXPIRED(HttpStatus.GONE),
 
-    FILE_TOO_LARGE(HttpStatus.PAYLOAD_TOO_LARGE),
-    NO_VALID_PHOTOS(HttpStatus.UNPROCESSABLE_ENTITY),
+    FILE_TOO_LARGE(HttpStatus.CONTENT_TOO_LARGE),
+    NO_VALID_PHOTOS(HttpStatus.UNPROCESSABLE_CONTENT),
     IF_MATCH_REQUIRED(HttpStatus.PRECONDITION_REQUIRED),
     RATE_LIMITED(HttpStatus.TOO_MANY_REQUESTS),
 

@@ -1,76 +1,95 @@
 package com.hanamizuki.backend.domain;
 
-import java.time.OffsetDateTime;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
-import com.hanamizuki.backend.domain.enums.TakenAtSource;
+import com.hanamizuki.backend.domain.enums.MediaType;
+import com.hanamizuki.backend.domain.enums.TakenTimeSource;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Index;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.SQLRestriction;
 
 /**
- * A photo as uploaded. Everything here describes the file itself.
+ * The photo itself. What a photo means inside one particular album — its
+ * caption, its position, its drawing — lives on {@link AlbumPhoto}, because the
+ * same shot can appear in two albums decorated differently.
  *
- * <p>Per-album presentation — caption, place, weather, the hand-drawn layer —
- * lives on {@link AlbumPhoto}, because the same photo can appear in two albums
- * with different captions and different decoration.
- *
- * <p>{@code width}/{@code height} are stored after rotation is applied, so
- * consumers never have to read the EXIF orientation again.
+ * <p>{@code filePath} points at a file that has already been rotated to match
+ * its EXIF orientation and then stripped of EXIF entirely. Doing it once on
+ * ingest means thumbnails, Claude, the decoration canvas and the collage all
+ * see upright pixels; leaving the flag in place would mean four consumers each
+ * having to honour it, and one of them eventually not doing so. Stripping also
+ * keeps a shared photo from carrying the photographer's home coordinates.
  */
 @Entity
-@Table(name = "photos",
-        uniqueConstraints = @UniqueConstraint(name = "uk_photos_owner_sha",
-                columnNames = {"owner_id", "sha256"}),
-        indexes = @Index(name = "idx_photos_owner_taken", columnList = "owner_id, taken_at"))
-@SQLRestriction("deleted_at is null")
+@Table(name = "photo")
+@SQLRestriction("isDelete = 0")
 @Getter
 @Setter
 public class Photo extends BaseEntity {
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "owner_id", nullable = false)
-    private User owner;
+    @Column(nullable = false)
+    private Long userId;
 
-    @Column(name = "storage_path", nullable = false, length = 255)
-    private String storagePath;
+    /** Follows {@code user.userName}. */
+    @Column(length = 256)
+    private String userName;
 
-    /** Content hash; the unique constraint with owner_id makes re-upload a no-op. */
-    @Column(nullable = false, length = 64)
+    @Column(length = 512)
+    private String picName;
+
+    @Column(nullable = false, length = 1024)
+    private String filePath;
+
+    @Column(length = 1024)
+    private String thumbPath;
+
+    private Integer picWidth;
+
+    private Integer picHeight;
+
+    /** width / height, stored so layout code does not recompute it per tile. */
+    private Double picScale;
+
+    private Long picSize;
+
+    @Column(length = 32)
+    private String picFormat;
+
+    /** Same user + same hash means a repeat upload. */
+    @Column(length = 64)
     private String sha256;
 
+    /** VIDEO is reserved; uploads are rejected for now. */
+    @Column(nullable = false, length = 32)
+    private MediaType mediaType = MediaType.PHOTO;
+
+    private Integer durationSec;
+
+    /** EXIF DateTimeOriginal, or the upload time when there is none. */
+    private LocalDateTime takenTime;
+
+    @Column(nullable = false, length = 32)
+    @jakarta.persistence.Enumerated(jakarta.persistence.EnumType.STRING)
+    private TakenTimeSource takenTimeSource = TakenTimeSource.UPLOAD;
+
+    @Column(precision = 10, scale = 7)
+    private BigDecimal latitude;
+
+    @Column(precision = 10, scale = 7)
+    private BigDecimal longitude;
+
+    /** Kept for the record only. The pixels are already upright. */
+    private Integer exifOrientation;
+
+    /** How many albums use this photo. Zero is the definition of "unassigned". */
     @Column(nullable = false)
-    private int width;
+    private int albumNum;
 
     @Column(nullable = false)
-    private int height;
-
-    @Column(nullable = false)
-    private long bytes;
-
-    @Column(name = "taken_at", nullable = false)
-    private OffsetDateTime takenAt;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "taken_at_source", nullable = false, length = 8)
-    private TakenAtSource takenAtSource = TakenAtSource.UPLOAD;
-
-    @Column
-    private Double lat;
-
-    @Column
-    private Double lng;
-
-    @Column(name = "deleted_at")
-    private OffsetDateTime deletedAt;
+    private boolean isDelete;
 }
