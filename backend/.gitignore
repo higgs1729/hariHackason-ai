@@ -31,3 +31,17 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Runtime ###
+# Secrets. Variable names live in .env.example.
+.env
+# H2 database files and uploaded photos — both regenerate, neither belongs in git.
+#
+# Anchored with a leading slash. Without one these match a directory of that
+# name at ANY depth, and `storage/` was quietly excluding
+# src/main/java/.../integration/storage/ — FileStorage and PlaceholderImages
+# were never committed, so a fresh clone of this branch did not compile.
+/data/
+/storage/
+# Local smoke-test profile writes here.
+/storage-local/
