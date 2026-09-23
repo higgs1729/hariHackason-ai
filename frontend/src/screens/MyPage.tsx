@@ -1,7 +1,7 @@
-import type { ReactNode } from 'react'
-import { IconCamera, IconLock, IconLockOpen, IconUser } from '@tabler/icons-react'
+import { useState, type FormEvent, type ReactNode } from 'react'
+import { IconCamera, IconLock, IconLockOpen, IconPencil, IconUser } from '@tabler/icons-react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
-import { api, type Capsule } from '../api'
+import { api, tokens, type ApiError, type Capsule } from '../api'
 import { ErrorNote, Loading } from '../components/Notice'
 import { Photo } from '../components/Photo'
 import { Screen } from '../components/Screen'
@@ -9,7 +9,7 @@ import { StatusBar } from '../components/StatusBar'
 import { TopBar } from '../components/TopBar'
 import { routes } from '../routes'
 import { useAuth } from '../state/auth'
-import { useAsync, type AsyncState } from '../state/useAsync'
+import { toApiError, useAsync, type AsyncState } from '../state/useAsync'
 import styles from './MyPage.module.css'
 
 const tabs = [
@@ -39,10 +39,7 @@ export function MyPage() {
         <TopBar tone="light" left="none" />
         <div className={styles.profile}>
           <Photo asset="avatarMe" src={user?.userAvatar} className={styles.avatar} />
-          <div className={styles.names}>
-            <h1>{user?.userName ?? user?.userAccount}</h1>
-            <span>@{user?.userAccount}</span>
-          </div>
+          <NameEditor />
         </div>
         <div className={styles.tabs} role="tablist" aria-label="マイページ">
           {tabs.map((t) => (
@@ -70,6 +67,58 @@ export function MyPage() {
         <IconCamera size={28} stroke={1.8} />
       </button>
     </Screen>
+  )
+}
+
+/** Display name, edited in place (07 §7). PATCH /users/me, then the session user is updated. */
+function NameEditor() {
+  const { user } = useAuth()
+  const [draft, setDraft] = useState<string | null>(null)
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState<ApiError | null>(null)
+
+  const save = async (e: FormEvent) => {
+    e.preventDefault()
+    const userName = draft?.trim()
+    if (!userName) return
+    setBusy(true)
+    setError(null)
+    try {
+      tokens.setUser(await api.users.patchMe({ userName }))
+      setDraft(null)
+    } catch (err) {
+      setError(toApiError(err))
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  if (draft !== null)
+    return (
+      <form className={styles.nameForm} onSubmit={save}>
+        <input value={draft} onChange={(e) => setDraft(e.target.value)} maxLength={30} aria-label="表示名" autoFocus required />
+        <div className={styles.nameActions}>
+          <button type="button" onClick={() => setDraft(null)}>
+            やめる
+          </button>
+          <button type="submit" className={styles.nameSave} disabled={busy}>
+            {busy ? '…' : '保存'}
+          </button>
+        </div>
+        <ErrorNote error={error} />
+      </form>
+    )
+
+  return (
+    <div className={styles.names}>
+      <h1>
+        {user?.userName ?? user?.userAccount}
+        <button type="button" className={styles.nameEdit} onClick={() => setDraft(user?.userName ?? '')} aria-label="名前を変える">
+          <IconPencil size={16} stroke={1.8} />
+        </button>
+      </h1>
+      <span>@{user?.userAccount}</span>
+    </div>
   )
 }
 

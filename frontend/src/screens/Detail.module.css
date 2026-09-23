@@ -210,3 +210,51 @@
   background: var(--navy-900);
   color: var(--white);
 }
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+}
+
+.titleEdit {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  color: var(--text-2);
+}
+
+.titleForm {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 6px;
+  margin-right: 8px;
+}
+.titleForm input {
+  flex: 1;
+  min-width: 0;
+  min-height: 40px;
+  padding: 0 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--navy-900);
+  font: inherit;
+  font-size: 16px;
+  font-weight: 700;
+}
+.titleForm button {
+  min-height: 36px;
+  padding: 0 12px;
+  border-radius: var(--radius-pill);
+  color: var(--navy-700);
+  font-size: 13px;
+  font-weight: 700;
+}
+.titleForm .commentSave {
+  background: var(--navy-900);
+  color: var(--white);
+}

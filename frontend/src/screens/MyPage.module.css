@@ -31,8 +31,54 @@
   min-width: 0;
 }
 .names h1 {
+  display: flex;
+  align-items: center;
   font-size: 20px;
   font-weight: 700;
+}
+
+.nameEdit {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  color: var(--blue-100);
+}
+
+.nameForm {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.nameForm input {
+  min-height: 40px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  color: var(--navy-900);
+  font: inherit;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.nameActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.nameActions button {
+  min-height: 36px;
+  padding: 0 14px;
+  border-radius: var(--radius-pill);
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 700;
+}
+.nameActions .nameSave {
+  background: var(--white);
+  color: var(--navy-900);
 }
 .names span {
   color: var(--blue-100);

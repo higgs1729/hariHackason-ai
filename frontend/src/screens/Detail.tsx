@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { IconChevronRight, IconClock, IconCloud, IconDots, IconMessage, IconMusic, IconUser, IconUsers } from '@tabler/icons-react'
+import { useState, type FormEvent } from 'react'
+import { IconChevronRight, IconClock, IconCloud, IconDots, IconMessage, IconMusic, IconPencil, IconUser, IconUsers } from '@tabler/icons-react'
 import { useParams, useSearchParams } from 'react-router-dom'
 import { api, type AlbumPhoto, type ApiError } from '../api'
 import { ErrorNote, Loading } from '../components/Notice'
@@ -35,6 +35,28 @@ export function Detail() {
   // Inline editor instead of window.prompt() (blocked in some WebViews).
   const [draft, setDraft] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
+
+  const [titleDraft, setTitleDraft] = useState<string | null>(null)
+
+  /** PATCH /albums/{id} with the album's version as If-Match (same conflict handling as the comment). */
+  const saveTitle = async (e: FormEvent) => {
+    e.preventDefault()
+    const title = titleDraft?.trim()
+    if (!a || !albumId || !title) return
+    setError(null)
+    setSaving(true)
+    try {
+      await api.albums.patch(albumId, a.version, { title })
+      setTitleDraft(null)
+      album.reload()
+    } catch (err) {
+      const e = toApiError(err)
+      setError(e)
+      if (e.code === 'VERSION_CONFLICT') album.reload()
+    } finally {
+      setSaving(false)
+    }
+  }
 
   const saveComment = async () => {
     if (!a || !photo || !albumId || draft === null) return
@@ -83,10 +105,29 @@ export function Detail() {
           )}
           <header className={styles.albumHeader}>
             <div className={styles.titleRow}>
-              <h1>{a.title}</h1>
-              <span className={styles.userChip} aria-label={a.userName ?? 'ユーザー'}>
-                <IconUser size={22} stroke={1.7} />
-              </span>
+              {titleDraft === null ? (
+                <h1 className={styles.title}>
+                  {a.title}
+                  <button type="button" className={styles.titleEdit} onClick={() => setTitleDraft(a.title)} aria-label="タイトルを編集">
+                    <IconPencil size={16} stroke={1.8} />
+                  </button>
+                </h1>
+              ) : (
+                <form className={styles.titleForm} onSubmit={saveTitle}>
+                  <input value={titleDraft} onChange={(e) => setTitleDraft(e.target.value)} maxLength={60} aria-label="タイトル" autoFocus required />
+                  <button type="button" onClick={() => setTitleDraft(null)}>
+                    やめる
+                  </button>
+                  <button type="submit" className={styles.commentSave} disabled={saving}>
+                    {saving ? '…' : '保存'}
+                  </button>
+                </form>
+              )}
+              {titleDraft === null && (
+                <span className={styles.userChip} aria-label={a.userName ?? 'ユーザー'}>
+                  <IconUser size={22} stroke={1.7} />
+                </span>
+              )}
             </div>
             <div className={styles.subtitleRow}>
               <span>{fmtDate(a.albumDate)}</span>
