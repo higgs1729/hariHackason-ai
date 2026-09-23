@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.hanamizuki.backend.common.ETags;
 import com.hanamizuki.backend.api.decoration.DecorationDtos.DecorationPutRequest;
 import com.hanamizuki.backend.api.decoration.DecorationDtos.DecorationVo;
 import com.hanamizuki.backend.security.AuthUser;
@@ -48,7 +49,7 @@ public class DecorationController {
                                             @RequestBody DecorationPutRequest request,
                                             @AuthenticationPrincipal AuthUser principal) {
         DecorationVo vo = decorationService.replace(albumId, albumPhotoId, principal.userId(),
-                request.elements(), parseETag(ifMatch));
+                request.elements(), ETags.parse(ifMatch));
         return withETag(vo);
     }
 
@@ -79,20 +80,9 @@ public class DecorationController {
     }
 
     private static ResponseEntity<DecorationVo> withETag(DecorationVo vo) {
-        return ResponseEntity.ok().eTag("\"" + vo.version() + "\"").body(vo);
+        return ResponseEntity.ok().eTag(ETags.of(vo.version())).body(vo);
     }
 
-    /** Accepts both {@code "7"} and a bare {@code 7}; returns null when absent. */
-    private static Integer parseETag(String header) {
-        if (header == null || header.isBlank()) {
-            return null;
-        }
-        try {
-            return Integer.valueOf(header.replace("W/", "").replace("\"", "").trim());
-        } catch (NumberFormatException e) {
-            return null;
-        }
-    }
 
     private static byte[] bytes(MultipartFile file) {
         if (file == null || file.isEmpty()) {

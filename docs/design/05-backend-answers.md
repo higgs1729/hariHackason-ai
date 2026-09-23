@@ -153,3 +153,66 @@ iPhone なら HEIC 対応が **P0** になる（`imageio-heif` 追加、また�
 
 A-9 の扱い（`rejected[]` に `UNSUPPORTED_MEDIA`）は、あくまで
 「対応しないと決めた場合」の挙動であって、この問いの答えではない。
+
+---
+
+## 7. Contract gap — 実装漏れ 10 本（解消済み）
+
+`frontend/src/api/contract.ts` と実装ルートを突き合わせたところ、
+**フロントが呼ぶのにサーバーに無いエンドポイントが 10 本**あった。
+`GET /api/albums` が含まれていたので、**ホーム画面の最初のリクエストが 404**
+という状態だった。すべて実装済み。
+
+| contract.ts | 実装したルート | 備考 |
+|---|---|---|
+| `albums.list` | `GET /api/albums?limit=` | `AlbumSummary`（`photos`/`members` なし） |
+| `albums.patch` | `PATCH /api/albums/{id}` | `If-Match` 必須 |
+| `albums.patchPhoto` | `PATCH /api/albums/{id}/photos/{apid}` | `If-Match` 必須 |
+| `albums.addMember` | `POST /api/albums/{id}/members` | 204。二重招待も 204 |
+| `users.me` | `GET /api/users/me` | `/api/auth/me` と同じ中身 |
+| `users.patchMe` | `PATCH /api/users/me` | ↓ §7.2 |
+| `users.get` | `GET /api/users/{id}` | |
+| `users.search` | `GET /api/users/search?q=` | 空文字は `[]`。自分は除外 |
+| `friends.list` | `GET /api/friends` | |
+| `friends.request` | `POST /api/friends/requests` | ↓ §7.1 |
+| `friends.accept` | `POST /api/friends/requests/{id}/accept` | |
+
+### 7.1 追加 1 本 — `GET /api/friends/requests`
+
+contract.ts に無いが**追加した**。`accept(requestId)` はあるのに、
+`requestId` を知る手段がどこにも無く、そのままでは承認画面が作れないため。
+
+返すのは `{id, userId, userName, userAvatar}[]`。`id` が `accept` に渡す値。
+
+またフロント側の実装を待たずに済むよう、**相互申請は自動承認**にした。
+A が B に申請 → B も A に申請、の順で両者が「追加」を押した場合、
+2 本目の申請を作らずその場で成立させる。
+申請が 2 本残って互いに気づかない、という状態を作らないため。
+
+### 7.2 `PATCH /api/users/me` — 改名は 4 テーブルに波及する
+
+`user.userName` は 8 テーブルにコピーされている。
+DDL のコメント通り、**跟随（follow）4 本だけ**を書き換える。
+
+```
+follow    friend.friendUserName    photo.userName
+          album.userName           album_member.userName
+snapshot  block.blockedUserName    album_photo.overlayUserName
+          capsule_recipient.userName   notification.fromUserName
+```
+
+8 本すべて更新するほうが素直なコードだが、**それは不具合**。
+snapshot 側は「そのとき誰がやったか」の記録で、
+「あやかが写真を追加しました」という通知は、
+あやかが改名したあとも あやか のままであるべきものだから。
+
+検証は `backend/tools/check-rename-propagation.py` + `.sql`。
+follow 4 本が全行一致、snapshot 側が 0 一致であることを見る。
+
+### 7.3 フロントへの依頼
+
+- `albums.patch` / `patchPhoto` は **`If-Match` 必須**。
+  無いと 428、古いと 409（`details.current` に現在値）。
+  `GET` の `ETag` をそのまま送り返せばよい。
+- `albums.list` は `Page<AlbumSummary>`。`nextCursor` は当面常に `null`。
+- `users.search` は自分を除外して返すので、クライアント側での除外は不要。

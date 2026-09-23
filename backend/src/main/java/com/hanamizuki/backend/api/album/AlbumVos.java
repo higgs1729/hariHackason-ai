@@ -47,7 +47,7 @@ public final class AlbumVos {
             String caption, String place, String weather, String photoComment, String music,
             boolean hasOverlay, String overlayUserName, String compositeUrl) {
 
-        static AlbumPhotoVo of(AlbumPhoto ap) {
+        public static AlbumPhotoVo of(AlbumPhoto ap) {
             return new AlbumPhotoVo(
                     ap.getId(), ap.getPhotoId(), ap.getVersion(), ap.getPosition(),
                     // The stored columns hold disk paths. What goes over the
@@ -108,6 +108,38 @@ public final class AlbumVos {
                     album.getShareToken(), myRole,
                     members.stream().map(AlbumMemberVo::of).toList(),
                     photos.stream().map(AlbumPhotoVo::of).toList());
+        }
+    }
+
+    /**
+     * 一覧の一行。/ 列表中的一行。
+     *
+     * <p>{@code AlbumSummary} in types.ts: the same album without the photo and
+     * member arrays. The home screen shows a dozen of these, and sending the
+     * full photo list for each would be most of the payload for none of the
+     * pixels.
+     *
+     * <p>Every field here is already on the {@code album} row, so the list is
+     * one query no matter how many albums come back.
+     */
+    public record AlbumSummaryVo(
+            Long id, int version, String title, String summary,
+            LocalDate albumDate, String place,
+            int aiGenerated, String aiModel,
+            Long coverPhotoId, String coverThumbUrl,
+            Long userId, String userName,
+            int photoNum, int memberNum, int viewNum,
+            String shareToken, String myRole) {
+
+        public static AlbumSummaryVo of(Album album, String myRole) {
+            return new AlbumSummaryVo(
+                    album.getId(), album.getVersion(), album.getTitle(), album.getSummary(),
+                    album.getAlbumDate(), album.getPlace(),
+                    album.isAiGenerated() ? 1 : 0, album.getAiModel(),
+                    album.getCoverPhotoId(), thumbUrl(album.getCoverPhotoId()),
+                    album.getUserId(), album.getUserName(),
+                    album.getPhotoNum(), album.getMemberNum(), album.getViewNum(),
+                    album.getShareToken(), myRole);
         }
     }
 }
