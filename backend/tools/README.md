@@ -29,3 +29,16 @@ and costs a second flush — `+2` on a title edit, `+1` on a summary edit.
 
 `AlbumPatchVersionTest` asserts the same thing but runs on H2, where **both
 orderings give +1**. This script is the only check that distinguishes them.
+
+## check-shoot-hint.py
+
+Walks `POST /api/hints/shoot` — group sizes, junk input, the rate limit.
+
+With no `ANTHROPIC_API_KEY` every call returns the canned text, so what this
+mostly proves is that the fallback is reachable, correctly shaped, and varies
+with the group size. **That is the path every demo takes until the key
+exists**, which is what makes it worth walking. Re-run with a key set and
+`aiGenerated` flips to 1.
+
+Registers its own accounts each run: the walk spends about a dozen calls, and
+reusing one account meant the second run was rate-limited by the first.
