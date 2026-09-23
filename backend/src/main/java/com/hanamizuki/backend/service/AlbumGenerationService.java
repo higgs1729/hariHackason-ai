@@ -19,6 +19,9 @@ import com.hanamizuki.backend.domain.User;
 import com.hanamizuki.backend.domain.enums.JobStatus;
 import com.hanamizuki.backend.domain.enums.MemberRole;
 import com.hanamizuki.backend.error.ApiException;
+import com.hanamizuki.backend.integration.ai.AlbumDraft;
+import com.hanamizuki.backend.integration.ai.AlbumEnricher;
+import com.hanamizuki.backend.integration.ai.PhotoInsight;
 import com.hanamizuki.backend.error.ErrorCode;
 import com.hanamizuki.backend.repository.AlbumJobRepository;
 import com.hanamizuki.backend.repository.AlbumMemberRepository;
@@ -53,12 +56,16 @@ public class AlbumGenerationService {
     private final AlbumPhotoRepository albumPhotos;
     private final UserRepository users;
     private final PhotoClusterer clusterer;
+    private final AlbumEnricher enricher;
     private final ObjectMapper objectMapper;
+    private final String aiModel;
 
     public AlbumGenerationService(AlbumJobRepository jobs, PhotoRepository photos,
                                   AlbumRepository albums, AlbumMemberRepository albumMembers,
                                   AlbumPhotoRepository albumPhotos, UserRepository users,
-                                  PhotoClusterer clusterer, ObjectMapper objectMapper) {
+                                  PhotoClusterer clusterer, AlbumEnricher enricher,
+                                  ObjectMapper objectMapper,
+                                  @org.springframework.beans.factory.annotation.Value("${app.ai.model}") String aiModel) {
         this.jobs = jobs;
         this.photos = photos;
         this.albums = albums;
@@ -66,7 +73,9 @@ public class AlbumGenerationService {
         this.albumPhotos = albumPhotos;
         this.users = users;
         this.clusterer = clusterer;
+        this.enricher = enricher;
         this.objectMapper = objectMapper;
+        this.aiModel = aiModel;
     }
 
     /**
@@ -135,13 +144,24 @@ public class AlbumGenerationService {
 
             job.setStatus(JobStatus.ENRICHING);
             List<Long> albumIds = new java.util.ArrayList<>();
+            boolean anyAi = false;
+            boolean aiGaveUp = false;
             for (int i = 0; i < clusters.size(); i++) {
-                albumIds.add(assemble(clusters.get(i), owner).getId());
+                List<Photo> cluster = clusters.get(i);
+                // Once a call has failed, stop trying. The failure mode that
+                // matters at a venue is a dead network, and that fails by
+                // timing out: retrying per cluster would make the user wait
+                // the full timeout again for each one before anything appears.
+                AlbumDraft draft = aiGaveUp ? null : describe(cluster);
+                aiGaveUp |= draft == null;
+                anyAi |= draft != null;
+                albumIds.add(assemble(cluster, owner, draft).getId());
                 // 10 at the start, 90 by the last cluster: the client shows
                 // movement instead of a spinner that never changes.
                 job.setProgress(10 + (80 * (i + 1) / clusters.size()));
             }
 
+            job.setAiGenerated(anyAi);
             job.setAlbumIds(objectMapper.writeValueAsString(albumIds));
             job.setAlbumNum(albumIds.size());
             job.setStatus(JobStatus.READY);
@@ -159,19 +179,42 @@ public class AlbumGenerationService {
     }
 
     /**
+     * Asks Claude to name this cluster, or returns null.
+     *
+     * <p>Null is an ordinary outcome, not an error: no API key, a timeout, a
+     * refusal, a venue with no working wifi. The album still gets made with a
+     * date-based title. The one thing that must never happen is the user
+     * seeing that the AI failed, so nothing here escapes.
+     */
+    private AlbumDraft describe(List<Photo> cluster) {
+        if (!enricher.isAvailable()) {
+            return null;
+        }
+        try {
+            return enricher.enrich(cluster);
+        } catch (Exception e) {
+            log.warn("Enrichment failed for a cluster of {}; falling back to a rule-based title",
+                    cluster.size(), e);
+            return null;
+        }
+    }
+
+    /**
      * Builds one album out of one cluster.
      *
-     * <p>Titles are rule-based here. This is the fallback path that always
-     * works; the AI step replaces the copy afterwards and flips
-     * {@code aiGenerated}.
+     * @param draft Claude's copy, or null to use rule-based titles
      */
-    private Album assemble(List<Photo> cluster, User owner) {
-        Photo cover = cluster.get(0);
+    private Album assemble(List<Photo> cluster, User owner, AlbumDraft draft) {
+        Photo cover = pickCover(cluster, draft);
 
         Album album = new Album();
-        album.setTitle(cover.getTakenTime().format(TITLE_DATE) + " のアルバム");
-        album.setAlbumDate(cover.getTakenTime().toLocalDate());
-        album.setAiGenerated(false);
+        album.setTitle(draft != null && draft.title() != null
+                ? draft.title()
+                : cluster.get(0).getTakenTime().format(TITLE_DATE) + " のアルバム");
+        album.setSummary(draft == null ? null : draft.summary());
+        album.setAlbumDate(cluster.get(0).getTakenTime().toLocalDate());
+        album.setAiGenerated(draft != null);
+        album.setAiModel(draft == null ? null : aiModel);
         album.setUserId(owner.getId());
         album.setUserName(owner.getUserName());
         album.setPhotoNum(cluster.size());
@@ -204,6 +247,14 @@ public class AlbumGenerationService {
             ap.setPicHeight(photo.getPicHeight());
             ap.setPicScale(photo.getPicScale());
             ap.setTakenTime(photo.getTakenTime());
+
+            PhotoInsight insight = insightFor(draft, photo.getId());
+            if (insight != null) {
+                ap.setCaption(insight.caption());
+                ap.setPlace(insight.place());
+                ap.setWeather(insight.weather());
+                ap.setPhotoComment(insight.comment());
+            }
             albumPhotos.save(ap);
 
             photo.setAlbumNum(photo.getAlbumNum() + 1);
@@ -211,6 +262,27 @@ public class AlbumGenerationService {
 
         owner.setAlbumNum(owner.getAlbumNum() + 1);
         return album;
+    }
+
+    /** The model's pick when it named one of ours, otherwise the earliest shot. */
+    private Photo pickCover(List<Photo> cluster, AlbumDraft draft) {
+        if (draft == null || draft.coverPhotoId() == null) {
+            return cluster.get(0);
+        }
+        return cluster.stream()
+                .filter(photo -> photo.getId().equals(draft.coverPhotoId()))
+                .findFirst()
+                .orElse(cluster.get(0));
+    }
+
+    private PhotoInsight insightFor(AlbumDraft draft, Long photoId) {
+        if (draft == null || draft.photos() == null) {
+            return null;
+        }
+        return draft.photos().stream()
+                .filter(insight -> photoId.equals(insight.photoId()))
+                .findFirst()
+                .orElse(null);
     }
 
     private void fail(AlbumJob job, ErrorCode code, String message) {
