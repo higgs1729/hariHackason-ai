@@ -78,7 +78,7 @@ export function Camera() {
       <StatusBar tone="light" />
       <TopBar
         left="close"
-        to={routes.home()}
+        to={routes.me()}
         tone="light"
         right={
           <button type="button" className={styles.flash} aria-label="フラッシュ">

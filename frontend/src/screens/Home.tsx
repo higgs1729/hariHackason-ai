@@ -26,7 +26,7 @@ export function Home() {
   const [busy, setBusy] = useState(false)
 
   const from = (location.state as { from?: string } | null)?.from
-  const next = () => navigate(from ?? routes.camera())
+  const next = () => navigate(from ?? routes.me())
 
   const start = () => (user ? next() : setMode('register'))
 

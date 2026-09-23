@@ -7,6 +7,8 @@
  */
 export const paths = {
   home: '/',
+  /** hub that is not on the poster (07-screens-beyond-poster) */
+  me: '/me',
   camera: '/camera',
   albumCreate: '/album/new',
   albumGenerating: '/album/generating/:jobId',
@@ -19,6 +21,7 @@ export const paths = {
 
 export const routes = {
   home: () => paths.home,
+  me: (tab?: 'albums' | 'capsules' | 'friends') => (tab ? `${paths.me}?tab=${tab}` : paths.me),
   camera: () => paths.camera,
   albumCreate: () => paths.albumCreate,
   albumGenerating: (jobId: number) => `/album/generating/${jobId}`,

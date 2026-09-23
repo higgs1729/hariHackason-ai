@@ -61,7 +61,7 @@ export function CapsuleDone() {
         <TopBar
           left="arrow"
           tone="light"
-          to={routes.home()}
+          to={routes.me('capsules')}
           right={
             <button type="button" className={styles.more} aria-label="その他のオプション">
               <IconDots size={24} stroke={1.8} />

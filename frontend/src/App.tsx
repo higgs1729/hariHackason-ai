@@ -4,6 +4,7 @@ import { RequireAuth } from './components/RequireAuth'
 import { paths } from './routes'
 import { AuthProvider } from './state/auth'
 import { Home } from './screens/Home'
+import { MyPage } from './screens/MyPage'
 import { Camera } from './screens/Camera'
 import { AlbumCreate } from './screens/AlbumCreate'
 import { AlbumGenerating } from './screens/AlbumGenerating'
@@ -21,6 +22,7 @@ function App() {
           <Routes>
             <Route path={paths.home} element={<Home />} />
             <Route element={<RequireAuth />}>
+              <Route path={paths.me} element={<MyPage />} />
               <Route path={paths.camera} element={<Camera />} />
               <Route path={paths.albumCreate} element={<AlbumCreate />} />
               <Route path={paths.albumGenerating} element={<AlbumGenerating />} />

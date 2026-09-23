@@ -1,0 +1,179 @@
+.screen {
+  min-height: 100%;
+  background: var(--white);
+}
+
+.header {
+  flex-shrink: 0;
+  background: linear-gradient(180deg, #054e8c, #0b5d9d);
+  color: var(--white);
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 4px 20px 20px;
+}
+
+.avatar {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  border-radius: var(--radius-pill);
+}
+
+.names {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.names h1 {
+  font-size: 20px;
+  font-weight: 700;
+}
+.names span {
+  color: var(--blue-100);
+  font-size: 12px;
+}
+
+.tabs {
+  display: flex;
+  padding: 0 12px;
+}
+
+.tab,
+.tabOn {
+  flex: 1;
+  min-height: 44px;
+  border-bottom: 3px solid transparent;
+  color: var(--blue-100);
+  font-size: 14px;
+  font-weight: 600;
+}
+.tabOn {
+  border-bottom-color: var(--white);
+  color: var(--white);
+}
+
+.content {
+  flex: 1;
+  padding: 16px 20px 96px;
+}
+
+.empty {
+  padding: 48px 12px;
+  color: var(--text-2);
+  font-size: 13px;
+  text-align: center;
+}
+
+/* albums */
+.grid,
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.grid {
+  display: grid;
+  /* minmax(0, …): a long nowrap title must not widen its column */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 12px;
+}
+
+.albumCard {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--navy-900);
+}
+
+.cover {
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-md);
+}
+
+.albumTitle {
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.albumDate {
+  color: var(--text-2);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* capsules / friends */
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 68px;
+  border-bottom: 1px solid #e7f3fd;
+  color: var(--navy-900);
+}
+
+.iconSealed,
+.iconOpened,
+.friendAvatar {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-pill);
+}
+.iconSealed {
+  background: var(--navy-800);
+  color: var(--white);
+}
+.iconOpened {
+  background: #9bc5f1;
+  color: var(--white);
+}
+
+.rowText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.rowTitle {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.rowSub {
+  color: var(--text-2);
+  font-size: 12px;
+}
+
+/* stays in the corner while the list scrolls (.phone is the scroll box) */
+.camera {
+  position: sticky;
+  bottom: 24px;
+  display: grid;
+  place-items: center;
+  align-self: flex-end;
+  width: 64px;
+  height: 64px;
+  margin: -88px 20px 24px 0;
+  border-radius: var(--radius-pill);
+  background: var(--navy-700);
+  box-shadow: 0 8px 20px rgba(20, 38, 77, 0.3);
+  color: var(--white);
+}

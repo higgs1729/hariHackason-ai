@@ -1,4 +1,4 @@
-.stage { min-height: 100%; }
+.stage { height: 100%; } /* definite height, so .phone scrolls and screens can fill it */
 .phone {
   height: 100%;
   overflow-y: auto;
@@ -8,6 +8,8 @@
 
 @media (min-width: 480px) {
   .stage {
+    height: auto;
+    min-height: 100%;
     display: flex;
     justify-content: center;
     align-items: flex-start;
