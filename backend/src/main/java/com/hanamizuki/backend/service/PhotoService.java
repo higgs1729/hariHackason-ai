@@ -85,8 +85,11 @@ public class PhotoService {
             } catch (ApiException e) {
                 rejected.add(new RejectedUploadVo(name, e.code().name()));
             } catch (Exception e) {
+                // INTERNAL_ERROR, not UNSUPPORTED_MEDIA: anything reaching here
+                // is a bug on our side, and telling the user their JPEG was the
+                // wrong format sends them off fixing a file that was fine.
                 log.warn("Could not ingest {}", name, e);
-                rejected.add(new RejectedUploadVo(name, ErrorCode.UNSUPPORTED_MEDIA.name()));
+                rejected.add(new RejectedUploadVo(name, ErrorCode.INTERNAL_ERROR.name()));
             }
         }
         return new UploadResultVo(uploaded, rejected);
@@ -102,7 +105,7 @@ public class PhotoService {
 
         // The same file twice is the same photo. Returning the existing row is
         // friendlier than an error and makes a retried upload harmless.
-        Photo existing = photos.findByUserIdAndSha256(owner.getId(), hash).orElse(null);
+        Photo existing = photos.findFirstByUserIdAndSha256OrderByIdAsc(owner.getId(), hash).orElse(null);
         if (existing != null) {
             return existing;
         }

@@ -1,8 +1,10 @@
 package com.hanamizuki.backend.service;
 
+import java.security.MessageDigest;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HexFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -83,8 +85,8 @@ public class DevSeedService {
         LocalDateTime firstDay = LocalDateTime.now().minusDays(2).withHour(17).withMinute(30);
         LocalDateTime secondDay = LocalDateTime.now().minusDays(1).withHour(12).withMinute(0);
 
-        List<Photo> afternoon = photos(nao, firstDay, 6);
-        List<Photo> lunch = photos(nao, secondDay, 4);
+        List<Photo> afternoon = photos(nao, firstDay, 6, 0);
+        List<Photo> lunch = photos(nao, secondDay, 4, 6);
 
         Album album1 = album(nao, "最高の1日", "テスト終わりの放課後、みんなで梅田へ。",
                 "梅田", firstDay.toLocalDate(), afternoon, List.of(ayaka, miki));
@@ -127,19 +129,27 @@ public class DevSeedService {
         return friend;
     }
 
-    private List<Photo> photos(User owner, LocalDateTime start, int count) {
+    /**
+     * @param variant offsets the placeholder image, so the two groups do not
+     *                render byte-identical pictures. They used to, which was
+     *                harmless while sha256 was left null and a bug the moment
+     *                it was not: two rows sharing a hash makes
+     *                {@code findByUserIdAndSha256} — declared as returning one
+     *                — throw on the next upload of that image.
+     */
+    private List<Photo> photos(User owner, LocalDateTime start, int count, int variant) {
         List<Photo> created = new ArrayList<>();
-        for (int i = 0; i < count; i++) {
+        for (int i = variant; i < variant + count; i++) {
             Photo photo = new Photo();
             photo.setUserId(owner.getId());
             photo.setUserName(owner.getUserName());
-            photo.setPicName("seed-%d.jpg".formatted(i));
+            photo.setPicName("seed-%d.jpg".formatted(i - variant));
             photo.setPicWidth(800);
             photo.setPicHeight(600);
             photo.setPicScale(800d / 600d);
             photo.setPicFormat("jpeg");
             // Minutes apart, so they land in one cluster rather than several.
-            photo.setTakenTime(start.plusMinutes(7L * i));
+            photo.setTakenTime(start.plusMinutes(7L * (i - variant)));
             photo.setTakenTimeSource(TakenTimeSource.EXIF);
             // The filename wants the id, but the id only exists after the
             // insert, and filePath is NOT NULL. So: insert with a placeholder,
@@ -150,6 +160,11 @@ public class DevSeedService {
 
             byte[] jpeg = PlaceholderImages.jpeg(800, 600, i);
             photo.setPicSize((long) jpeg.length);
+            // Seeded rows were leaving this null, which meant they could never
+            // match a re-upload — seed data behaving differently from uploaded
+            // data is exactly the kind of difference that hides a bug until
+            // the demo. Same digest the upload path computes.
+            photo.setSha256(sha256(jpeg));
             photo.setFilePath(storage.write("photos/seed/%d.jpg".formatted(photo.getId()), jpeg));
             photo.setThumbPath(storage.write("thumbs/seed/%d.jpg".formatted(photo.getId()),
                     PlaceholderImages.jpeg(400, 300, i)));
@@ -222,5 +237,14 @@ public class DevSeedService {
     private Map<String, Object> summary(User user) {
         return Map.of("id", user.getId(), "userAccount", user.getUserAccount(),
                 "userName", user.getUserName());
+    }
+
+    /** The same digest {@code PhotoService} computes, so seeded rows dedup like real ones. */
+    private static String sha256(byte[] content) {
+        try {
+            return HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(content));
+        } catch (java.security.NoSuchAlgorithmException e) {
+            throw new IllegalStateException("SHA-256 is required by the platform", e);
+        }
     }
 }

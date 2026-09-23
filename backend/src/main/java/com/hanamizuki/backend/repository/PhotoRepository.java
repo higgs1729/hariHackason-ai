@@ -18,8 +18,16 @@ public interface PhotoRepository extends JpaRepository<Photo, Long> {
     /** albumNum = 0 is the definition of "not in any album yet" (screen 03). */
     List<Photo> findByUserIdAndAlbumNumOrderByTakenTimeAsc(Long userId, int albumNum, Limit limit);
 
-    /** Same uploader, same bytes: a repeat upload, not a new photo. */
-    Optional<Photo> findByUserIdAndSha256(Long userId, String sha256);
+    /**
+     * Same uploader, same bytes: a repeat upload, not a new photo.
+     *
+     * <p>{@code findFirst}, not {@code findBy}: the column has an index and no
+     * unique key, so two rows can share a hash — and a derived query declared
+     * as returning one throws when it finds two. An upload is the worst place
+     * to learn that, and picking the oldest match is the answer the caller
+     * wanted anyway.
+     */
+    Optional<Photo> findFirstByUserIdAndSha256OrderByIdAsc(Long userId, String sha256);
 
     /** {@code photo.userName} is a follow copy of the uploader's name. */
     @Modifying(clearAutomatically = true, flushAutomatically = true)

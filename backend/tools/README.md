@@ -42,3 +42,16 @@ exists**, which is what makes it worth walking. Re-run with a key set and
 
 Registers its own accounts each run: the walk spends about a dozen calls, and
 reusing one account meant the second run was rate-limited by the first.
+
+## check-upload-and-generate.py
+
+Upload → dedup → auto-album, the half of the demo the seed skips past.
+
+Uploads images the server has not seen (the seed's own files, plus a few bytes
+after the JPEG end-of-image marker, so the hash differs and the picture does
+not), re-uploads the same bytes to confirm `sha256` dedup returns the same
+rows, replays the `Idempotency-Key` to confirm it returns the same job rather
+than starting a second run, then polls the job to `READY`.
+
+Without an `ANTHROPIC_API_KEY` the album comes back with a rule-based title
+and `aiGenerated: 0`. That is the fallback working, not a failure.
