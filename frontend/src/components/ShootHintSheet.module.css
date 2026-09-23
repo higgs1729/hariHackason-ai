@@ -1,0 +1,164 @@
+.backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: flex-end;
+  background: rgba(20, 38, 77, 0.45);
+}
+
+.sheet {
+  width: 100%;
+  padding: 16px 20px max(20px, env(safe-area-inset-bottom));
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  background: var(--white);
+  color: var(--navy-900);
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 44px;
+}
+.head h2 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.close {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-right: -10px;
+  color: var(--text-2);
+}
+
+.form,
+.result {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 8px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  color: var(--text-2);
+  font-size: 12px;
+  font-weight: 700;
+}
+.label small {
+  font-weight: 500;
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.stepper button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-pill);
+  color: var(--navy-800);
+}
+.stepper button:disabled {
+  opacity: 0.4;
+}
+.stepper output {
+  min-width: 48px;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip,
+.chipOn {
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-pill);
+  color: var(--navy-800);
+  font-size: 13px;
+  font-weight: 600;
+}
+.chipOn {
+  border-color: var(--navy-700);
+  background: var(--navy-700);
+  color: var(--white);
+}
+
+.input {
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 16px; /* < 16px makes iOS Safari zoom on focus */
+}
+
+.primary,
+.secondary {
+  min-height: 52px;
+  border-radius: var(--radius-pill);
+  font-size: 15px;
+  font-weight: 700;
+}
+.primary {
+  background: var(--navy-700);
+  color: var(--white);
+}
+.secondary {
+  border: 1.5px solid var(--navy-700);
+  color: var(--navy-700);
+}
+.primary:disabled,
+.secondary:disabled {
+  opacity: 0.6;
+}
+
+.hint {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+.poses {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.poses li {
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--blue-50);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}

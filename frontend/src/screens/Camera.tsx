@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState, type ChangeEvent } from 'react'
-import { IconBolt, IconCameraRotate, IconPhoto } from '@tabler/icons-react'
+import { IconBolt, IconCameraRotate, IconPhoto, IconSparkles, IconX } from '@tabler/icons-react'
 import { useNavigate } from 'react-router-dom'
-import { api, type ApiError } from '../api'
+import { api, type ApiError, type ShootHint } from '../api'
 import { ErrorNote } from '../components/Notice'
 import { Photo } from '../components/Photo'
 import { Screen } from '../components/Screen'
+import { ShootHintSheet } from '../components/ShootHintSheet'
 import { StatusBar } from '../components/StatusBar'
 import { TopBar } from '../components/TopBar'
 import { routes } from '../routes'
@@ -29,6 +30,9 @@ export function Camera() {
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<ApiError | null>(null)
   const [lastThumb, setLastThumb] = useState<string | null>(null)
+  const [sheetOpen, setSheetOpen] = useState(false)
+  /** the hint the user chose; pinned on the viewfinder while shooting */
+  const [hint, setHint] = useState<ShootHint | null>(null)
 
   useEffect(() => {
     let stream: MediaStream | null = null
@@ -92,6 +96,18 @@ export function Camera() {
         <button type="button" className={styles.libraryIcon} aria-label="写真ライブラリから選ぶ" onClick={() => libraryRef.current?.click()}>
           <IconPhoto size={18} stroke={1.8} />
         </button>
+        {hint ? (
+          <div className={styles.pinnedHint}>
+            <p>{hint.hint}</p>
+            <button type="button" onClick={() => setHint(null)} aria-label="撮り方を消す">
+              <IconX size={16} stroke={2} />
+            </button>
+          </div>
+        ) : (
+          <button type="button" className={styles.askHint} onClick={() => setSheetOpen(true)}>
+            <IconSparkles size={16} stroke={1.8} aria-hidden="true" /> AIに撮り方を聞く
+          </button>
+        )}
         {busy && <div className={styles.uploading}>アップロード中…</div>}
       </Photo>
 
@@ -123,6 +139,16 @@ export function Camera() {
       <input ref={libraryRef} type="file" accept="image/jpeg,image/png" multiple hidden onChange={onFiles} />
 
       <div className={styles.homeIndicator} aria-hidden="true" />
+
+      {sheetOpen && (
+        <ShootHintSheet
+          onClose={() => setSheetOpen(false)}
+          onUse={(h) => {
+            setHint(h)
+            setSheetOpen(false)
+          }}
+        />
+      )}
     </Screen>
   )
 }
