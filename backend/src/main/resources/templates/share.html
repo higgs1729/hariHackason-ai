@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!--
+  The public album page.
+
+  Rendered on the server so the LINE crawler, which does not run JavaScript,
+  finds a real title and a real image in the markup. Everything below the
+  <head> is for the human who taps the card; everything inside it is for the
+  crawler that drew the card in the first place.
+-->
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title th:text="${album.title()} + ' | ai'">ai</title>
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" th:attr="content=${album.title()}">
+  <meta property="og:description"
+        th:attr="content=${album.summary() != null ? album.summary() : album.photoNum() + '枚の思い出'}">
+  <meta property="og:image" th:attr="content=${ogImage}">
+  <meta property="og:url" th:attr="content=${shareUrl}">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <style>
+    :root { --navy: #1c3a78; --ink: #14213d; --muted: #5b6b8c; --paper: #f4f6fb; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--paper); color: var(--ink);
+      font-family: -apple-system, "Hiragino Sans", "Noto Sans JP", sans-serif;
+      line-height: 1.6;
+    }
+    .wrap { max-width: 640px; margin: 0 auto; padding: 24px 16px 48px; }
+    header { padding: 8px 0 20px; }
+    h1 { margin: 0 0 6px; font-size: 26px; letter-spacing: .02em; }
+    .meta { color: var(--muted); font-size: 14px; }
+    .summary { margin: 14px 0 0; font-size: 15px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 24px; }
+    figure { margin: 0; }
+    figure img {
+      width: 100%; aspect-ratio: 4 / 3; object-fit: cover;
+      border-radius: 12px; display: block; background: #dde4f2;
+    }
+    figcaption { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    footer { margin-top: 36px; text-align: center; color: var(--muted); font-size: 13px; }
+    .logo { color: var(--navy); font-weight: 700; letter-spacing: .08em; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1 th:text="${album.title()}">アルバム</h1>
+      <p class="meta">
+        <span th:if="${album.albumDate()}" th:text="${album.albumDate()}">2026-09-20</span>
+        <span th:if="${album.place()}" th:text="' · ' + ${album.place()}"></span>
+        <span th:if="${album.ownerName()}" th:text="' · ' + ${album.ownerName()}"></span>
+      </p>
+      <p class="summary" th:if="${album.summary()}" th:text="${album.summary()}"></p>
+    </header>
+
+    <div class="grid">
+      <figure th:each="photo : ${album.photos()}">
+        <img th:attr="src=${photo.imageUrl()}, alt=${photo.caption() != null ? photo.caption() : ''}"
+             loading="lazy">
+        <figcaption th:if="${photo.caption()}" th:text="${photo.caption()}"></figcaption>
+      </figure>
+    </div>
+
+    <footer>
+      <span class="logo">ai</span> — あの時の、最高を、ずっと。
+    </footer>
+  </div>
+</body>
+</html>

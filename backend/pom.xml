@@ -48,6 +48,17 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 
+		<!--
+			Server-side rendering for /s/{token}. The LINE crawler does not run
+			JavaScript, so the share page cannot be the React SPA: a
+			client-rendered page yields a preview card with no title and no
+			image, which is the one thing the demo cannot afford to lose.
+		-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+
 		<!-- Claude: album titles, captions, weather, and the shoot hint. -->
 		<dependency>
 			<groupId>com.anthropic</groupId>
