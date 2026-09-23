@@ -1,5 +1,5 @@
 import { useState, type FormEvent, type ReactNode } from 'react'
-import { IconCamera, IconLock, IconLockOpen, IconPencil, IconUser } from '@tabler/icons-react'
+import { IconCamera, IconChevronRight, IconLock, IconLockOpen, IconPencil, IconQrcode, IconUser } from '@tabler/icons-react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { api, tokens, type ApiError, type Capsule } from '../api'
 import { ErrorNote, Loading } from '../components/Notice'
@@ -189,26 +189,35 @@ function CapsuleRow({ c }: { c: Capsule }) {
 function FriendsTab() {
   const friends = useAsync(() => api.friends.list(), [])
   return (
-    <TabBody state={friends} empty="まだ友達がいません">
-      {(items) => (
-        <ul className={styles.list}>
-          {items.map((f) => (
-            <li key={f.id} className={styles.row}>
-              {f.userAvatar ? (
-                <Photo src={f.userAvatar} className={styles.friendAvatar} />
-              ) : (
-                <span className={styles.iconOpened}>
-                  <IconUser size={22} stroke={1.7} aria-hidden="true" />
-                </span>
-              )}
-              <span className={styles.rowText}>
-                <span className={styles.rowTitle}>{f.userName ?? f.userAccount}</span>
-                <span className={styles.rowSub}>@{f.userAccount}</span>
-              </span>
-            </li>
-          ))}
-        </ul>
-      )}
-    </TabBody>
+    <>
+      <Link to={routes.friendQr()} className={styles.addFriend}>
+        <IconQrcode size={20} stroke={1.8} aria-hidden="true" /> QRで友達を追加
+      </Link>
+      <TabBody state={friends} empty="まだ友達がいません">
+        {(items) => (
+          <ul className={styles.list}>
+            {items.map((f) => (
+              <li key={f.id}>
+                {/* a friend opens reunion mode: every album you share, as a slideshow */}
+                <Link to={routes.reunion(f.id)} className={styles.row}>
+                  {f.userAvatar ? (
+                    <Photo src={f.userAvatar} className={styles.friendAvatar} />
+                  ) : (
+                    <span className={styles.iconOpened}>
+                      <IconUser size={22} stroke={1.7} aria-hidden="true" />
+                    </span>
+                  )}
+                  <span className={styles.rowText}>
+                    <span className={styles.rowTitle}>{f.userName ?? f.userAccount}</span>
+                    <span className={styles.rowSub}>@{f.userAccount}</span>
+                  </span>
+                  <IconChevronRight className={styles.rowChevron} size={20} stroke={1.8} aria-hidden="true" />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+      </TabBody>
+    </>
   )
 }

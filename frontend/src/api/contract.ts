@@ -15,6 +15,7 @@ import type {
   CreateCapsuleRequest,
   DecorationElement,
   DecorationWithVersion,
+  FriendQr,
   GenerateJob,
   ListPhotosParams,
   LoginRequest,
@@ -48,6 +49,10 @@ export interface FriendsApi {
   list(): Promise<User[]>
   request(userId: number): Promise<void>
   accept(requestId: number): Promise<void>
+  /** 05 §3.2 (backend P1). A fresh token each call. */
+  qr(): Promise<FriendQr>
+  /** Both sides become friends at once. Returns the QR owner. 410 when expired or used. */
+  acceptQr(qrToken: string): Promise<User>
 }
 
 export interface PhotosApi {
@@ -60,7 +65,8 @@ export interface AlbumsApi {
   /** 202 → job id. Caller supplies the Idempotency-Key so a retry replays the same job. */
   generate(photoIds: number[], idempotencyKey: string): Promise<{ jobId: number }>
   job(jobId: number): Promise<GenerateJob>
-  list(params?: { limit?: number; cursor?: string }): Promise<Page<AlbumSummary>>
+  /** `memberId` (05 §3.2, reunion mode) is ignored by backends that predate it; callers must not rely on it filtering. */
+  list(params?: { limit?: number; cursor?: string; memberId?: number }): Promise<Page<AlbumSummary>>
   get(albumId: number): Promise<Album>
   patch(albumId: number, version: number, body: AlbumPatch): Promise<Album>
   patchPhoto(albumId: number, albumPhotoId: number, version: number, body: AlbumPhotoPatch): Promise<AlbumPhoto>

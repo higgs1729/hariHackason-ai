@@ -46,6 +46,8 @@ export function toApiError(e: unknown): ApiError {
 
 /** Short Japanese message per error code. Anything unknown falls back to the server message. */
 export function describeError(e: ApiError): string {
+  // 05 §3.2 fixes the status (410) but not the code for an expired / used QR token
+  if (e.status === 410) return 'QRの期限が切れています。もう一度見せてもらってね'
   switch (e.code) {
     case 'NETWORK_ERROR':
       return '通信できませんでした'
@@ -74,6 +76,8 @@ export function describeError(e: ApiError): string {
       return 'JPEGかPNGの写真にしてください'
     case 'RATE_LIMITED':
       return '少し待ってね'
+    case 'NOT_FOUND':
+      return 'この機能はまだ準備中です'
     default:
       return e.message || e.code
   }

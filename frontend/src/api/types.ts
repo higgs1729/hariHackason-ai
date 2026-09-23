@@ -30,6 +30,7 @@ export type ErrorCode =
   | 'USER_NOT_FOUND'
   | 'PHOTO_NOT_FOUND'
   | 'ALBUM_NOT_FOUND'
+  | 'NOT_FOUND' // no such route: the backend has not built this endpoint yet
   | 'CAPSULE_NOT_FOUND'
   | 'JOB_NOT_FOUND'
   | 'ACCOUNT_EXISTS'
@@ -42,6 +43,7 @@ export type ErrorCode =
   | 'NO_VALID_PHOTOS'
   | 'IF_MATCH_REQUIRED'
   | 'RATE_LIMITED'
+  | 'QR_EXPIRED' // assumed name for the 410 on an expired/used QR token; the UI branches on status 410, not on this
   | 'NETWORK_ERROR' // client-side only: fetch threw before a response arrived
 
 export interface ApiErrorBody {
@@ -362,6 +364,16 @@ export interface ShootHint {
 // ---------------------------------------------------------------------------
 // Friends (§4.3)
 // ---------------------------------------------------------------------------
+
+/** POST /api/friends/qr — shape fixed in 05-backend-answers §3.2. Valid for 10 minutes. */
+export interface FriendQr {
+  qrToken: string
+  expireTime: IsoDateTime
+}
+
+/** What the QR encodes. The token alone is useless after 10 minutes or one scan. */
+export const friendQrPayload = (qrToken: string) => `ai://friend/${qrToken}`
+export const parseFriendQr = (text: string): string | null => /^ai:\/\/friend\/([A-Za-z0-9_-]+)$/.exec(text.trim())?.[1] ?? null
 
 export interface FriendRequests {
   incoming: User[]

@@ -5,6 +5,8 @@ import { paths } from './routes'
 import { AuthProvider } from './state/auth'
 import { Home } from './screens/Home'
 import { MyPage } from './screens/MyPage'
+import { FriendQr } from './screens/FriendQr'
+import { Reunion } from './screens/Reunion'
 import { Camera } from './screens/Camera'
 import { AlbumCreate } from './screens/AlbumCreate'
 import { AlbumGenerating } from './screens/AlbumGenerating'
@@ -23,6 +25,8 @@ function App() {
             <Route path={paths.home} element={<Home />} />
             <Route element={<RequireAuth />}>
               <Route path={paths.me} element={<MyPage />} />
+              <Route path={paths.friendQr} element={<FriendQr />} />
+              <Route path={paths.reunion} element={<Reunion />} />
               <Route path={paths.camera} element={<Camera />} />
               <Route path={paths.albumCreate} element={<AlbumCreate />} />
               <Route path={paths.albumGenerating} element={<AlbumGenerating />} />

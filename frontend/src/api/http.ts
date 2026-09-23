@@ -142,6 +142,8 @@ export const httpApi: Api = {
     list: () => json('/friends'),
     request: (userId) => json('/friends/requests', { method: 'POST', json: { userId } }),
     accept: (requestId) => json(`/friends/requests/${requestId}/accept`, { method: 'POST' }),
+    qr: () => json('/friends/qr', { method: 'POST' }),
+    acceptQr: (qrToken) => json(`/friends/qr/${encodeURIComponent(qrToken)}/accept`, { method: 'POST' }),
   },
 
   photos: {

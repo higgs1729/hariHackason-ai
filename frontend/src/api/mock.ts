@@ -64,12 +64,15 @@ const users: User[] = [
   { id: 13, userAccount: 'ayaka', userName: 'あやか', userAvatar: gradientImage('#f9d7b5', '#9dc3f2', 200, 200), userProfile: null, userRole: 'user' },
   { id: 14, userAccount: 'miki', userName: 'みき', userAvatar: gradientImage('#cfe3f9', '#f5b8c8', 200, 200), userProfile: null, userRole: 'user' },
   { id: 15, userAccount: 'rin', userName: 'りん', userAvatar: gradientImage('#b5d5f6', '#f9dcb3', 200, 200), userProfile: null, userRole: 'user' },
+  // not a friend yet: the QR demo adds her (token `sora-demo`)
+  { id: 16, userAccount: 'sora', userName: 'そら', userAvatar: gradientImage('#d9c9f7', '#9dc3f2', 200, 200), userProfile: null, userRole: 'user' },
 ]
 const passwords = new Map<string, string>([
   ['nao', 'password'],
   ['ayaka', 'password'],
   ['miki', 'password'],
   ['rin', 'password'],
+  ['sora', 'password'],
 ])
 /** userId → friend userIds (both directions kept) */
 const friends = new Map<number, Set<number>>([
@@ -77,7 +80,10 @@ const friends = new Map<number, Set<number>>([
   [13, new Set([12])],
   [14, new Set([12])],
   [15, new Set([12])],
+  [16, new Set()],
 ])
+/** QR token → owner and expiry (ms). `sora-demo` never expires so the scan can be tried without a second phone. */
+const qrTokens = new Map<string, { userId: number; expires: number }>([['sora-demo', { userId: 16, expires: Infinity }]])
 
 const photos: (Photo & { ownerId: number })[] = []
 const albums: Album[] = []
@@ -168,6 +174,16 @@ function seed() {
   albums.push(buildAlbum(12, photos.slice(0, 6), '最高の1日', 'テスト終わりの放課後、みんなで梅田へ。', '梅田'))
   seedPhotos(12, 4, new Date('2026-09-13T05:00:00Z'), 15)
   albums.push(buildAlbum(12, photos.slice(6, 10), '土曜の部活のあと', '練習終わりにみんなでアイス。', '天王寺'))
+  // shared albums, so reunion mode has something to play
+  const member = (albumIdx: number, userId: number) => {
+    const u = users.find((x) => x.id === userId)!
+    albums[albumIdx].members.push({ userId, userName: u.userName, userAvatar: u.userAvatar, memberRole: 'editor' })
+    albums[albumIdx].memberNum = albums[albumIdx].members.length
+  }
+  member(0, 13)
+  member(0, 14)
+  member(1, 13)
+  member(1, 15)
   seedPhotos(12, 5, new Date('2026-09-21T08:00:00Z'), 10) // unassigned
 }
 seed()
@@ -271,6 +287,25 @@ export const mockApi: Api = {
       friends.get(userId)!.add(u.id)
     },
     async accept() {},
+    async qr() {
+      const u = requireMe()
+      await delay(200)
+      const qrToken = Math.random().toString(36).slice(2, 12) + Math.random().toString(36).slice(2, 12)
+      const expires = Date.now() + 10 * 60_000
+      qrTokens.set(qrToken, { userId: u.id, expires })
+      return { qrToken, expireTime: iso(new Date(expires)) }
+    },
+    async acceptQr(qrToken) {
+      const u = requireMe()
+      await delay(300)
+      const t = qrTokens.get(qrToken)
+      if (!t || t.expires < Date.now()) return fail(410, 'QR_EXPIRED', 'QRの期限が切れています')
+      if (t.userId === u.id) return fail(400, 'VALIDATION_FAILED', '自分のQRです')
+      if (t.expires !== Infinity) qrTokens.delete(qrToken) // one scan only
+      friends.get(u.id)?.add(t.userId)
+      friends.get(t.userId)?.add(u.id)
+      return users.find((x) => x.id === t.userId)!
+    },
   },
 
   photos: {
@@ -360,9 +395,12 @@ export const mockApi: Api = {
       const { ownerId: _o, ...dto } = j
       return dto
     },
-    async list() {
+    async list(params) {
       const u = requireMe()
-      const items = albums.filter((a) => a.members.some((m) => m.userId === u.id)).map(({ photos: _p, members: _m, ...rest }) => rest)
+      const items = albums
+        .filter((a) => a.members.some((m) => m.userId === u.id))
+        .filter((a) => params?.memberId === undefined || a.members.some((m) => m.userId === params.memberId))
+        .map(({ photos: _p, members: _m, ...rest }) => rest)
       return { items, nextCursor: null, total: items.length }
     },
     async get(albumId) {

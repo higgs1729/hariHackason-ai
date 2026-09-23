@@ -9,6 +9,8 @@ export const paths = {
   home: '/',
   /** hub that is not on the poster (07-screens-beyond-poster) */
   me: '/me',
+  friendQr: '/friends/qr',
+  reunion: '/reunion/:userId',
   camera: '/camera',
   albumCreate: '/album/new',
   albumGenerating: '/album/generating/:jobId',
@@ -23,6 +25,8 @@ export const routes = {
   home: () => paths.home,
   me: (tab?: 'albums' | 'capsules' | 'friends') => (tab ? `${paths.me}?tab=${tab}` : paths.me),
   camera: () => paths.camera,
+  friendQr: (mode?: 'show' | 'scan') => (mode ? `${paths.friendQr}?mode=${mode}` : paths.friendQr),
+  reunion: (userId: number) => `/reunion/${userId}`,
   albumCreate: () => paths.albumCreate,
   albumGenerating: (jobId: number) => `/album/generating/${jobId}`,
   decorate: (albumId: number, albumPhotoId: number) => `/album/${albumId}/decorate/${albumPhotoId}`,

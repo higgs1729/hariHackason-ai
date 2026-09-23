@@ -223,3 +223,23 @@
   box-shadow: 0 8px 20px rgba(20, 38, 77, 0.3);
   color: var(--white);
 }
+
+.rowChevron {
+  flex-shrink: 0;
+  margin-left: auto;
+  color: var(--text-3);
+}
+
+.addFriend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  margin-bottom: 8px;
+  border: 1.5px dashed var(--blue-300);
+  border-radius: var(--radius-md);
+  color: var(--navy-700);
+  font-size: 14px;
+  font-weight: 700;
+}
