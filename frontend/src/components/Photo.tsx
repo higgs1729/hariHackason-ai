@@ -1,4 +1,5 @@
 import type { CSSProperties, ReactNode } from 'react'
+import { useImageSrc } from '../api'
 import { assets, type AssetKey } from '../assets'
 
 type Props = {
@@ -18,7 +19,9 @@ type Props = {
 export function Photo({ asset = 'tile1', src, className, style, children, label }: Props) {
   // backgroundImage, not the `background` shorthand: React warns when a shorthand
   // and its longhands (backgroundSize/Position) are updated in the same render.
-  const backgroundImage = src ? `url("${src}")` : assets[asset]
+  // `/api/...` images need the Bearer token; show the gradient until the blob is ready.
+  const resolved = useImageSrc(src)
+  const backgroundImage = resolved ? `url("${resolved}")` : assets[asset]
   return (
     <div
       className={className}

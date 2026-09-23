@@ -72,6 +72,8 @@ export function describeError(e: ApiError): string {
       return '10MBより小さい写真にしてください'
     case 'UNSUPPORTED_MEDIA':
       return 'JPEGかPNGの写真にしてください'
+    case 'RATE_LIMITED':
+      return '少し待ってね'
     default:
       return e.message || e.code
   }

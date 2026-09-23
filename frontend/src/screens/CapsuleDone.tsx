@@ -37,7 +37,7 @@ export function CapsuleDone() {
         if (e.code === 'CAPSULE_NOT_YET_OPEN' && (apiMode === 'mock' || import.meta.env.DEV)) c = await api.capsules.unsealNow(capsuleId)
         else throw e
       }
-      if (c.status === 'OPENED') navigate(routes.detail(c.album.id), { state: { capsuleMsg: c.capsuleMsg } })
+      if (c.status === 'OPENED') navigate(routes.detail(c.album.id, c.id))
     } catch (err) {
       setError(toApiError(err))
     } finally {

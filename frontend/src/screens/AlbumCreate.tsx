@@ -24,29 +24,36 @@ export function AlbumCreate() {
   const [excluded, setExcluded] = useState<Set<number>>(new Set())
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<ApiError | null>(null)
+  // Kept until the server answers 202, so a retap after a timeout replays the
+  // same job instead of starting a second one (05-backend-answers §2).
+  const [idempotencyKey, setIdempotencyKey] = useState<string | null>(null)
 
   const items = photos.data?.items ?? []
   const selected = items.filter((p) => !excluded.has(p.id))
   const hero = selected[0] ?? items[0] ?? null
 
-  const toggle = (id: number) =>
+  const toggle = (id: number) => {
+    setIdempotencyKey(null) // a different selection is a different request
     setExcluded((prev) => {
       const next = new Set(prev)
       if (next.has(id)) next.delete(id)
       else next.add(id)
       return next
     })
+  }
 
   const generate = async () => {
     if (selected.length === 0) return
     setBusy(true)
     setError(null)
     try {
-      // One key per click: a retry of the same click replays, a new click is a new job.
+      const key = idempotencyKey ?? crypto.randomUUID()
+      setIdempotencyKey(key)
       const { jobId } = await api.albums.generate(
         selected.map((p) => p.id),
-        crypto.randomUUID(),
+        key,
       )
+      setIdempotencyKey(null)
       navigate(routes.albumGenerating(jobId))
     } catch (err) {
       const e = toApiError(err)

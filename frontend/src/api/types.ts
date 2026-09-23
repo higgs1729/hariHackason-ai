@@ -342,6 +342,24 @@ export interface CreateCapsuleRequest {
 }
 
 // ---------------------------------------------------------------------------
+// Shoot hint — POST /api/hints/shoot (05-backend-answers §8)
+// ---------------------------------------------------------------------------
+
+export interface ShootHintRequest {
+  memberCount?: number
+  memberNames?: string[]
+  place?: string
+  mood?: string
+}
+
+export interface ShootHint {
+  hint: string
+  poses: string[]
+  /** 0 = fixed fallback text. For logs only: never branch the UI on it (§8.1). */
+  aiGenerated: 0 | 1
+}
+
+// ---------------------------------------------------------------------------
 // Friends (§4.3)
 // ---------------------------------------------------------------------------
 

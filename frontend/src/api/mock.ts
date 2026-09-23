@@ -470,4 +470,18 @@ export const mockApi: Api = {
       return toCapsuleDto(c)
     },
   },
+
+  hints: {
+    async shoot(body) {
+      requireMe()
+      await delay(600)
+      const n = body.memberCount ?? body.memberNames?.length ?? 2
+      const who = body.memberNames?.length ? body.memberNames.join('と') : `${n}人`
+      return {
+        hint: `${who}で、ひとりずつカメラに向かって走ってきて最後に全員でジャンプ！`,
+        poses: ['全員で指ハート', '背中合わせで振り向く', 'ひとりだけ変顔'],
+        aiGenerated: 0,
+      }
+    },
+  },
 }

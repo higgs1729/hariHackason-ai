@@ -17,3 +17,4 @@ export const apiMode = mode
 export * from './types'
 export type { Api } from './contract'
 export { tokens } from './tokens'
+export { resolveImage, useImageSrc } from './images'

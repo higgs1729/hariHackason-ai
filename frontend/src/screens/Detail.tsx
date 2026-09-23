@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { IconChevronRight, IconClock, IconCloud, IconDots, IconMessage, IconMusic, IconUser, IconUsers } from '@tabler/icons-react'
-import { useLocation, useParams } from 'react-router-dom'
+import { useParams, useSearchParams } from 'react-router-dom'
 import { api, type AlbumPhoto, type ApiError } from '../api'
 import { ErrorNote, Loading } from '../components/Notice'
 import { Photo } from '../components/Photo'
@@ -21,7 +21,10 @@ const fmtDateTime = (iso: string) => `${fmtDate(iso)} ${iso.slice(11, 16)}`
  */
 export function Detail() {
   const albumId = numParam(useParams().albumId)
-  const capsuleMsg = (useLocation().state as { capsuleMsg?: string | null } | null)?.capsuleMsg ?? null
+  // Re-fetched from the capsule, not passed in router state, so a reload keeps it (05 A-10).
+  const capsuleId = numParam(useSearchParams()[0].get('capsule') ?? undefined)
+  const capsule = useAsync(() => (capsuleId ? api.capsules.get(capsuleId) : Promise.resolve(null)), [capsuleId])
+  const capsuleMsg = capsule.data?.status === 'OPENED' ? capsule.data.capsuleMsg : null
   const album = useAsync(() => (albumId ? api.albums.get(albumId) : Promise.reject(new Error('no album'))), [albumId])
   const [index, setIndex] = useState(0)
   const [error, setError] = useState<ApiError | null>(null)

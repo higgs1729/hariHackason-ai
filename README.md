@@ -19,25 +19,39 @@ Smoke test for the backend: `GET http://localhost:8080/api/hello`.
 
 - Node.js 22+
 - JDK 21+ (Maven is not required; use the bundled `mvnw`)
+- Docker Desktop (MySQL only; the app itself runs on the host)
 
-## Run (two terminals)
+## Run
 
-backend:
+1. MySQL (once; the schema is created on first start):
 
-```
-cd backend
-./mvnw spring-boot:run        # Windows: mvnw.cmd spring-boot:run
-```
+   ```
+   docker compose up -d
+   ```
 
-frontend:
+   After changing `backend/sql/create_table.sql`: `docker compose down -v && docker compose up -d`.
 
-```
-cd frontend
-npm install
-npm run dev
-```
+2. backend (http://localhost:8080):
 
-Open <http://localhost:5173>.
+   ```
+   cd backend
+   ./mvnw spring-boot:run        # Windows: .\mvnw.cmd spring-boot:run
+   ```
+
+   Then load demo data once: `curl -X POST http://localhost:8080/api/dev/seed`
+   (users `nao` / `ayaka` / `miki` / `rin`, password `password`).
+   Without `ANTHROPIC_API_KEY` the AI steps fall back to fixed text; see `backend/.env.example`.
+
+3. frontend (http://localhost:5173):
+
+   ```
+   cd frontend
+   npm install
+   npm run dev                          # mock API, no backend needed
+   VITE_API_MODE=http npm run dev       # real backend via the Vite proxy
+   ```
+
+   PowerShell: `$env:VITE_API_MODE='http'; npm run dev`.
 
 ## UI mock (current state)
 

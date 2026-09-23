@@ -21,6 +21,8 @@ import type {
   Page,
   RegisterRequest,
   ShareLink,
+  ShootHint,
+  ShootHintRequest,
   TokenPair,
   UploadResult,
   User,
@@ -87,7 +89,13 @@ export interface CapsulesApi {
   unsealNow(capsuleId: number): Promise<Capsule>
 }
 
+export interface HintsApi {
+  /** Always 200 with some text (AI or fixed fallback). Only 429 RATE_LIMITED is an error. */
+  shoot(body: ShootHintRequest): Promise<ShootHint>
+}
+
 export interface Api {
+  hints: HintsApi
   auth: AuthApi
   users: UsersApi
   friends: FriendsApi

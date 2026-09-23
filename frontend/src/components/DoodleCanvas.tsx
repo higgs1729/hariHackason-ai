@@ -1,5 +1,5 @@
 import { useEffect, useRef, type PointerEvent as ReactPointerEvent } from 'react'
-import type { DecorationElement, StrokeElement, TextElement } from '../api'
+import { resolveImage, type DecorationElement, type StrokeElement, type TextElement } from '../api'
 
 type Props = {
   /** photo under the overlay; drawn only when rendering the composite */
@@ -108,7 +108,7 @@ function drawText(ctx: CanvasRenderingContext2D, el: TextElement, w: number, h: 
  * a transparent overlay PNG and a composite JPEG (photo + overlay).
  */
 export async function renderImages(photoUrl: string, elements: DecorationElement[], width = 1200): Promise<{ overlay: Blob; composite: Blob }> {
-  const img = await loadImage(photoUrl)
+  const img = await loadImage(await resolveImage(photoUrl))
   const w = width
   const h = Math.round((img.naturalHeight / img.naturalWidth) * w) || Math.round(w * 0.75)
 

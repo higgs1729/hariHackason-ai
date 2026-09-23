@@ -26,7 +26,8 @@ export const routes = {
   share: (albumId: number) => `/album/${albumId}/share`,
   capsuleCreate: (albumId: number) => `/album/${albumId}/capsule/new`,
   capsuleDone: (capsuleId: number) => `/capsule/${capsuleId}`,
-  detail: (albumId: number) => `/album/${albumId}`,
+  /** `capsuleId` shows that opened capsule's message above the album; it survives a reload */
+  detail: (albumId: number, capsuleId?: number) => `/album/${albumId}${capsuleId ? `?capsule=${capsuleId}` : ''}`,
 } as const
 
 export type RouteKey = keyof typeof routes

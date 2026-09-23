@@ -34,6 +34,8 @@ interface RequestOptions {
   headers?: Record<string, string>
   /** skip Authorization + refresh logic (auth endpoints) */
   anonymous?: boolean
+  /** read the body as a Blob instead of JSON (images) */
+  blob?: boolean
 }
 
 async function parseError(res: Response): Promise<ApiError> {
@@ -84,6 +86,7 @@ async function rawRequest<T>(path: string, opts: RequestOptions = {}): Promise<{
   }
   if (!res.ok) throw await parseError(res)
   if (res.status === 204) return { data: undefined as T, res }
+  if (opts.blob) return { data: (await res.blob()) as T, res }
   const text = await res.text()
   return { data: (text ? JSON.parse(text) : undefined) as T, res }
 }
@@ -104,6 +107,14 @@ async function request<T>(path: string, opts: RequestOptions = {}): Promise<{ da
 }
 
 const json = async <T>(path: string, opts?: RequestOptions) => (await request<T>(path, opts)).data
+
+/**
+ * GET an image that sits behind auth (`/api/photos/{id}`, `/thumb`, `/composite`).
+ * `<img>` and CSS backgrounds cannot send `Authorization`, so the caller turns
+ * the Blob into an object URL. Same refresh-on-TOKEN_EXPIRED rule as JSON calls.
+ */
+export const fetchImage = async (apiUrl: string): Promise<Blob> =>
+  (await request<Blob>(apiUrl.replace(/^\/api/, ''), { blob: true })).data
 
 /** Reads the ETag header as the numeric `version`. */
 function etagVersion(res: Response): number {
@@ -193,5 +204,9 @@ export const httpApi: Api = {
     get: (capsuleId) => json(`/capsules/${capsuleId}`),
     open: (capsuleId) => json(`/capsules/${capsuleId}/open`, { method: 'POST' }),
     unsealNow: (capsuleId) => json(`/capsules/${capsuleId}/unseal-now`, { method: 'POST' }),
+  },
+
+  hints: {
+    shoot: (body) => json('/hints/shoot', { method: 'POST', json: body }),
   },
 }
