@@ -2,6 +2,9 @@ package com.hanamizuki.backend.domain;
 
 import com.hanamizuki.backend.domain.enums.FriendStatus;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -28,6 +31,7 @@ public class Friend extends BaseEntity {
     @Column(nullable = false)
     private Long friendId;
 
+    @JdbcTypeCode(SqlTypes.TINYINT)
     @Column(nullable = false)
     private FriendStatus status = FriendStatus.PENDING;
 

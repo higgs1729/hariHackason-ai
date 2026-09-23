@@ -6,6 +6,9 @@ import java.time.LocalDateTime;
 import com.hanamizuki.backend.domain.enums.MediaType;
 import com.hanamizuki.backend.domain.enums.TakenTimeSource;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -61,7 +64,9 @@ public class Photo extends BaseEntity {
     private String picFormat;
 
     /** Same user + same hash means a repeat upload. */
-    @Column(length = 64)
+    // char, not varchar: a hex SHA-256 is always exactly 64 characters,
+    // and the DDL says so. Hibernate asks for varchar unless told.
+    @Column(length = 64, columnDefinition = "char(64)")
     private String sha256;
 
     /** VIDEO is reserved; uploads are rejected for now. */
@@ -84,6 +89,7 @@ public class Photo extends BaseEntity {
     private BigDecimal longitude;
 
     /** Kept for the record only. The pixels are already upright. */
+    @JdbcTypeCode(SqlTypes.TINYINT)
     private Integer exifOrientation;
 
     /** How many albums use this photo. Zero is the definition of "unassigned". */
@@ -91,5 +97,6 @@ public class Photo extends BaseEntity {
     private int albumNum;
 
     @Column(nullable = false)
+    @JdbcTypeCode(SqlTypes.TINYINT)
     private boolean isDelete;
 }

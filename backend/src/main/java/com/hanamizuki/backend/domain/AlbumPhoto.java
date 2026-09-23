@@ -114,5 +114,6 @@ public class AlbumPhoto extends BaseEntity {
     private int version;
 
     @Column(nullable = false)
+    @JdbcTypeCode(SqlTypes.TINYINT)
     private boolean isDelete;
 }

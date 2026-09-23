@@ -25,7 +25,7 @@ public class RefreshToken extends BaseEntity {
     private Long userId;
 
     /** SHA-256 of the token. The plaintext only ever exists in the response. */
-    @Column(nullable = false, length = 64)
+    @Column(nullable = false, length = 64, columnDefinition = "char(64)")
     private String tokenHash;
 
     @Column(nullable = false, length = 64)

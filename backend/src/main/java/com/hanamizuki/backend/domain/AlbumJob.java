@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 
 import com.hanamizuki.backend.domain.enums.JobStatus;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
@@ -56,6 +59,7 @@ public class AlbumJob extends BaseEntity {
     private int progress;
 
     @Column(nullable = false)
+    @JdbcTypeCode(SqlTypes.TINYINT)
     private boolean aiGenerated;
 
     @Column(length = 64)
