@@ -91,6 +91,19 @@
   gap: 8px;
 }
 
+.ideas {
+  display: flex;
+  gap: 8px;
+  margin: 0 -20px;
+  padding: 0 20px 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.ideas .chip {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
 .chip,
 .chipOn {
   min-height: 40px;

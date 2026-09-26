@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { IconMinus, IconPlus, IconSparkles, IconX } from '@tabler/icons-react'
 import { api, type ApiError, type ShootHint } from '../api'
+import { ideaToHint, shootIdeas } from '../shootIdeas'
 import { toApiError } from '../state/useAsync'
 import { ErrorNote } from './Notice'
 import styles from './ShootHintSheet.module.css'
@@ -106,6 +107,20 @@ export function ShootHintSheet({ onClose, onUse }: Props) {
             <button type="submit" className={styles.primary} disabled={busy}>
               {busy ? '考え中…' : '聞いてみる'}
             </button>
+
+            {/* no API call: works even when the AI is down */}
+            <div className={styles.field}>
+              <span className={styles.label}>お題から選ぶ</span>
+              <div className={styles.ideas}>
+                {shootIdeas
+                  .filter((x) => x.minMembers <= count)
+                  .map((x) => (
+                    <button key={x.title} type="button" className={styles.chip} onClick={() => setHint(ideaToHint(x))}>
+                      {x.title}
+                    </button>
+                  ))}
+              </div>
+            </div>
           </form>
         )}
       </section>

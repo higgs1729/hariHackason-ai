@@ -1,28 +1,31 @@
 /**
  * Every photo / illustration slot in the UI resolves through this map.
- * Values are CSS `background` strings today (gradient placeholders).
- * When generated images arrive, replace a value with `url(...)` and nothing
- * else needs to change.
+ * Values are CSS `background-image` strings: photos from `public/photos/`
+ * (cells cut from the sample contact sheets, about 295x245 each).
+ * Full-screen slots put a gradient over the photo: it keeps white text
+ * readable and hides the upscaling of a small cell.
  */
+const photo = (cell: string) => `url("/photos/${cell}.jpg")`
+
 export const assets = {
   /** sunset over the river, city skyline (home / capsule create background) */
-  skySunset: 'linear-gradient(180deg, #8fb8ec 0%, #c7d9f3 35%, #f0c9b8 62%, #4a6ea6 100%)',
+  skySunset: `linear-gradient(180deg, rgba(20, 38, 77, 0.35) 0%, rgba(20, 38, 77, 0) 40%, rgba(20, 38, 77, 0.55) 100%), ${photo('s2r2c3')}`,
   /** deep night sky (time capsule complete) */
-  skyNight: 'linear-gradient(180deg, #0f1f4a 0%, #1c3a78 55%, #2b4f93 100%)',
+  skyNight: `linear-gradient(180deg, rgba(15, 31, 74, 0.55) 0%, rgba(15, 31, 74, 0.25) 55%, rgba(15, 31, 74, 0.7) 100%), ${photo('s1r4c5')}`,
   /** friends at sunset, viewed from behind (camera preview / album hero) */
-  friendsSunset: 'linear-gradient(180deg, #7fb0ea 0%, #e6b8a6 45%, #b8825f 62%, #2a3550 100%)',
+  friendsSunset: `linear-gradient(180deg, rgba(20, 38, 77, 0.25) 0%, rgba(20, 38, 77, 0) 45%, rgba(20, 38, 77, 0.4) 100%), ${photo('s1r1c2')}`,
   /** generic album photo tiles */
-  tile1: 'linear-gradient(160deg, #6fa3e6, #f2c2a8 60%, #2f4a7a)',
-  tile2: 'linear-gradient(200deg, #4d7ec4, #d6b3c7 55%, #1f3560)',
-  tile3: 'linear-gradient(140deg, #8fc0f0, #f7d1b0 50%, #35507f)',
-  tile4: 'linear-gradient(180deg, #5f8fd2, #edc0a4 58%, #26406f)',
-  tile5: 'linear-gradient(220deg, #7aa8e8, #e8bfb5 50%, #2c4577)',
-  tile6: 'linear-gradient(120deg, #9ac5f2, #f4c9a9 60%, #3b5a8c)',
+  tile1: photo('s1r2c3'),
+  tile2: photo('s2r4c3'),
+  tile3: photo('s1r3c1'),
+  tile4: photo('s2r1c3'),
+  tile5: photo('s3r2c4'),
+  tile6: photo('s1r4c2'),
   /** avatars */
-  avatarMe: 'linear-gradient(135deg, #f7c9d9, #9dc3f2)',
-  avatarA: 'linear-gradient(135deg, #f9d7b5, #9dc3f2)',
-  avatarB: 'linear-gradient(135deg, #cfe3f9, #f5b8c8)',
-  avatarC: 'linear-gradient(135deg, #b5d5f6, #f9dcb3)',
+  avatarMe: photo('s1r2c4'),
+  avatarA: photo('s2r3c1'),
+  avatarB: photo('s2r1c4'),
+  avatarC: photo('s2r3c2'),
 } as const
 
 export type AssetKey = keyof typeof assets

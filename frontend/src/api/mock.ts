@@ -13,6 +13,7 @@
  */
 import type { Api } from './contract'
 import { tokens } from './tokens'
+import { ideaToHint, shootIdeas } from '../shootIdeas'
 import {
   ApiError,
   type Album,
@@ -37,20 +38,16 @@ const fail = (status: number, code: ApiError['code'], message: string = code): n
   throw new ApiError(status, { code, message })
 }
 
-/** Gradient placeholder as a data URL so <img src> works without a server. */
-function gradientImage(a: string, b: string, w = 1200, h = 900): string {
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient></defs><rect width="100%" height="100%" fill="url(#g)"/></svg>`
-  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`
-}
-
-const palette: [string, string][] = [
-  ['#6fa3e6', '#f2c2a8'],
-  ['#4d7ec4', '#d6b3c7'],
-  ['#8fc0f0', '#f7d1b0'],
-  ['#5f8fd2', '#edc0a4'],
-  ['#7aa8e8', '#e8bfb5'],
-  ['#9ac5f2', '#f4c9a9'],
+/**
+ * Seed photos, in seeding order: 6 for 最高の1日, 4 for 部活, 5 unassigned.
+ * Cells cut from the sample contact sheets; see public/photos/README.md.
+ */
+const seedImages = [
+  's1r1c1', 's1r2c2', 's1r4c3', 's1r3c5', 's3r1c5', 's1r2c5',
+  's2r1c5', 's4r4c1', 's1r2c1', 's3r3c3',
+  's1r2c3', 's2r4c3', 's1r4c2', 's2r1c3', 's1r1c3',
 ]
+const photo = (cell: string) => `/photos/${cell}.jpg`
 
 // ---------------------------------------------------------------------------
 // state
@@ -60,12 +57,12 @@ let nextId = 1000
 const id = () => nextId++
 
 const users: User[] = [
-  { id: 12, userAccount: 'nao', userName: 'わたし', userAvatar: gradientImage('#f7c9d9', '#9dc3f2', 200, 200), userProfile: null, userRole: 'user' },
-  { id: 13, userAccount: 'ayaka', userName: 'あやか', userAvatar: gradientImage('#f9d7b5', '#9dc3f2', 200, 200), userProfile: null, userRole: 'user' },
-  { id: 14, userAccount: 'miki', userName: 'みき', userAvatar: gradientImage('#cfe3f9', '#f5b8c8', 200, 200), userProfile: null, userRole: 'user' },
-  { id: 15, userAccount: 'rin', userName: 'りん', userAvatar: gradientImage('#b5d5f6', '#f9dcb3', 200, 200), userProfile: null, userRole: 'user' },
+  { id: 12, userAccount: 'nao', userName: 'わたし', userAvatar: photo('s1r2c4'), userProfile: null, userRole: 'user' },
+  { id: 13, userAccount: 'ayaka', userName: 'あやか', userAvatar: photo('s2r3c1'), userProfile: null, userRole: 'user' },
+  { id: 14, userAccount: 'miki', userName: 'みき', userAvatar: photo('s2r1c4'), userProfile: null, userRole: 'user' },
+  { id: 15, userAccount: 'rin', userName: 'りん', userAvatar: photo('s2r3c2'), userProfile: null, userRole: 'user' },
   // not a friend yet: the QR demo adds her (token `sora-demo`)
-  { id: 16, userAccount: 'sora', userName: 'そら', userAvatar: gradientImage('#d9c9f7', '#9dc3f2', 200, 200), userProfile: null, userRole: 'user' },
+  { id: 16, userAccount: 'sora', userName: 'そら', userAvatar: photo('s2r2c4'), userProfile: null, userRole: 'user' },
 ]
 const passwords = new Map<string, string>([
   ['nao', 'password'],
@@ -93,20 +90,21 @@ const capsules: (Capsule & { ownerId: number; albumId: number; capsuleMsgStored:
 const shares = new Map<number, string>() // albumId → token
 
 let me: User | null = null
+let hintTurn = 0
 
 function seedPhotos(ownerId: number, count: number, base: Date, gapMin: number) {
   for (let i = 0; i < count; i++) {
-    const [a, b] = palette[i % palette.length]
+    const cell = seedImages[photos.length % seedImages.length]
     const taken = new Date(base.getTime() + i * gapMin * 60_000)
     const pid = id()
     photos.push({
       id: pid,
       ownerId,
-      url: gradientImage(a, b),
-      thumbUrl: gradientImage(a, b, 400, 300),
-      picWidth: 1200,
-      picHeight: 900,
-      picScale: 1.333,
+      url: photo(cell),
+      thumbUrl: photo(cell),
+      picWidth: 295,
+      picHeight: 245,
+      picScale: 1.204,
       takenTime: iso(taken),
       takenTimeSource: 'EXIF',
       latitude: 34.7025,
@@ -173,7 +171,7 @@ function seed() {
   seedPhotos(12, 6, day, 20) // one cluster → album
   albums.push(buildAlbum(12, photos.slice(0, 6), '最高の1日', 'テスト終わりの放課後、みんなで梅田へ。', '梅田'))
   seedPhotos(12, 4, new Date('2026-09-13T05:00:00Z'), 15)
-  albums.push(buildAlbum(12, photos.slice(6, 10), '土曜の部活のあと', '練習終わりにみんなでアイス。', '天王寺'))
+  albums.push(buildAlbum(12, photos.slice(6, 10), '土曜の部活のあと', '練習終わりにみんなでバスケ。', '天王寺'))
   // shared albums, so reunion mode has something to play
   const member = (albumIdx: number, userId: number) => {
     const u = users.find((x) => x.id === userId)!
@@ -513,13 +511,10 @@ export const mockApi: Api = {
     async shoot(body) {
       requireMe()
       await delay(600)
+      // okinn's prikura prompts in turn, skipping ones that need more people
       const n = body.memberCount ?? body.memberNames?.length ?? 2
-      const who = body.memberNames?.length ? body.memberNames.join('と') : `${n}人`
-      return {
-        hint: `${who}で、ひとりずつカメラに向かって走ってきて最後に全員でジャンプ！`,
-        poses: ['全員で指ハート', '背中合わせで振り向く', 'ひとりだけ変顔'],
-        aiGenerated: 0,
-      }
+      const fits = shootIdeas.filter((x) => x.minMembers <= n)
+      return ideaToHint(fits[hintTurn++ % fits.length])
     },
   },
 }
