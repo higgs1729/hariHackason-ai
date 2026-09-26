@@ -65,7 +65,7 @@ tok = auth["accessToken"]
 # touching the picture; decoders ignore trailing data.
 import tempfile
 
-source = sorted(glob.glob("storage/photos/seed/*.jpg"))[:6]
+source = sorted(glob.glob("storage*/photos/seed/*.jpg"))[:6]
 workdir = tempfile.mkdtemp()
 files = []
 for n, src in enumerate(source):

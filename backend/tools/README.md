@@ -55,3 +55,23 @@ than starting a second run, then polls the job to `READY`.
 
 Without an `ANTHROPIC_API_KEY` the album comes back with a rule-based title
 and `aiGenerated: 0`. That is the fallback working, not a failure.
+
+## stub-openrouter.py
+
+A stand-in for OpenRouter, so the AI paths can be exercised without a key.
+
+Answers `/api/v1/chat/completions` in the documented shape, reads the real
+photo ids out of the prompt, and returns Japanese copy matching whichever
+schema the request asked for. Everything from the service layer to the wire is
+the real code path — only the provider is pretend.
+
+```bash
+python tools/stub-openrouter.py 8099
+./mvnw spring-boot:run -Dspring-boot.run.profiles=local,dev   -Dspring-boot.run.arguments="--app.ai.provider=openrouter     --app.ai.openrouter.api-key=stub-key     --app.ai.openrouter.base-url=http://127.0.0.1:8099/api/v1"
+python tools/check-shoot-hint.py           # aiGenerated flips to 1
+python tools/check-upload-and-generate.py  # album comes back with AI copy
+```
+
+It prints one line per call with the schema name and how many images went up,
+which is the quickest way to see whether a request is even reaching the
+provider when something returns the fallback.

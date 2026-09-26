@@ -18,4 +18,15 @@ public interface AlbumEnricher {
 
     /** False when there is no API key, so the caller can skip the attempt. */
     boolean isAvailable();
+
+    /**
+     * What actually wrote the copy, recorded on {@code album.aiModel}.
+     *
+     * <p>Asked of the implementation rather than read from a property: the
+     * provider and the model are chosen together, and a service reading
+     * {@code app.ai.model} while OpenRouter served the request from
+     * {@code anthropic/claude-sonnet-5} would file the wrong answer under the
+     * right-looking name.
+     */
+    String model();
 }

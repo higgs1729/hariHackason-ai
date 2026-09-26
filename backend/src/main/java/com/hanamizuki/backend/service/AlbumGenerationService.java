@@ -58,14 +58,12 @@ public class AlbumGenerationService {
     private final PhotoClusterer clusterer;
     private final AlbumEnricher enricher;
     private final ObjectMapper objectMapper;
-    private final String aiModel;
 
     public AlbumGenerationService(AlbumJobRepository jobs, PhotoRepository photos,
                                   AlbumRepository albums, AlbumMemberRepository albumMembers,
                                   AlbumPhotoRepository albumPhotos, UserRepository users,
                                   PhotoClusterer clusterer, AlbumEnricher enricher,
-                                  ObjectMapper objectMapper,
-                                  @org.springframework.beans.factory.annotation.Value("${app.ai.model}") String aiModel) {
+                                  ObjectMapper objectMapper) {
         this.jobs = jobs;
         this.photos = photos;
         this.albums = albums;
@@ -75,7 +73,6 @@ public class AlbumGenerationService {
         this.clusterer = clusterer;
         this.enricher = enricher;
         this.objectMapper = objectMapper;
-        this.aiModel = aiModel;
     }
 
     /**
@@ -214,7 +211,7 @@ public class AlbumGenerationService {
         album.setSummary(draft == null ? null : draft.summary());
         album.setAlbumDate(cluster.get(0).getTakenTime().toLocalDate());
         album.setAiGenerated(draft != null);
-        album.setAiModel(draft == null ? null : aiModel);
+        album.setAiModel(draft == null ? null : enricher.model());
         album.setUserId(owner.getId());
         album.setUserName(owner.getUserName());
         album.setPhotoNum(cluster.size());

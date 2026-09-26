@@ -294,3 +294,86 @@ POST /api/hints/shoot
 - `types.ts` にまだ型が無い。上の形で追加してほしい
 - `aiGenerated` で表示を変えないこと（§8.1）
 - 429 のときだけ「少し待ってね」を出す。それ以外は常に文言が返る
+
+---
+
+## 9. OpenRouter — Q-13 の回避策（実装済み）
+
+`ANTHROPIC_API_KEY` が取れないまま当日を迎えたため、
+**OpenRouter 経由でも動くようにした。** 2026-09-26 実装。
+
+```
+app.ai.provider=openrouter
+OPENROUTER_API_KEY=sk-or-...
+```
+
+これだけ。Anthropic 側のコードは1行も変えていない。
+
+### 9.1 baseUrl の差し替えでは済まない
+
+OpenRouter は **OpenAI 形式のみ**（`/api/v1/chat/completions`）。
+Anthropic ネイティブの `/v1/messages` は無い。
+つまり `com.anthropic:anthropic-java` を向け直すことはできず、
+`AlbumEnricher` / `ShootHinter` の**2つ目の実装**になる。
+
+もともとこの2つをインターフェースにしておいたので、追加だけで済んだ。
+既存の Claude 実装は `@ConditionalOnProperty` が付いただけ。
+
+| | Anthropic | OpenRouter |
+|---|---|---|
+| 画像 | `Base64ImageSource` ブロック | `image_url` + `data:` URI |
+| 構造化出力 | `.outputConfig(Record.class)` | `response_format: json_schema` |
+| スキーマ | SDK が record から生成 | `JsonSchemas` が record から生成 |
+
+プロンプトと検証（`AlbumPrompt` / `ShootPrompt`）は**共通**。
+日本語の文面を2箇所に置くと、片方だけ直されて静かにずれる。
+
+### 9.2 モデルは3つ並べてある
+
+```
+anthropic/claude-sonnet-5, google/gemini-3.8-flash, openai/gpt-6-luna-pro
+```
+
+`models[]` + `route:"fallback"` で、先頭が使えなければ次に回る。
+**わざとベンダーを跨いである。** 当日 Anthropic が不調でも
+アルバムは誰かが書いてくれて、規則ベースの兜底は
+「最初に出るもの」ではなく「最後の手段」のままでいられる。
+
+全スラッグは 2026-09-26 に `GET /api/v1/models` で
+画像入力と構造化出力の対応を確認済み。
+
+### 9.3 `album.aiModel` が正しくなった
+
+これまで `${app.ai.model}` を直接読んでいたので、
+OpenRouter 経由だと「設定ファイルの値」であって
+「実際に書いたモデル」ではなくなる。
+`AlbumEnricher.model()` を足して実装に聞くようにした。
+
+### 9.4 費用
+
+`claude-sonnet-5` で概算:
+
+| | トークン | 費用 |
+|---|---|---|
+| アルバム1本（写真12枚を1080pに縮小） | 約24k in / 1k out | **約 $0.06** |
+| プリクラのヒント1回 | 約0.5k in / 0.2k out | **$0.01 未満** |
+
+デモ1回で数十円。`app.ai.hint-rate-limit` は据え置きで問題ない。
+
+### 9.5 キーが無くても検証できる
+
+`backend/tools/stub-openrouter.py` が OpenRouter の応答形式を模倣する。
+サービス層からワイヤーまで**実コードのまま**で、提供元だけが偽物。
+
+これで確認した内容（キー無し、2026-09-26）:
+
+```
+プリクラ           aiGenerated=1、日本語のヒントとポーズ3件
+アルバム           aiGenerated=1、タイトル「夕方まで笑ってた」
+                  写真6枚ぶんの caption / weather / place / comment
+画像               base64 で6枚送信されている（スタブ側で計数）
+aiModel            anthropic/claude-sonnet-5
+```
+
+**この時点まで、このプロジェクトで `aiGenerated` が 1 になったことは一度も無かった。**
+残る未検証は OpenRouter 自身の挙動だけ。
