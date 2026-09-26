@@ -375,7 +375,10 @@ export interface FriendQr {
 export const friendQrPayload = (qrToken: string) => `ai://friend/${qrToken}`
 export const parseFriendQr = (text: string): string | null => /^ai:\/\/friend\/([A-Za-z0-9_-]+)$/.exec(text.trim())?.[1] ?? null
 
-export interface FriendRequests {
-  incoming: User[]
-  outgoing: User[]
+/** Row of `GET /api/friends/requests`: someone asked to be your friend. `id` goes to accept. */
+export interface FriendRequest {
+  id: number
+  userId: number
+  userName: string | null
+  userAvatar: string | null
 }

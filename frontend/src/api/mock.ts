@@ -277,6 +277,9 @@ export const mockApi: Api = {
       const ids = friends.get(u.id) ?? new Set()
       return users.filter((x) => ids.has(x.id))
     },
+    async incoming() {
+      return []
+    },
     async request(userId) {
       const u = requireMe()
       // mock: auto-accept so the demo does not need a second phone

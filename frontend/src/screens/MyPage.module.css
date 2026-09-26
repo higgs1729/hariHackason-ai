@@ -243,3 +243,58 @@
   font-size: 14px;
   font-weight: 700;
 }
+
+/* friend search (FR-08) */
+.search {
+  margin-bottom: 8px;
+}
+.searchForm {
+  display: flex;
+  gap: 8px;
+}
+.searchForm input {
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--blue-300);
+  border-radius: var(--radius-pill);
+  background: var(--white);
+  color: var(--navy-900);
+  font-size: 15px;
+}
+.searchForm button,
+.rowAction {
+  flex-shrink: 0;
+  min-height: 40px;
+  padding: 0 16px;
+  border-radius: var(--radius-pill);
+  background: var(--navy-900);
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 700;
+}
+.searchForm button:disabled,
+.rowAction:disabled {
+  opacity: 0.45;
+}
+.rowAction {
+  margin-left: auto;
+}
+.friendBadge {
+  flex-shrink: 0;
+  margin-left: auto;
+  color: var(--text-3);
+  font-size: 13px;
+}
+.searchEmpty {
+  padding: 14px 0;
+  color: var(--text-3);
+  font-size: 14px;
+}
+.subhead {
+  margin: 16px 0 4px;
+  color: var(--navy-700);
+  font-size: 14px;
+  font-weight: 700;
+}

@@ -1,7 +1,7 @@
 import { useState, type FormEvent, type ReactNode } from 'react'
 import { IconCamera, IconChevronRight, IconLock, IconLockOpen, IconPencil, IconQrcode, IconUser } from '@tabler/icons-react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
-import { api, tokens, type ApiError, type Capsule } from '../api'
+import { api, tokens, type ApiError, type Capsule, type User } from '../api'
 import { ErrorNote, Loading } from '../components/Notice'
 import { Photo } from '../components/Photo'
 import { Screen } from '../components/Screen'
@@ -187,12 +187,32 @@ function CapsuleRow({ c }: { c: Capsule }) {
 }
 
 function FriendsTab() {
-  const friends = useAsync(() => api.friends.list(), [])
+  const [version, setVersion] = useState(0)
+  const friends = useAsync(() => api.friends.list(), [version])
+  const incoming = useAsync(() => api.friends.incoming(), [version])
+  const changed = () => setVersion((v) => v + 1)
   return (
     <>
       <Link to={routes.friendQr()} className={styles.addFriend}>
         <IconQrcode size={20} stroke={1.8} aria-hidden="true" /> QRで友達を追加
       </Link>
+      <FriendSearch friendIds={new Set((friends.data ?? []).map((f) => f.id))} onChange={changed} />
+      {incoming.data && incoming.data.length > 0 && (
+        <section aria-label="友達申請">
+          <h2 className={styles.subhead}>友達申請</h2>
+          <ul className={styles.list}>
+            {incoming.data.map((r) => (
+              <li key={r.id} className={styles.row}>
+                <span className={styles.iconOpened}>
+                  <IconUser size={22} stroke={1.7} aria-hidden="true" />
+                </span>
+                <span className={styles.rowTitle}>{r.userName ?? `ユーザー${r.userId}`}</span>
+                <ActionButton label="承認" doneLabel="友達になりました" aria={`${r.userName ?? ''}の申請を承認`} run={() => api.friends.accept(r.id)} onDone={changed} />
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
       <TabBody state={friends} empty="まだ友達がいません">
         {(items) => (
           <ul className={styles.list}>
@@ -219,5 +239,73 @@ function FriendsTab() {
         )}
       </TabBody>
     </>
+  )
+}
+
+/** FR-08: find someone by ID or name and send a request (they approve it from their own list). */
+function FriendSearch({ friendIds, onChange }: { friendIds: Set<number>; onChange: () => void }) {
+  const [q, setQ] = useState('')
+  const [results, setResults] = useState<User[] | null>(null)
+  const [error, setError] = useState<ApiError | null>(null)
+  const search = async (e: FormEvent) => {
+    e.preventDefault()
+    setError(null)
+    try {
+      setResults(await api.users.search(q.trim()))
+    } catch (err) {
+      setError(toApiError(err))
+    }
+  }
+  return (
+    <div className={styles.search}>
+      <form className={styles.searchForm} onSubmit={search} role="search">
+        <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="IDか名前でさがす" aria-label="友達をさがす" autoCapitalize="none" />
+        <button type="submit" disabled={!q.trim()}>
+          さがす
+        </button>
+      </form>
+      <ErrorNote error={error} />
+      {results && (
+        <ul className={styles.list} aria-label="検索結果">
+          {results.length === 0 && <li className={styles.searchEmpty}>見つかりませんでした</li>}
+          {results.map((u) => (
+            <li key={u.id} className={styles.row}>
+              <span className={styles.iconOpened}>
+                <IconUser size={22} stroke={1.7} aria-hidden="true" />
+              </span>
+              <span className={styles.rowText}>
+                <span className={styles.rowTitle}>{u.userName ?? u.userAccount}</span>
+                <span className={styles.rowSub}>@{u.userAccount}</span>
+              </span>
+              {friendIds.has(u.id) ? (
+                <span className={styles.friendBadge}>友達</span>
+              ) : (
+                <ActionButton label="申請" doneLabel="申請しました" aria={`${u.userName ?? u.userAccount}に友達申請`} run={() => api.friends.request(u.id)} onDone={onChange} />
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  )
+}
+
+function ActionButton({ label, doneLabel, aria, run, onDone }: { label: string; doneLabel: string; aria: string; run: () => Promise<unknown>; onDone: () => void }) {
+  const [state, setState] = useState<'idle' | 'busy' | 'done' | 'error'>('idle')
+  const click = async () => {
+    setState('busy')
+    try {
+      await run()
+      setState('done')
+      onDone()
+    } catch {
+      setState('error')
+    }
+  }
+  if (state === 'done') return <span className={styles.friendBadge}>{doneLabel}</span>
+  return (
+    <button type="button" className={styles.rowAction} onClick={click} disabled={state === 'busy'} aria-label={aria}>
+      {state === 'error' ? 'もう一度' : label}
+    </button>
   )
 }

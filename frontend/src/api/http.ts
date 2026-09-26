@@ -140,6 +140,7 @@ export const httpApi: Api = {
 
   friends: {
     list: () => json('/friends'),
+    incoming: () => json('/friends/requests'),
     request: (userId) => json('/friends/requests', { method: 'POST', json: { userId } }),
     accept: (requestId) => json(`/friends/requests/${requestId}/accept`, { method: 'POST' }),
     qr: () => json('/friends/qr', { method: 'POST' }),

@@ -16,6 +16,7 @@ import type {
   DecorationElement,
   DecorationWithVersion,
   FriendQr,
+  FriendRequest,
   GenerateJob,
   ListPhotosParams,
   LoginRequest,
@@ -47,6 +48,8 @@ export interface UsersApi {
 
 export interface FriendsApi {
   list(): Promise<User[]>
+  /** Requests waiting for my answer. */
+  incoming(): Promise<FriendRequest[]>
   request(userId: number): Promise<void>
   accept(requestId: number): Promise<void>
   /** 05 §3.2 (backend P1). A fresh token each call. */
