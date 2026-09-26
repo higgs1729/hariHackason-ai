@@ -81,23 +81,23 @@ export function Home() {
             )}
             <input
               className={styles.field}
-              placeholder="ID（4文字以上）"
+              placeholder={mode === 'login' ? 'ID' : 'ID（4文字以上）'}
               value={account}
               onChange={(e) => setAccount(e.target.value)}
               autoComplete="username"
               autoCapitalize="none"
               required
-              minLength={4}
+              minLength={mode === 'login' ? undefined : 4}
             />
             <input
               className={styles.field}
               type="password"
-              placeholder="パスワード（8文字以上）"
+              placeholder={mode === 'login' ? 'パスワード' : 'パスワード（8文字以上）'}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
               required
-              minLength={8}
+              minLength={mode === 'login' ? undefined : 8}
             />
             <ErrorNote error={error} />
             <button type="submit" className={styles.start} disabled={busy}>
