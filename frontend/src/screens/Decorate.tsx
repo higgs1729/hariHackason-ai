@@ -173,7 +173,7 @@ export function Decorate() {
         </button>
         <span className={styles.colors}>
           {COLORS.map((c) => (
-            <button key={c} type="button" className={`${styles.swatch} ${c === color ? styles.swatchOn : ''}`} style={{ background: c }} aria-label={`色 ${c}`} onClick={() => setColor(c)} />
+            <button key={c} type="button" className={`${styles.swatch} ${c === color ? styles.swatchOn : ''}`} style={{ background: c }} aria-label={`色 ${c}`} aria-pressed={c === color} onClick={() => setColor(c)} />
           ))}
         </span>
       </div>
