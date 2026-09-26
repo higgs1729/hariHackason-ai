@@ -1,5 +1,10 @@
 package com.hanamizuki.backend.service;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -45,6 +50,16 @@ public class DevSeedService {
 
     /** Matches the credentials the frontend mock uses, so switching modes needs no retyping. */
     private static final String DEMO_PASSWORD = "password";
+
+    /**
+     * Sample photos the frontend already ships (frontend/public/photos), so the
+     * http demo shows the same pictures as the mock. Relative to backend/, the
+     * working directory under mvnw. Missing files fall back to a placeholder.
+     */
+    private static final Path SAMPLE_DIR = Path.of("../frontend/public/photos");
+    private static final List<String> SAMPLES = List.of(
+            "s1r1c1", "s1r2c2", "s1r4c3", "s1r3c5", "s3r1c5", "s1r2c5",
+            "s3r3c3", "s1r2c1", "s2r4c3", "s1r4c2");
 
     private final UserRepository users;
     private final FriendRepository friends;
@@ -144,9 +159,6 @@ public class DevSeedService {
             photo.setUserId(owner.getId());
             photo.setUserName(owner.getUserName());
             photo.setPicName("seed-%d.jpg".formatted(i - variant));
-            photo.setPicWidth(800);
-            photo.setPicHeight(600);
-            photo.setPicScale(800d / 600d);
             photo.setPicFormat("jpeg");
             // Minutes apart, so they land in one cluster rather than several.
             photo.setTakenTime(start.plusMinutes(7L * (i - variant)));
@@ -158,7 +170,12 @@ public class DevSeedService {
             photo.setFilePath("");
             photos.save(photo);
 
-            byte[] jpeg = PlaceholderImages.jpeg(800, 600, i);
+            byte[] sample = sample(i);
+            byte[] jpeg = sample != null ? sample : PlaceholderImages.jpeg(800, 600, i);
+            int[] size = size(jpeg);
+            photo.setPicWidth(size[0]);
+            photo.setPicHeight(size[1]);
+            photo.setPicScale((double) size[0] / size[1]);
             photo.setPicSize((long) jpeg.length);
             // Seeded rows were leaving this null, which meant they could never
             // match a re-upload — seed data behaving differently from uploaded
@@ -166,12 +183,31 @@ public class DevSeedService {
             // the demo. Same digest the upload path computes.
             photo.setSha256(sha256(jpeg));
             photo.setFilePath(storage.write("photos/seed/%d.jpg".formatted(photo.getId()), jpeg));
+            // Samples are already thumbnail-sized, so they are their own thumb.
             photo.setThumbPath(storage.write("thumbs/seed/%d.jpg".formatted(photo.getId()),
-                    PlaceholderImages.jpeg(400, 300, i)));
+                    sample != null ? sample : PlaceholderImages.jpeg(400, 300, i)));
             created.add(photo);
         }
         owner.setPhotoNum(owner.getPhotoNum() + count);
         return created;
+    }
+
+    private static byte[] sample(int i) {
+        if (i >= SAMPLES.size()) return null;
+        try {
+            return Files.readAllBytes(SAMPLE_DIR.resolve(SAMPLES.get(i) + ".jpg"));
+        } catch (IOException e) {
+            return null;
+        }
+    }
+
+    private static int[] size(byte[] jpeg) {
+        try {
+            BufferedImage image = javax.imageio.ImageIO.read(new ByteArrayInputStream(jpeg));
+            return new int[] {image.getWidth(), image.getHeight()};
+        } catch (IOException e) {
+            throw new IllegalStateException("seed image is not readable", e);
+        }
     }
 
     private Album album(User owner, String title, String summary, String place,

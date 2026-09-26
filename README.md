@@ -53,12 +53,26 @@ Smoke test for the backend: `GET http://localhost:8080/api/hello`.
 
    PowerShell: `$env:VITE_API_MODE='http'; npm run dev`.
 
+## Demo on a phone (one origin, HTTPS)
+
+The camera, QR scan and `navigator.share` need HTTPS, and the LINE crawler
+needs `/s/{token}`, so the demo runs everything from Spring behind one tunnel
+(02-basic-design §1.2).
+
+1. `cd frontend; npm run build` — Spring serves `frontend/dist` directly
+   (`spring.web.resources.static-locations`), no copy step. Rebuild after
+   every frontend change; the backend does not need a restart.
+2. Start the backend (step 2 above) and seed it. http://localhost:8080 is now the app.
+3. `cloudflared tunnel --url http://localhost:8080` and open the printed
+   `https://….trycloudflare.com` URL on the phone. The URL changes on every
+   start; share links use whatever host the request came in on.
+
 ## UI mock (current state)
 
 Single-theme React mock of the 8 screens on the presentation poster (`image-1.png`, see `DESIGN.md`).
 Screens are wired in the poster's flow order; tapping the primary action moves to the next screen.
-Photos, the "ai" logo lettering and the capsule illustration are gradient placeholders until generated images land
-(swap them in `frontend/src/assets/index.ts`). Illegible poster text is inferred and tagged in `frontend/MOCK_SPEC.md`.
+Placeholder photos come from the sample contact sheets (`frontend/public/photos/`, mapped in `frontend/src/assets/index.ts`);
+the screenshots below predate them. Illegible poster text is inferred and tagged in `frontend/MOCK_SPEC.md`.
 
 ![All 8 mock screens](docs/mock/all-screens.png)
 
