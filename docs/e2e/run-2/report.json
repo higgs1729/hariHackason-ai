@@ -1,0 +1,173 @@
+{
+  "passed": true,
+  "error": null,
+  "base": "http://localhost:8080",
+  "steps": [
+    {
+      "n": 1,
+      "step": "home",
+      "note": "",
+      "url": "/",
+      "t": 0.9,
+      "shot": "01-home.jpg"
+    },
+    {
+      "n": 2,
+      "step": "login-form",
+      "note": "",
+      "url": "/",
+      "t": 1.0,
+      "shot": "02-login-form.jpg"
+    },
+    {
+      "n": 3,
+      "step": "my-page",
+      "note": "",
+      "url": "/me",
+      "t": 1.3,
+      "shot": "03-my-page.jpg"
+    },
+    {
+      "n": 4,
+      "step": "camera",
+      "note": "",
+      "url": "/camera",
+      "t": 2.4,
+      "shot": "04-camera.jpg"
+    },
+    {
+      "n": 5,
+      "step": "shoot-hint",
+      "note": "aiGenerated=1",
+      "url": "/camera",
+      "t": 9.7,
+      "shot": "05-shoot-hint.jpg"
+    },
+    {
+      "n": 6,
+      "step": "camera-3-shots",
+      "note": "",
+      "url": "/camera",
+      "t": 10.1,
+      "shot": "06-camera-3-shots.jpg"
+    },
+    {
+      "n": 7,
+      "step": "album-create",
+      "note": "AIでアルバムにまとめる（3枚）",
+      "url": "/album/new",
+      "t": 10.3,
+      "shot": "07-album-create.jpg"
+    },
+    {
+      "n": 8,
+      "step": "album-generating",
+      "note": "",
+      "url": "/album/generating/6",
+      "t": 12.0,
+      "shot": "08-album-generating.jpg"
+    },
+    {
+      "n": 9,
+      "step": "album-detail",
+      "note": "「青空と笑顔の日」 aiGenerated=1",
+      "url": "/album/12",
+      "t": 22.6,
+      "shot": "09-album-detail.jpg"
+    },
+    {
+      "n": 10,
+      "step": "decorate",
+      "note": "",
+      "url": "/album/12/decorate/44",
+      "t": 23.8,
+      "shot": "10-decorate.jpg"
+    },
+    {
+      "n": 11,
+      "step": "share",
+      "note": "",
+      "url": "/album/12/share",
+      "t": 24.2,
+      "shot": "11-share.jpg"
+    },
+    {
+      "n": 12,
+      "step": "share-link",
+      "note": "http://localhost:8080/s/ujzcj-zs5QgwWgWfvfvqFfzCwPlDdQxX",
+      "url": "/album/12/share",
+      "t": 24.6,
+      "shot": "12-share-link.jpg"
+    },
+    {
+      "n": 13,
+      "step": "friend-view-logged-out",
+      "note": "/s/ujzcj-zs5QgwWgWfvfvqFfzCwPlDdQxX",
+      "url": "/s/ujzcj-zs5QgwWgWfvfvqFfzCwPlDdQxX",
+      "t": 25.4,
+      "shot": "13-friend-view-logged-out.jpg"
+    },
+    {
+      "n": 14,
+      "step": "capsule-create",
+      "note": "",
+      "url": "/album/12/capsule/new",
+      "t": 25.5,
+      "shot": "14-capsule-create.jpg"
+    },
+    {
+      "n": 15,
+      "step": "capsule-done",
+      "note": "",
+      "url": "/capsule/3",
+      "t": 25.7,
+      "shot": "15-capsule-done.jpg"
+    },
+    {
+      "n": 16,
+      "step": "capsule-opened",
+      "note": "",
+      "url": "/album/12?capsule=3",
+      "t": 25.9,
+      "shot": "16-capsule-opened.jpg"
+    }
+  ],
+  "facts": {
+    "shootHint": {
+      "hint": "3人でぎゅっと集まって笑いながら撮ろう！",
+      "poses": [
+        "肩を組んで顔を寄せ合う",
+        "真ん中の子を両側から覗き込む",
+        "せーので同時にジャンプ"
+      ],
+      "aiGenerated": 1
+    },
+    "selectedForAlbum": "AIでアルバムにまとめる（3枚）",
+    "generationSeconds": 12.2,
+    "album": {
+      "id": 12,
+      "title": "青空と笑顔の日",
+      "aiGenerated": 1,
+      "aiModel": "claude-cli:sonnet",
+      "summary": "制服姿の3人組が青空の下で写真を撮ったり、屋台っぽい食べ物を頬張ったり。屋外の遊具や階段のある場所で、笑顔いっぱいの一日を過ごした様子が伝わってくるアルバム。",
+      "captions": [
+        "3ショット",
+        "食べ歩き",
+        "休憩中"
+      ]
+    },
+    "shareUrl": "http://localhost:8080/s/ujzcj-zs5QgwWgWfvfvqFfzCwPlDdQxX",
+    "ogImage": "http://localhost:8080/og/ujzcj-zs5QgwWgWfvfvqFfzCwPlDdQxX.jpg",
+    "capsuleSealed": {
+      "status": "SEALED",
+      "daysRemaining": 364,
+      "capsuleMsg": null,
+      "album": null
+    },
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 409 ()"
+    ],
+    "totalSeconds": 26.1
+  },
+  "finished": "2026-09-27 01:27:56"
+}

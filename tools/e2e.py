@@ -43,12 +43,15 @@ class Run:
         self.steps: list[dict] = []
         self.facts: dict = {}
         self.t0 = time.time()
+        self.page: Page | None = None
         out.mkdir(parents=True, exist_ok=True)
+        for old in [*out.glob('*.png'), *out.glob('[0-9]*.jpg')]:
+            old.unlink()
 
     def shot(self, page: Page, name: str, note: str = ''):
         n = len(self.steps) + 1
-        path = self.out / f'{n:02d}-{name}.png'
-        page.screenshot(path=str(path))
+        path = self.out / f'{n:02d}-{name}.jpg'
+        page.screenshot(path=str(path), type='jpeg', quality=80)
         self.steps.append({'n': n, 'step': name, 'note': note, 'url': page.url.replace(self.base, ''),
                            't': round(time.time() - self.t0, 1), 'shot': path.name})
         print(f'[{self.steps[-1]["t"]:6.1f}s] {n:02d} {name} {note}', flush=True)
@@ -86,8 +89,11 @@ def token_of(r: 'Run') -> str:
     return pair['accessToken']
 
 
+FAILED: dict = {}
+
+
 def run(args) -> Run:
-    r = Run(args.base, Path(args.out))
+    r = FAILED['run'] = Run(args.base, Path(args.out))
     tmp = r.out / '_uploads'
     tmp.mkdir(exist_ok=True)
     uploads = [unique_photo(s, tmp) for s in SHOTS]
@@ -96,11 +102,24 @@ def run(args) -> Run:
     check(status == 200, 'seed failed')
 
     with sync_playwright() as p:
+        try:
+            return _drive(r, p, uploads, args)
+        except Exception:
+            if r.page:
+                try:
+                    r.shot(r.page, 'FAILED-here')
+                except Exception:  # noqa: BLE001
+                    pass
+            raise
+
+
+def _drive(r: Run, p, uploads, args) -> Run:
+    if True:
         browser = p.chromium.launch(channel='chrome', headless=not args.headed, args=[
             '--use-fake-device-for-media-stream', '--use-fake-ui-for-media-stream'])
         ctx = browser.new_context(viewport=PHONE, device_scale_factor=2, locale='ja-JP',
                                   permissions=['camera'])
-        page = ctx.new_page()
+        page = r.page = ctx.new_page()
         page.set_default_timeout(20_000)
         console_errors: list[str] = []
         page.on('console', lambda m: m.type == 'error' and console_errors.append(m.text))
@@ -110,11 +129,12 @@ def run(args) -> Run:
         expect(page.get_by_role('button', name='はじめる')).to_be_visible()
         r.shot(page, 'home')
         page.get_by_role('button', name='ログイン').click()
-        page.get_by_placeholder('ID（4文字以上）').fill('nao')
-        page.get_by_placeholder('パスワード（8文字以上）').fill('password')
+        page.get_by_placeholder('ID', exact=True).fill('nao')
+        page.get_by_placeholder('パスワード', exact=True).fill('password')
         r.shot(page, 'login-form')
         page.locator('form').get_by_role('button', name='ログイン').click()
         page.wait_for_url('**/me')
+        expect(page.get_by_text('読み込み中')).to_have_count(0)
         r.shot(page, 'my-page')
         token = token_of(r)
 
@@ -275,8 +295,7 @@ def main():
         report(r, None)
         print('PASS', r.out)
     except Exception as e:  # noqa: BLE001 — every failure ends in a report
-        if r is None:
-            r = Run(args.base, Path(args.out))
+        r = FAILED.get('run') or Run(args.base, Path(args.out))
         report(r, f'{type(e).__name__}: {e}'.splitlines()[0][:500])
         print('FAIL', e, file=sys.stderr)
         sys.exit(1)
