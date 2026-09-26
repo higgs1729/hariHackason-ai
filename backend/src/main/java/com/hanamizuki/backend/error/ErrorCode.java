@@ -53,6 +53,8 @@ public enum ErrorCode {
 
     SHARE_REVOKED(HttpStatus.GONE),
     SHARE_EXPIRED(HttpStatus.GONE),
+    /** Friend QR past its ten minutes, already scanned, or never issued. */
+    QR_EXPIRED(HttpStatus.GONE),
 
     FILE_TOO_LARGE(HttpStatus.CONTENT_TOO_LARGE),
     NO_VALID_PHOTOS(HttpStatus.UNPROCESSABLE_CONTENT),

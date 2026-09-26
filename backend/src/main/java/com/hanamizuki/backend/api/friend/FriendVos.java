@@ -15,6 +15,10 @@ public final class FriendVos {
     }
 
     /** Add by id — the search screen resolves a name to an id first. */
+    /** What the QR screen draws: {@code ai://friend/{qrToken}}, good until {@code expireTime}. */
+    public record FriendQrVo(String qrToken, java.time.OffsetDateTime expireTime) {
+    }
+
     public record FriendRequestBody(Long userId) {
     }
 }

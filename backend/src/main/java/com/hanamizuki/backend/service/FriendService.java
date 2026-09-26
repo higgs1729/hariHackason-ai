@@ -1,5 +1,8 @@
 package com.hanamizuki.backend.service;
 
+import java.security.SecureRandom;
+import java.time.LocalDateTime;
+import java.util.Base64;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -11,12 +14,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hanamizuki.backend.api.auth.AuthDtos.UserDto;
+import com.hanamizuki.backend.api.friend.FriendVos.FriendQrVo;
 import com.hanamizuki.backend.api.friend.FriendVos.FriendRequestVo;
+import com.hanamizuki.backend.common.Times;
 import com.hanamizuki.backend.domain.Friend;
+import com.hanamizuki.backend.domain.FriendQr;
 import com.hanamizuki.backend.domain.User;
 import com.hanamizuki.backend.domain.enums.FriendStatus;
 import com.hanamizuki.backend.error.ApiException;
 import com.hanamizuki.backend.error.ErrorCode;
+import com.hanamizuki.backend.repository.FriendQrRepository;
 import com.hanamizuki.backend.repository.FriendRepository;
 import com.hanamizuki.backend.repository.UserRepository;
 
@@ -32,12 +39,81 @@ import com.hanamizuki.backend.repository.UserRepository;
 @Service
 public class FriendService {
 
+    private static final SecureRandom RANDOM = new SecureRandom();
+    private static final long QR_MINUTES = 10;
+
     private final FriendRepository friends;
+    private final FriendQrRepository qrs;
     private final UserRepository users;
 
-    public FriendService(FriendRepository friends, UserRepository users) {
+    public FriendService(FriendRepository friends, FriendQrRepository qrs, UserRepository users) {
         this.friends = friends;
+        this.qrs = qrs;
         this.users = users;
+    }
+
+    /**
+     * QRを発行。/ 生成好友二维码。
+     *
+     * <p>16 random bytes, not the user id: a photo of the screen stays useless
+     * after ten minutes or one scan, whichever comes first.
+     */
+    @Transactional
+    public FriendQrVo issueQr(Long userId) {
+        byte[] bytes = new byte[16];
+        RANDOM.nextBytes(bytes);
+        FriendQr qr = new FriendQr();
+        qr.setQrToken(Base64.getUrlEncoder().withoutPadding().encodeToString(bytes));
+        qr.setUserId(userId);
+        qr.setExpireTime(LocalDateTime.now().plusMinutes(QR_MINUTES));
+        qrs.save(qr);
+        return new FriendQrVo(qr.getQrToken(), Times.toOffset(qr.getExpireTime()));
+    }
+
+    /**
+     * QRを読んだ。/ 扫码加好友。
+     *
+     * <p>Both directions at once, ACCEPTED, because the two people are standing
+     * next to each other and have already agreed. Unknown, expired and spent
+     * tokens are all the same 410: the scanner's next step is the same.
+     */
+    @Transactional
+    public UserDto acceptQr(Long userId, String qrToken) {
+        FriendQr qr = qrs.findByQrToken(qrToken)
+                .filter(row -> row.getUsedTime() == null)
+                .filter(row -> row.getExpireTime().isAfter(LocalDateTime.now()))
+                .orElseThrow(() -> new ApiException(ErrorCode.QR_EXPIRED, "QRの期限が切れています"));
+        if (qr.getUserId().equals(userId)) {
+            throw new ApiException(ErrorCode.VALIDATION_FAILED, "自分のQRです");
+        }
+        User me = users.findById(userId)
+                .orElseThrow(() -> new ApiException(ErrorCode.USER_NOT_FOUND));
+        User owner = users.findById(qr.getUserId())
+                .orElseThrow(() -> new ApiException(ErrorCode.USER_NOT_FOUND));
+
+        qr.setUsedTime(LocalDateTime.now());
+        qr.setUsedUserId(userId);
+
+        boolean added = connect(me, owner, userId) | connect(owner, me, userId);
+        if (added) {
+            me.setFriendNum(me.getFriendNum() + 1);
+            owner.setFriendNum(owner.getFriendNum() + 1);
+        }
+        return UserDto.of(owner);
+    }
+
+    /** Creates or upgrades one direction to ACCEPTED; true when it was not already. */
+    private boolean connect(User owner, User other, Long requestUserId) {
+        Optional<Friend> row = friends.findByUserIdAndFriendId(owner.getId(), other.getId());
+        if (row.isEmpty()) {
+            friends.save(link(owner, other, FriendStatus.ACCEPTED, requestUserId));
+            return true;
+        }
+        if (row.get().getStatus() != FriendStatus.ACCEPTED) {
+            row.get().setStatus(FriendStatus.ACCEPTED);
+            return true;
+        }
+        return false;
     }
 
     /**

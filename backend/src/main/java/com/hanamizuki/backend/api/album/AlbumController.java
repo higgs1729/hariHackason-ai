@@ -78,8 +78,9 @@ public class AlbumController {
      */
     @GetMapping
     public PageVo<AlbumSummaryVo> list(@RequestParam(defaultValue = "50") int limit,
+                                       @RequestParam(required = false) Long memberId,
                                        @AuthenticationPrincipal AuthUser principal) {
-        return albumService.list(principal.userId(), Math.min(Math.max(limit, 1), 100));
+        return albumService.list(principal.userId(), Math.min(Math.max(limit, 1), 100), memberId);
     }
 
     /**

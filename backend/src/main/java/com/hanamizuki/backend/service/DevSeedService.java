@@ -95,6 +95,18 @@ public class DevSeedService {
         befriend(nao, miki);
         befriend(nao, rin);
 
+        // Called on every demo start (scripts/demo.ps1), so a second run must
+        // change nothing: the albums made during the last rehearsal stay, and
+        // the sample albums are not added again beside them.
+        if (photos.existsByUserIdAndPicName(nao.getId(), "seed-0.jpg")) {
+            return Map.of(
+                    "users", List.of(summary(nao), summary(ayaka), summary(miki), summary(rin)),
+                    "password", DEMO_PASSWORD,
+                    "albumIds", albumMembers.findByUserIdOrderByIdDesc(nao.getId()).stream()
+                            .map(AlbumMember::getAlbumId).toList(),
+                    "alreadySeeded", true);
+        }
+
         // Two afternoons, a day apart — which is exactly what the 30-minute
         // clustering rule is meant to split into two albums.
         LocalDateTime firstDay = LocalDateTime.now().minusDays(2).withHour(17).withMinute(30);
@@ -112,7 +124,8 @@ public class DevSeedService {
                 "users", List.of(summary(nao), summary(ayaka), summary(miki), summary(rin)),
                 "password", DEMO_PASSWORD,
                 "albumIds", List.of(album1.getId(), album2.getId()),
-                "photoCount", afternoon.size() + lunch.size());
+                "photoCount", afternoon.size() + lunch.size(),
+                "alreadySeeded", false);
     }
 
     private User user(String account, String name) {
@@ -127,6 +140,9 @@ public class DevSeedService {
 
     /** Writes both directions, so the friend list stays a single-column query. */
     private void befriend(User a, User b) {
+        if (friends.findByUserIdAndFriendId(a.getId(), b.getId()).isPresent()) {
+            return;
+        }
         friends.save(edge(a, b, a));
         friends.save(edge(b, a, a));
         a.setFriendNum(a.getFriendNum() + 1);

@@ -74,7 +74,23 @@ public class AlbumService {
      */
     @Transactional(readOnly = true)
     public PageVo<AlbumSummaryVo> list(Long userId, int limit) {
+        return list(userId, limit, null);
+    }
+
+    /**
+     * @param memberId when set, only the albums that person is also in — the
+     *                 reunion screen's "what we have made together". It can
+     *                 only narrow my own list, never reach someone else's.
+     */
+    @Transactional(readOnly = true)
+    public PageVo<AlbumSummaryVo> list(Long userId, int limit, Long memberId) {
         List<AlbumMember> mine = members.findByUserIdOrderByIdDesc(userId);
+        if (memberId != null && !memberId.equals(userId)) {
+            java.util.Set<Long> shared = members.findByUserIdOrderByIdDesc(memberId).stream()
+                    .map(AlbumMember::getAlbumId)
+                    .collect(Collectors.toSet());
+            mine = mine.stream().filter(member -> shared.contains(member.getAlbumId())).toList();
+        }
         if (mine.isEmpty()) {
             return PageVo.of(List.of(), 0);
         }

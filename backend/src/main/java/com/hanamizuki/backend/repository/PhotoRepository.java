@@ -29,6 +29,9 @@ public interface PhotoRepository extends JpaRepository<Photo, Long> {
      */
     Optional<Photo> findFirstByUserIdAndSha256OrderByIdAsc(Long userId, String sha256);
 
+    /** The seed's marker: its photos are the only ones named {@code seed-N.jpg}. */
+    boolean existsByUserIdAndPicName(Long userId, String picName);
+
     /** {@code photo.userName} is a follow copy of the uploader's name. */
     @Modifying(clearAutomatically = true, flushAutomatically = true)
     @Query("update Photo p set p.userName = :userName where p.userId = :userId")

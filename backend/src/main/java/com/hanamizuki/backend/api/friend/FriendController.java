@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hanamizuki.backend.api.auth.AuthDtos.UserDto;
+import com.hanamizuki.backend.api.friend.FriendVos.FriendQrVo;
 import com.hanamizuki.backend.api.friend.FriendVos.FriendRequestBody;
 import com.hanamizuki.backend.api.friend.FriendVos.FriendRequestVo;
 import com.hanamizuki.backend.security.AuthUser;
@@ -44,6 +45,22 @@ public class FriendController {
                                         @AuthenticationPrincipal AuthUser principal) {
         friendService.request(principal.userId(), body.userId());
         return ResponseEntity.noContent().build();
+    }
+
+    /** A fresh single-use token for the QR on screen. */
+    @PostMapping("/qr")
+    public FriendQrVo qr(@AuthenticationPrincipal AuthUser principal) {
+        return friendService.issueQr(principal.userId());
+    }
+
+    /**
+     * Scanning makes both sides friends at once, so there is no request to
+     * answer. Returns the person whose QR it was; 410 when the token is spent.
+     */
+    @PostMapping("/qr/{qrToken}/accept")
+    public UserDto acceptQr(@PathVariable String qrToken,
+                            @AuthenticationPrincipal AuthUser principal) {
+        return friendService.acceptQr(principal.userId(), qrToken);
     }
 
     @PostMapping("/requests/{requestId}/accept")
