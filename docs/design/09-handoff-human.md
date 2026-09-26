@@ -16,6 +16,12 @@
 - [ ] **Keep this PC awake and logged in** for the whole event: power plan "never
       sleep", lid open or external display, Windows Update paused. The server, MySQL,
       the tunnel and Claude Code all run on it.
+- [ ] **Decide whether to reset the data.** The automated runs left their albums,
+      capsules and throwaway accounts (`aud…`, `reg…`) in MySQL, so nao's My page
+      shows many albums. Resetting deletes everything, so it was not done
+      unattended. To start clean: `demo.ps1 -Stop`, then
+      `docker compose down -v` in the repo folder, then `demo.ps1` (the seed runs
+      again on the empty database).
 - [ ] **The tunnel URL changes every time `demo.ps1` starts the tunnel.** Send the
       URL to the demo phone again after any restart. (A named Cloudflare tunnel
       would fix this but needs a Cloudflare login and a domain.)
@@ -26,8 +32,10 @@
       the card shows the album title and the decorated photo. The page serves
       `og:title` / `og:image` (checked by e2e, `og-image.jpg` in each run folder),
       but LINE's crawler and cache are outside what we can test.
-- [ ] **Native share sheet.** On a phone, the share screen calls `navigator.share`;
-      desktop Chrome shows the link instead. Check the sheet opens with the link.
+- [ ] **Native share sheet.** The share screen calls `navigator.share` and also
+      shows the link on the page. Check on the phone that the sheet opens with the
+      link and that LINE is in it. (Chrome on Windows opens the Windows share
+      dialog for the same call; close it and the button is usable again.)
 - [ ] **QR friend scan.** My page → 友達 → QR: show the code on one phone, scan it
       with the other (logged in as another seeded user, e.g. `ayaka` / `password`).
       The endpoints were checked by API (issue, accept, own code 400, reuse 410);

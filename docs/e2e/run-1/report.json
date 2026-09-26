@@ -8,7 +8,7 @@
       "step": "home",
       "note": "",
       "url": "/",
-      "t": 0.8,
+      "t": 1.5,
       "shot": "01-home.jpg"
     },
     {
@@ -16,7 +16,7 @@
       "step": "login-form",
       "note": "",
       "url": "/",
-      "t": 0.9,
+      "t": 1.7,
       "shot": "02-login-form.jpg"
     },
     {
@@ -24,7 +24,7 @@
       "step": "my-page",
       "note": "",
       "url": "/me",
-      "t": 1.1,
+      "t": 2.0,
       "shot": "03-my-page.jpg"
     },
     {
@@ -32,7 +32,7 @@
       "step": "camera",
       "note": "",
       "url": "/camera",
-      "t": 2.1,
+      "t": 2.9,
       "shot": "04-camera.jpg"
     },
     {
@@ -40,7 +40,7 @@
       "step": "shoot-hint",
       "note": "aiGenerated=1",
       "url": "/camera",
-      "t": 7.3,
+      "t": 8.6,
       "shot": "05-shoot-hint.jpg"
     },
     {
@@ -48,116 +48,115 @@
       "step": "camera-3-shots",
       "note": "",
       "url": "/camera",
-      "t": 7.6,
+      "t": 9.0,
       "shot": "06-camera-3-shots.jpg"
     },
     {
       "n": 7,
       "step": "album-create",
-      "note": "AIでアルバムにまとめる（3枚）",
+      "note": "AIでアルバムにまとめる（11枚）",
       "url": "/album/new",
-      "t": 7.8,
+      "t": 9.3,
       "shot": "07-album-create.jpg"
     },
     {
       "n": 8,
       "step": "album-generating",
       "note": "",
-      "url": "/album/generating/5",
-      "t": 9.4,
+      "url": "/album/generating/20",
+      "t": 10.9,
       "shot": "08-album-generating.jpg"
     },
     {
       "n": 9,
       "step": "album-detail",
-      "note": "「友達と青空日和」 aiGenerated=1",
-      "url": "/album/11",
-      "t": 20.1,
+      "note": "「夕焼けと笑顔」 aiGenerated=1",
+      "url": "/album/34",
+      "t": 36.7,
       "shot": "09-album-detail.jpg"
     },
     {
       "n": 10,
       "step": "decorate",
       "note": "",
-      "url": "/album/11/decorate/41",
-      "t": 21.4,
+      "url": "/album/34/decorate/116",
+      "t": 38.0,
       "shot": "10-decorate.jpg"
     },
     {
       "n": 11,
       "step": "share",
       "note": "",
-      "url": "/album/11/share",
-      "t": 21.8,
+      "url": "/album/34/share",
+      "t": 38.6,
       "shot": "11-share.jpg"
     },
     {
       "n": 12,
       "step": "share-link",
-      "note": "http://localhost:8080/s/0QXKLmcJPEJ1EM8RnabhfeblE2fLZ1Tc",
-      "url": "/album/11/share",
-      "t": 22.7,
+      "note": "http://localhost:8080/s/XnpXqaXy_2m6ftPc0fQSQ51Vd1GYCEa1",
+      "url": "/album/34/share",
+      "t": 38.9,
       "shot": "12-share-link.jpg"
     },
     {
       "n": 13,
       "step": "friend-view-logged-out",
-      "note": "/s/0QXKLmcJPEJ1EM8RnabhfeblE2fLZ1Tc",
-      "url": "/s/0QXKLmcJPEJ1EM8RnabhfeblE2fLZ1Tc",
-      "t": 23.1,
+      "note": "/s/XnpXqaXy_2m6ftPc0fQSQ51Vd1GYCEa1",
+      "url": "/s/XnpXqaXy_2m6ftPc0fQSQ51Vd1GYCEa1",
+      "t": 39.5,
       "shot": "13-friend-view-logged-out.jpg"
     },
     {
       "n": 14,
       "step": "capsule-create",
       "note": "",
-      "url": "/album/11/capsule/new",
-      "t": 23.2,
+      "url": "/album/34/capsule/new",
+      "t": 39.7,
       "shot": "14-capsule-create.jpg"
     },
     {
       "n": 15,
       "step": "capsule-done",
       "note": "",
-      "url": "/capsule/2",
-      "t": 23.5,
+      "url": "/capsule/10",
+      "t": 39.9,
       "shot": "15-capsule-done.jpg"
     },
     {
       "n": 16,
       "step": "capsule-opened",
       "note": "",
-      "url": "/album/11?capsule=2",
-      "t": 23.7,
+      "url": "/album/34?capsule=10",
+      "t": 40.2,
       "shot": "16-capsule-opened.jpg"
     }
   ],
   "facts": {
     "shootHint": {
-      "hint": "せーので寄って弾ける瞬間を撮ろう!",
+      "hint": "3人でぎゅっと寄って弾けるジャンプを撮ろう！",
       "poses": [
-        "3人で顔寄せてピース",
-        "真ん中の子を囲んでジャンプ",
-        "背中合わせで振り返り笑顔"
+        "3人で同時にジャンプ",
+        "真ん中の子に寄って集合",
+        "背中合わせで振り返る"
       ],
       "aiGenerated": 1
     },
-    "selectedForAlbum": "AIでアルバムにまとめる（3枚）",
-    "generationSeconds": 12.2,
+    "selectedForAlbum": "AIでアルバムにまとめる（11枚）",
+    "generationSeconds": 27.3,
     "album": {
-      "id": 11,
-      "title": "友達と青空日和",
+      "id": 34,
+      "title": "夕焼けと笑顔",
       "aiGenerated": 1,
       "aiModel": "claude-cli:sonnet",
-      "summary": "制服姿の3人組が青空の下で笑顔いっぱいの一日。おしゃべりしたり、食べ歩きしたり、ピースサインで写真を撮ったり。何気ない時間がキラキラして見える、そんな放課後のひとコマ。",
+      "summary": "海辺で夕日を眺めたあと、みんなで芝生の上ではしゃいだ、忘れられない一日の記録。",
       "captions": [
-        "青空バック",
-        "食べ歩き",
-        "ピースサイン"
+        "夕日",
+        "ジャンプ"
       ]
     },
-    "shareUrl": "http://localhost:8080/s/0QXKLmcJPEJ1EM8RnabhfeblE2fLZ1Tc",
-    "ogImage": "http://localhost:8080/og/0QXKLmcJPEJ1EM8RnabhfeblE2fLZ1Tc.jpg",
+    "shareUrl": "http://localhost:8080/s/XnpXqaXy_2m6ftPc0fQSQ51Vd1GYCEa1",
+    "ogImage": "http://localhost:8080/og/XnpXqaXy_2m6ftPc0fQSQ51Vd1GYCEa1.jpg",
     "capsuleSealed": {
       "status": "SEALED",
       "daysRemaining": 364,
@@ -167,7 +166,7 @@
     "consoleErrors": [
       "Failed to load resource: the server responded with a status of 409 ()"
     ],
-    "totalSeconds": 24.0
+    "totalSeconds": 40.6
   },
-  "finished": "2026-09-27 01:27:30"
+  "finished": "2026-09-27 02:43:20"
 }
