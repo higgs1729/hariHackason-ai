@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.TimeZone;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,9 +45,12 @@ public class ExifReader {
         if (dir == null) {
             return null;
         }
-        Date date = dir.getDateOriginal();
-        return date == null ? null
-                : LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+        // DateTimeOriginal is the camera's wall clock with no zone. Without a zone
+        // argument the library reads it as UTC, which put a 17:30 photo at 02:30
+        // the next day here. An OffsetTimeOriginal tag, when present, still wins.
+        ZoneId zone = ZoneId.systemDefault();
+        Date date = dir.getDateOriginal(TimeZone.getTimeZone(zone));
+        return date == null ? null : LocalDateTime.ofInstant(date.toInstant(), zone);
     }
 
     private BigDecimal latitude(Metadata metadata) {
