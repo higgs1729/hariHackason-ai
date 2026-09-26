@@ -12,12 +12,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hanamizuki.backend.integration.ai.AlbumEnricher;
+
 /**
  * {@code GET /api/health} — is this process actually usable right now.
  *
  * <p>Deliberately does not call Anthropic. A health check that costs money and
  * takes seconds gets polled in a loop by something and then nobody trusts it;
- * {@code aiReachable} reports whether the key is configured, which is the part
+ * {@code aiReachable} reports whether the configured AI provider can be tried
+ * at all (a key for {@code api}, the binary for {@code cli}), which is the part
  * that actually differs between machines.
  */
 @RestController
@@ -26,14 +29,17 @@ public class HealthController {
 
     private final DataSource dataSource;
     private final String storageRoot;
-    private final String anthropicKey;
+    private final AlbumEnricher enricher;
+    private final String provider;
 
     public HealthController(DataSource dataSource,
                             @Value("${app.storage.root}") String storageRoot,
-                            @Value("${ANTHROPIC_API_KEY:}") String anthropicKey) {
+                            AlbumEnricher enricher,
+                            @Value("${app.ai.provider}") String provider) {
         this.dataSource = dataSource;
         this.storageRoot = storageRoot;
-        this.anthropicKey = anthropicKey;
+        this.enricher = enricher;
+        this.provider = provider;
     }
 
     @GetMapping("/health")
@@ -43,7 +49,8 @@ public class HealthController {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("status", dbUp ? "UP" : "DOWN");
         body.put("db", dbUp ? "UP" : "DOWN");
-        body.put("aiReachable", !anthropicKey.isBlank());
+        body.put("aiReachable", enricher.isAvailable());
+        body.put("aiProvider", provider);
         body.put("diskFreeMb", diskFreeMb());
         return body;
     }

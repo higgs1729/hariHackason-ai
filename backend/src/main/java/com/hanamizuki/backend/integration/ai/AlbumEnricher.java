@@ -18,4 +18,9 @@ public interface AlbumEnricher {
 
     /** False when there is no API key, so the caller can skip the attempt. */
     boolean isAvailable();
+
+    /** Stored in {@code album.aiModel}; null means the configured {@code app.ai.model}. */
+    default String modelLabel() {
+        return null;
+    }
 }

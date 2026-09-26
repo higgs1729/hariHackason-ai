@@ -10,6 +10,7 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import com.anthropic.client.AnthropicClient;
@@ -34,6 +35,7 @@ import com.hanamizuki.backend.integration.storage.FileStorage;
  * is caught upstream and turned into a rule-based album.
  */
 @Component
+@ConditionalOnProperty(name = "app.ai.provider", havingValue = "api")
 public class ClaudeAlbumEnricher implements AlbumEnricher {
 
     private static final Logger log = LoggerFactory.getLogger(ClaudeAlbumEnricher.class);
@@ -42,7 +44,7 @@ public class ClaudeAlbumEnricher implements AlbumEnricher {
     private static final int CAPTION_MAX = 10;
     private static final int COMMENT_MAX = 255;
 
-    private static final String SYSTEM = """
+    static final String SYSTEM = """
             あなたは高校生の写真アルバムに言葉を添える編集者です。
             渡された写真は同じ日の同じ時間帯に撮られたものです。
 
@@ -158,7 +160,7 @@ public class ClaudeAlbumEnricher implements AlbumEnricher {
      * else's photo, and an out-of-range {@code coverPhotoId} would leave the
      * album with a broken cover. Both are cheap to check and expensive to miss.
      */
-    private AlbumDraft validate(AlbumDraft draft, List<Photo> cluster) {
+    static AlbumDraft validate(AlbumDraft draft, List<Photo> cluster) {
         Set<Long> known = cluster.stream().map(Photo::getId).collect(java.util.stream.Collectors.toSet());
 
         List<PhotoInsight> kept = new ArrayList<>();
@@ -170,7 +172,7 @@ public class ClaudeAlbumEnricher implements AlbumEnricher {
             kept.add(new PhotoInsight(insight.photoId(),
                     clip(insight.caption(), CAPTION_MAX),
                     clip(insight.place(), 64),
-                    WEATHER.contains(insight.weather()) ? insight.weather() : null,
+                    insight.weather() != null && WEATHER.contains(insight.weather()) ? insight.weather() : null,
                     clip(insight.comment(), COMMENT_MAX)));
         }
 

@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import com.anthropic.client.AnthropicClient;
@@ -31,6 +32,7 @@ import com.anthropic.models.messages.StructuredMessageCreateParams;
  * </ul>
  */
 @Component
+@ConditionalOnProperty(name = "app.ai.provider", havingValue = "api")
 public class ClaudeShootHinter implements ShootHinter {
 
     /**
@@ -39,7 +41,7 @@ public class ClaudeShootHinter implements ShootHinter {
      * talk the model into something odd — but the output goes back only to the
      * person who typed the input, so the worst case is they amuse themselves.
      */
-    private static final String SYSTEM = """
+    static final String SYSTEM = """
             あなたは高校生の写真撮影を盛り上げるカメラマンです。
             これから撮る1枚について、その場でできる指示を考えてください。
 
@@ -94,7 +96,7 @@ public class ClaudeShootHinter implements ShootHinter {
                 .orElseThrow(() -> new IllegalStateException("Claude returned no structured output"));
     }
 
-    private static String describe(int memberCount, List<String> memberNames,
+    static String describe(int memberCount, List<String> memberNames,
                                    String place, String mood) {
         StringBuilder text = new StringBuilder();
         text.append("人数: ").append(memberCount).append("人\n");

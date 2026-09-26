@@ -143,17 +143,24 @@ public class AlbumGenerationService {
             }
 
             job.setStatus(JobStatus.ENRICHING);
+            // All clusters are asked at once. Each call is tens of seconds of
+            // waiting on one process, so in sequence twelve photos in three
+            // clusters took 70 s; side by side it is the slowest single call.
+            // A dead network still costs one timeout, not one per cluster.
+            List<java.util.concurrent.CompletableFuture<AlbumDraft>> drafts;
+            try (var pool = java.util.concurrent.Executors.newVirtualThreadPerTaskExecutor()) {
+                drafts = clusters.stream()
+                        .map(cluster -> java.util.concurrent.CompletableFuture.supplyAsync(
+                                () -> describe(cluster), pool))
+                        .toList();
+                java.util.concurrent.CompletableFuture.allOf(
+                        drafts.toArray(java.util.concurrent.CompletableFuture[]::new)).join();
+            }
             List<Long> albumIds = new java.util.ArrayList<>();
             boolean anyAi = false;
-            boolean aiGaveUp = false;
             for (int i = 0; i < clusters.size(); i++) {
                 List<Photo> cluster = clusters.get(i);
-                // Once a call has failed, stop trying. The failure mode that
-                // matters at a venue is a dead network, and that fails by
-                // timing out: retrying per cluster would make the user wait
-                // the full timeout again for each one before anything appears.
-                AlbumDraft draft = aiGaveUp ? null : describe(cluster);
-                aiGaveUp |= draft == null;
+                AlbumDraft draft = drafts.get(i).join();
                 anyAi |= draft != null;
                 albumIds.add(assemble(cluster, owner, draft).getId());
                 // 10 at the start, 90 by the last cluster: the client shows
@@ -214,7 +221,8 @@ public class AlbumGenerationService {
         album.setSummary(draft == null ? null : draft.summary());
         album.setAlbumDate(cluster.get(0).getTakenTime().toLocalDate());
         album.setAiGenerated(draft != null);
-        album.setAiModel(draft == null ? null : aiModel);
+        album.setAiModel(draft == null ? null
+                : enricher.modelLabel() != null ? enricher.modelLabel() : aiModel);
         album.setUserId(owner.getId());
         album.setUserName(owner.getUserName());
         album.setPhotoNum(cluster.size());
