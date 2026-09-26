@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import { IconCheck, IconChevronRight, IconCopy, IconDots, IconSend } from '@tabler/icons-react'
+import { IconCheck, IconChevronRight, IconCopy, IconSend } from '@tabler/icons-react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { api, type ApiError } from '../api'
 import { ErrorNote, Loading } from '../components/Notice'
+import { MoreMenu } from '../components/MoreMenu'
 import { Photo } from '../components/Photo'
 import { Screen } from '../components/Screen'
 import { StatusBar } from '../components/StatusBar'
@@ -14,6 +15,7 @@ import styles from './Share.module.css'
 
 /**
  * Screen 05: pick friends as album members, then hand the share link to the OS share sheet.
+ * Afterwards the link stays on screen with the way on to the time capsule.
  * GET /friends → POST /albums/{id}/members (each) → POST /albums/{id}/share → navigator.share.
  * On desktop (no share sheet) the link is copied to the clipboard instead.
  */
@@ -57,7 +59,8 @@ export function Share() {
       } else {
         await navigator.clipboard?.writeText(link.shareUrl).catch(() => undefined)
       }
-      navigate(routes.capsuleCreate(albumId))
+      // Stays here: the link is shown, and the capsule is the next, separate
+      // step (the demo shows the friend's view of the link in between).
     } catch (err) {
       setError(toApiError(err))
     } finally {
@@ -76,9 +79,7 @@ export function Share() {
           tone="light"
           to={a && a.photos[0] ? routes.decorate(a.id, a.photos[0].id) : routes.albumCreate()}
           right={
-            <button type="button" className={styles.more} aria-label="その他のオプション">
-              <IconDots size={24} stroke={1.8} />
-            </button>
+            <MoreMenu className={styles.more} />
           }
         />
       </header>
@@ -149,16 +150,23 @@ export function Share() {
               ))}
             {picked.size === 0 && memberIds.size <= 1 && <span className={styles.hint}>上の友達をタップ</span>}
           </div>
-          <button type="button" className={styles.send} aria-label="友達と共有してタイムカプセルを作る" disabled={busy || !a} onClick={send}>
+          <button type="button" className={styles.send} aria-label="友達と共有する" disabled={busy || !a} onClick={send}>
             <IconSend size={24} stroke={1.8} />
           </button>
         </article>
 
-        {shareUrl && (
-          <p className={styles.link}>
-            <IconCopy size={14} stroke={2} aria-hidden="true" />
-            <a href={shareUrl}>{shareUrl}</a>
-          </p>
+        {shareUrl && albumId && (
+          <>
+            <p className={styles.link}>
+              <IconCopy size={14} stroke={2} aria-hidden="true" />
+              <a href={shareUrl} target="_blank" rel="noreferrer">
+                {shareUrl}
+              </a>
+            </p>
+            <button type="button" className={styles.capsule} onClick={() => navigate(routes.capsuleCreate(albumId))}>
+              タイムカプセルを作成する
+            </button>
+          </>
         )}
         <ErrorNote error={album.error ?? friends.error ?? error} />
         <p className={styles.caption}>友達と一緒に思い出を作れる！</p>

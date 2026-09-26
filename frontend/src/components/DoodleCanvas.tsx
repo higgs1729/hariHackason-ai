@@ -1,12 +1,13 @@
 import { useEffect, useRef, type PointerEvent as ReactPointerEvent } from 'react'
-import { resolveImage, type DecorationElement, type StrokeElement, type TextElement } from '../api'
+import { resolveImage, type DecorationElement, type StickerElement, type StrokeElement, type TextElement } from '../api'
 
 type Props = {
   /** photo under the overlay; drawn only when rendering the composite */
   photoUrl: string
   elements: DecorationElement[]
   onElementsChange: (next: DecorationElement[]) => void
-  tool: 'pen' | 'none'
+  /** pen draws; stamp drops a heart where you tap */
+  tool: 'pen' | 'stamp' | 'none'
   color: string
   className?: string
 }
@@ -14,8 +15,8 @@ type Props = {
 /**
  * Transparent overlay on top of a photo. Coordinates are stored 0..1 so the
  * same element list renders at 390px on the phone and 1200px in the OG image
- * (03-detailed-design §5.4). Only stroke + text elements draw for now;
- * sticker and filter are kept in the list untouched.
+ * (03-detailed-design §5.4). Strokes, text and the heart sticker draw;
+ * filter elements are kept in the list untouched.
  */
 export function DoodleCanvas({ photoUrl, elements, onElementsChange, tool, color, className }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -40,6 +41,12 @@ export function DoodleCanvas({ photoUrl, elements, onElementsChange, tool, color
   }
 
   const down = (e: ReactPointerEvent<HTMLCanvasElement>) => {
+    if (tool === 'stamp') {
+      const [x, y] = toNorm(e)
+      const rotation = Math.round((Math.random() - 0.5) * 30)
+      onElementsChange([...elements, { id: `k${Date.now().toString(36)}`, type: 'sticker', assetId: 'heart', x, y, scale: 0.16, rotation }])
+      return
+    }
     if (tool !== 'pen') return
     e.currentTarget.setPointerCapture(e.pointerId)
     drawing.current = { id: `s${Date.now().toString(36)}`, type: 'stroke', color, width: 0.012, points: [toNorm(e)] }
@@ -59,7 +66,7 @@ export function DoodleCanvas({ photoUrl, elements, onElementsChange, tool, color
     <canvas
       ref={canvasRef}
       className={className}
-      style={{ touchAction: tool === 'pen' ? 'none' : 'auto', cursor: tool === 'pen' ? 'crosshair' : 'default' }}
+      style={{ touchAction: tool === 'none' ? 'auto' : 'none', cursor: tool === 'none' ? 'default' : 'crosshair' }}
       onPointerDown={down}
       onPointerMove={move}
       onPointerUp={up}
@@ -85,8 +92,32 @@ export function paint(ctx: CanvasRenderingContext2D, elements: DecorationElement
       ctx.stroke()
     } else if (el.type === 'text') {
       drawText(ctx, el, w, h)
+    } else if (el.type === 'sticker' && el.assetId === 'heart') {
+      drawHeart(ctx, el, w, h)
     }
   }
+}
+
+/** A filled heart with a white rim, sized as a fraction of the photo width. */
+function drawHeart(ctx: CanvasRenderingContext2D, el: StickerElement, w: number, h: number) {
+  const s = el.scale * w
+  ctx.save()
+  ctx.translate(el.x * w, el.y * h)
+  ctx.rotate((el.rotation * Math.PI) / 180)
+  ctx.beginPath()
+  ctx.moveTo(0, s * 0.35)
+  ctx.bezierCurveTo(-s * 0.55, -s * 0.05, -s * 0.35, -s * 0.5, 0, -s * 0.2)
+  ctx.bezierCurveTo(s * 0.35, -s * 0.5, s * 0.55, -s * 0.05, 0, s * 0.35)
+  ctx.closePath()
+  ctx.shadowColor = 'rgba(20,38,77,0.3)'
+  ctx.shadowBlur = 4
+  ctx.fillStyle = '#ff7fb0'
+  ctx.fill()
+  ctx.shadowBlur = 0
+  ctx.lineWidth = Math.max(2, s * 0.06)
+  ctx.strokeStyle = '#ffffff'
+  ctx.stroke()
+  ctx.restore()
 }
 
 function drawText(ctx: CanvasRenderingContext2D, el: TextElement, w: number, h: number) {

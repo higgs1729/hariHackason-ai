@@ -173,6 +173,51 @@
   border-radius: 8px;
 }
 
+.stripCaption {
+  display: block;
+  max-width: 56px;
+  margin-top: 3px;
+  overflow: hidden;
+  color: var(--text-2);
+  font-size: 10px;
+  font-weight: 700;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  padding: 0 16px 12px;
+}
+
+.decorate,
+.shareLink {
+  display: inline-flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.decorate {
+  background: var(--navy-900);
+  color: var(--white);
+}
+
+.shareLink {
+  flex: 0 0 auto;
+  padding: 0 18px;
+  border: 1.5px solid var(--navy-900);
+  color: var(--navy-900);
+}
+
 .commentEdit {
   display: grid;
   gap: 8px;

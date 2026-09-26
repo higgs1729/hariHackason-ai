@@ -32,7 +32,7 @@ export function Decorate() {
   )
 
   const [elements, setElements] = useState<DecorationElement[]>([])
-  const [tool, setTool] = useState<'pen' | 'none'>('pen')
+  const [tool, setTool] = useState<'pen' | 'stamp' | 'none'>('pen')
   const [color, setColor] = useState(COLORS[0])
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<ApiError | null>(null)
@@ -94,7 +94,7 @@ export function Decorate() {
     <Screen className={styles.screen}>
       <StatusBar />
       <TopBar
-        to={routes.albumCreate()}
+        to={routes.detail(albumId)}
         right={
           <button type="button" className={styles.save} aria-label="保存" disabled={busy} onClick={save}>
             <IconDeviceFloppy size={24} stroke={1.7} />
@@ -161,6 +161,9 @@ export function Decorate() {
       <div className={styles.toolbar} aria-label="編集ツール">
         <button type="button" className={tool === 'pen' ? styles.toolOn : ''} aria-label="ペン" aria-pressed={tool === 'pen'} onClick={() => setTool(tool === 'pen' ? 'none' : 'pen')}>
           <IconPencil size={20} stroke={1.8} />
+        </button>
+        <button type="button" aria-label="ハートのスタンプ" aria-pressed={tool === 'stamp'} className={tool === 'stamp' ? styles.toolOn : ''} onClick={() => setTool(tool === 'stamp' ? 'none' : 'stamp')}>
+          <IconHeart size={20} stroke={1.8} />
         </button>
         <button type="button" aria-label="文字" aria-pressed={textDraft !== null} className={textDraft !== null ? styles.toolOn : ''} onClick={() => setTextDraft(textDraft === null ? 'Best Friends ♡' : null)}>
           <IconTypography size={20} stroke={1.8} />

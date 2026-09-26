@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import { IconCheck, IconDots, IconHeart, IconPhoto, IconSparkles } from '@tabler/icons-react'
+import { IconCheck, IconHeart, IconPhoto, IconSparkles } from '@tabler/icons-react'
 import { useNavigate } from 'react-router-dom'
 import { api, type ApiError } from '../api'
 import { ErrorNote, Loading } from '../components/Notice'
+import { MoreMenu } from '../components/MoreMenu'
 import { Photo } from '../components/Photo'
 import { Screen } from '../components/Screen'
 import { StatusBar } from '../components/StatusBar'
@@ -71,9 +72,7 @@ export function AlbumCreate() {
           to={routes.camera()}
           tone="light"
           right={
-            <button type="button" className={styles.more} aria-label="その他のオプション">
-              <IconDots size={24} stroke={1.8} />
-            </button>
+            <MoreMenu className={styles.more} />
           }
         />
         <span className={styles.scribble} aria-hidden="true" />

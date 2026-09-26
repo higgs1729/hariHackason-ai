@@ -22,8 +22,8 @@ const stageLabel: Record<GenerateJob['status'], string> = {
 }
 
 /**
- * Waits on `GET /albums/jobs/{id}` and moves to the decorate screen of the
- * first album once READY. `aiGenerated=0` (rule-based fallback) is not an
+ * Waits on `GET /albums/jobs/{id}` and moves to the first album's detail
+ * screen once READY. `aiGenerated=0` (rule-based fallback) is not an
  * error here: the album still exists and the flow continues (NFR-02).
  */
 export function AlbumGenerating() {
@@ -42,10 +42,9 @@ export function AlbumGenerating() {
         if (cancelled) return
         setJob(j)
         if (j.status === 'READY' && j.albumIds.length > 0) {
-          const album = await api.albums.get(j.albumIds[0])
-          if (cancelled) return
-          const first = album.photos[0]
-          navigate(first ? routes.decorate(album.id, first.id) : routes.detail(album.id), { replace: true })
+          // To the album first: its title and every caption are what the AI
+          // just wrote, and from there one photo is picked to decorate.
+          navigate(routes.detail(j.albumIds[0]), { replace: true })
           return
         }
         if (j.status !== 'FAILED') timer = window.setTimeout(tick, POLL_MS)

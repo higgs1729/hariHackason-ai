@@ -235,3 +235,15 @@
 .send:disabled {
   opacity: 0.5;
 }
+
+.capsule {
+  display: block;
+  width: calc(100% - 32px);
+  min-height: 48px;
+  margin: 4px 16px 0;
+  border-radius: var(--radius-pill);
+  background: var(--navy-900);
+  color: var(--white);
+  font-size: 15px;
+  font-weight: 800;
+}

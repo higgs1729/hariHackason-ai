@@ -1,0 +1,38 @@
+.wrap {
+  position: relative;
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+}
+
+.menu {
+  position: absolute;
+  top: 44px;
+  right: 0;
+  z-index: 41;
+  display: grid;
+  min-width: 160px;
+  padding: 6px;
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  box-shadow: 0 10px 30px rgba(20, 38, 77, 0.22);
+}
+
+.menu button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 12px;
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.menu button:active {
+  background: var(--surface-muted);
+}

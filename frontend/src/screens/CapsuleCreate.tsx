@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { IconDots } from '@tabler/icons-react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { api, apiMode, type ApiError } from '../api'
 import { ErrorNote } from '../components/Notice'
+import { MoreMenu } from '../components/MoreMenu'
 import { Photo } from '../components/Photo'
 import { Screen } from '../components/Screen'
 import { StatusBar } from '../components/StatusBar'
@@ -62,9 +62,7 @@ export function CapsuleCreate() {
           to={albumId ? routes.share(albumId) : routes.home()}
           tone="light"
           right={
-            <button type="button" className={styles.more} aria-label="その他のオプション">
-              <IconDots size={24} stroke={1.8} />
-            </button>
+            <MoreMenu className={styles.more} />
           }
         />
       </header>

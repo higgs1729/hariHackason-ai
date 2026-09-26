@@ -1,8 +1,9 @@
 import { useState, type FormEvent } from 'react'
-import { IconChevronRight, IconClock, IconCloud, IconDots, IconMessage, IconMusic, IconPencil, IconUser, IconUsers } from '@tabler/icons-react'
-import { useParams, useSearchParams } from 'react-router-dom'
+import { IconChevronRight, IconClock, IconCloud, IconMessage, IconMusic, IconPencil, IconSend, IconUser, IconUsers } from '@tabler/icons-react'
+import { Link, useParams, useSearchParams } from 'react-router-dom'
 import { api, type AlbumPhoto, type ApiError } from '../api'
 import { ErrorNote, Loading } from '../components/Notice'
+import { MoreMenu } from '../components/MoreMenu'
 import { Photo } from '../components/Photo'
 import { Screen } from '../components/Screen'
 import { StatusBar } from '../components/StatusBar'
@@ -84,9 +85,7 @@ export function Detail() {
           tone="light"
           to={routes.me()}
           right={
-            <button type="button" className={styles.more} aria-label="その他のオプション">
-              <IconDots size={24} stroke={1.8} />
-            </button>
+            <MoreMenu className={styles.more} />
           }
         />
       </header>
@@ -141,8 +140,18 @@ export function Detail() {
             {a.photos.map((p, i) => (
               <button key={p.id} type="button" className={i === index ? styles.stripOn : styles.stripItem} onClick={() => setIndex(i)} aria-label={p.caption ?? `写真${i + 1}`} aria-pressed={i === index}>
                 <Photo src={p.compositeUrl ?? p.thumbUrl} className={styles.stripPhoto} />
+                <span className={styles.stripCaption}>{p.caption ?? ' '}</span>
               </button>
             ))}
+          </div>
+
+          <div className={styles.actions}>
+            <Link to={routes.decorate(a.id, photo.id)} className={styles.decorate}>
+              <IconPencil size={18} stroke={1.8} aria-hidden="true" /> この写真を飾る
+            </Link>
+            <Link to={routes.share(a.id)} className={styles.shareLink}>
+              <IconSend size={18} stroke={1.8} aria-hidden="true" /> シェア
+            </Link>
           </div>
 
           {draft !== null && (

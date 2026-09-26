@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { IconDots } from '@tabler/icons-react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { api, apiMode, type ApiError } from '../api'
+import { api, type ApiError } from '../api'
 import { ErrorNote, Loading } from '../components/Notice'
+import { MoreMenu } from '../components/MoreMenu'
 import { Photo } from '../components/Photo'
 import { Screen } from '../components/Screen'
 import { StatusBar } from '../components/StatusBar'
@@ -15,7 +15,9 @@ import styles from './CapsuleDone.module.css'
  * Screen 07: the capsule is sealed. GET /capsules/{id} returns the SEALED DTO
  * (no message, no album) until openTime; "開ける" calls POST /open and moves to
  * the album detail. Before openTime the backend answers 409 CAPSULE_NOT_YET_OPEN;
- * in dev/mock we fall back to /unseal-now so the demo never gets stuck.
+ * then /unseal-now is tried, which exists only while the backend runs its dev
+ * profile (the demo PC does), so the demo can show a year-later opening now.
+ * Anywhere else that call 404s and the original "not yet" error is shown.
  */
 export function CapsuleDone() {
   const navigate = useNavigate()
@@ -34,8 +36,10 @@ export function CapsuleDone() {
         c = await api.capsules.open(capsuleId)
       } catch (err) {
         const e = toApiError(err)
-        if (e.code === 'CAPSULE_NOT_YET_OPEN' && (apiMode === 'mock' || import.meta.env.DEV)) c = await api.capsules.unsealNow(capsuleId)
-        else throw e
+        if (e.code !== 'CAPSULE_NOT_YET_OPEN') throw e
+        c = await api.capsules.unsealNow(capsuleId).catch(() => {
+          throw e
+        })
       }
       if (c.status === 'OPENED') navigate(routes.detail(c.album.id, c.id))
     } catch (err) {
@@ -63,9 +67,7 @@ export function CapsuleDone() {
           tone="light"
           to={routes.me('capsules')}
           right={
-            <button type="button" className={styles.more} aria-label="その他のオプション">
-              <IconDots size={24} stroke={1.8} />
-            </button>
+            <MoreMenu className={styles.more} />
           }
         />
         <main className={styles.celebration}>

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type ChangeEvent } from 'react'
-import { IconBolt, IconCameraRotate, IconPhoto, IconSparkles, IconX } from '@tabler/icons-react'
+import { IconBolt, IconBoltOff, IconCameraRotate, IconPhoto, IconSparkles, IconX } from '@tabler/icons-react'
 import { useNavigate } from 'react-router-dom'
 import { api, type ApiError, type ShootHint } from '../api'
 import { ErrorNote } from '../components/Notice'
@@ -30,6 +30,11 @@ export function Camera() {
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<ApiError | null>(null)
   const [lastThumb, setLastThumb] = useState<string | null>(null)
+  /** shots uploaded from this screen; the thumbnail shows it and leads to screen 03 */
+  const [shotCount, setShotCount] = useState(0)
+  const trackRef = useRef<MediaStreamTrack | null>(null)
+  /** null = this camera has no torch (iOS Safari, most desktops): the button is hidden */
+  const [torch, setTorch] = useState<boolean | null>(null)
   const [sheetOpen, setSheetOpen] = useState(false)
   /** the hint the user chose; pinned on the viewfinder while shooting */
   const [hint, setHint] = useState<ShootHint | null>(null)
@@ -48,15 +53,36 @@ export function Camera() {
         stream = s
         if (videoRef.current) videoRef.current.srcObject = s
         setHasStream(true)
+        const track = s.getVideoTracks()[0] ?? null
+        trackRef.current = track
+        const caps = (track?.getCapabilities?.() ?? {}) as { torch?: boolean }
+        setTorch(caps.torch ? false : null)
       })
       .catch(() => setHasStream(false))
     return () => {
       cancelled = true
+      trackRef.current = null
+      setTorch(null)
       stream?.getTracks().forEach((t) => t.stop())
     }
   }, [facing])
 
-  const onFiles = async (e: ChangeEvent<HTMLInputElement>) => {
+  const toggleTorch = async () => {
+    const next = !torch
+    try {
+      await trackRef.current?.applyConstraints({ advanced: [{ torch: next } as MediaTrackConstraintSet] })
+      setTorch(next)
+    } catch {
+      setTorch(null)
+    }
+  }
+
+  /**
+   * The shutter keeps you here so a group can take several shots in a row
+   * (the demo takes three); the thumbnail, with its count, moves on to 03.
+   * Picking from the library is a batch already, so it moves on at once.
+   */
+  const onFiles = (stay: boolean) => async (e: ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files ?? [])
     e.target.value = ''
     if (files.length === 0) return
@@ -66,7 +92,8 @@ export function Camera() {
       const result = await api.photos.upload(files.slice(0, 20))
       if (result.uploaded.length > 0) {
         setLastThumb(result.uploaded[result.uploaded.length - 1].url)
-        navigate(routes.albumCreate())
+        setShotCount((n) => n + result.uploaded.length)
+        if (!stay) navigate(routes.albumCreate())
       } else if (result.rejected.length > 0) {
         setError(toApiError({ message: result.rejected[0].code }))
       }
@@ -85,9 +112,11 @@ export function Camera() {
         to={routes.me()}
         tone="light"
         right={
-          <button type="button" className={styles.flash} aria-label="フラッシュ">
-            <IconBolt size={22} stroke={1.7} />
-          </button>
+          torch !== null && (
+            <button type="button" className={styles.flash} aria-label={torch ? 'ライトを消す' : 'ライトをつける'} aria-pressed={torch} onClick={() => void toggleTorch()}>
+              {torch ? <IconBolt size={22} stroke={1.7} /> : <IconBoltOff size={22} stroke={1.7} />}
+            </button>
+          )
         }
       />
 
@@ -119,8 +148,9 @@ export function Camera() {
       <ErrorNote error={error} />
 
       <div className={styles.controls}>
-        <button type="button" className={styles.thumbnail} aria-label="アルバムを作成" onClick={() => navigate(routes.albumCreate())}>
+        <button type="button" className={styles.thumbnail} aria-label={shotCount > 0 ? `撮った${shotCount}枚でアルバムを作る` : 'アルバムを作成'} onClick={() => navigate(routes.albumCreate())}>
           <Photo asset="tile2" src={lastThumb} className={styles.thumbnailPhoto} />
+          {shotCount > 0 && <span className={styles.shotCount}>{shotCount}</span>}
         </button>
         <button type="button" className={styles.shutter} aria-label="写真を撮る" disabled={busy} onClick={() => captureRef.current?.click()}>
           <span className={styles.shutterCenter} />
@@ -135,8 +165,8 @@ export function Camera() {
         </button>
       </div>
 
-      <input ref={captureRef} type="file" accept="image/jpeg,image/png" capture="environment" hidden onChange={onFiles} />
-      <input ref={libraryRef} type="file" accept="image/jpeg,image/png" multiple hidden onChange={onFiles} />
+      <input ref={captureRef} type="file" accept="image/jpeg,image/png" capture="environment" hidden onChange={onFiles(true)} />
+      <input ref={libraryRef} type="file" accept="image/jpeg,image/png" multiple hidden onChange={onFiles(false)} />
 
       <div className={styles.homeIndicator} aria-hidden="true" />
 
