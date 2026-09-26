@@ -20,3 +20,5 @@ Thumbs.db
 
 # Claude desktop app local config
 .claude/
+scripts/logs/
+__pycache__/
