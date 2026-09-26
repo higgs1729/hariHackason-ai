@@ -48,6 +48,8 @@ public class AlbumGenerationService {
 
     private static final Logger log = LoggerFactory.getLogger(AlbumGenerationService.class);
     private static final DateTimeFormatter TITLE_DATE = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+    /** Rule-based caption when Claude gave none: the time the photo was taken. */
+    private static final DateTimeFormatter CAPTION_TIME = DateTimeFormatter.ofPattern("H:mm");
 
     private final AlbumJobRepository jobs;
     private final PhotoRepository photos;
@@ -262,6 +264,9 @@ public class AlbumGenerationService {
                 ap.setPlace(insight.place());
                 ap.setWeather(insight.weather());
                 ap.setPhotoComment(insight.comment());
+            }
+            if (ap.getCaption() == null || ap.getCaption().isBlank()) {
+                ap.setCaption(photo.getTakenTime().format(CAPTION_TIME));
             }
             albumPhotos.save(ap);
 
