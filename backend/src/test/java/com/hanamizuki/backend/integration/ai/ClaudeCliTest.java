@@ -30,6 +30,6 @@ class ClaudeCliTest {
 
     @Test
     void trailingBackslashesAreDoubledBeforeTheClosingQuote() {
-        assertThat(ClaudeCli.windowsArg("C:\a b\\")).isEqualTo("\"C:\a b\\\\\"");
+        assertThat(ClaudeCli.windowsArg("C:\\a b\\")).isEqualTo("\"C:\\a b\\\\\"");
     }
 }
