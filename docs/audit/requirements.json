@@ -1,0 +1,322 @@
+[
+ {
+  "req": "FR-03.6",
+  "check": "AI unavailable -> album still made with rule-based title and captions",
+  "pass": true,
+  "seen": {
+   "aiReachable": false,
+   "status": "READY",
+   "title": "2026.09.22 のアルバム",
+   "aiGenerated": 0,
+   "captions": [
+    "12:00",
+    "12:01",
+    "12:02"
+   ],
+   "seconds": 1.0
+  }
+ },
+ {
+  "req": "FR-03.6",
+  "check": "AI unavailable -> shoot hint falls back to fixed text",
+  "pass": true,
+  "seen": {
+   "status": 200,
+   "hint": "前後に少しずらして並ぶと、全員の顔が入るよ",
+   "aiGenerated": 0
+  }
+ },
+ {
+  "req": "FR-02",
+  "check": "two photos in one multipart upload",
+  "pass": true,
+  "seen": {
+   "status": 200,
+   "uploaded": 2
+  }
+ },
+ {
+  "req": "FR-02.1",
+  "check": "EXIF DateTimeOriginal and GPS are read",
+  "pass": true,
+  "seen": {
+   "takenTime": "2026-09-20T17:30:00+09:00",
+   "latitude": 34.7025,
+   "longitude": 135.49589999999998
+  }
+ },
+ {
+  "req": "FR-02.2",
+  "check": "EXIF orientation 6 (300x200) is stored upright as 200x300",
+  "pass": true,
+  "seen": {
+   "picWidth": 200,
+   "picHeight": 300
+  }
+ },
+ {
+  "req": "FR-03.1",
+  "check": "6 photos 8 h apart -> 2 albums in one request",
+  "pass": true,
+  "seen": {
+   "status": "READY",
+   "albumIds": [
+    32,
+    33
+   ],
+   "seconds": 18.1
+  }
+ },
+ {
+  "req": "FR-03.2",
+  "check": "AI title and summary on each album",
+  "pass": true,
+  "seen": [
+   {
+    "title": "遊園地日和",
+    "aiGenerated": 1,
+    "aiModel": "claude-cli:sonnet"
+   },
+   {
+    "title": "友達との時間",
+    "aiGenerated": 1,
+    "aiModel": "claude-cli:sonnet"
+   }
+  ]
+ },
+ {
+  "req": "FR-03.3",
+  "check": "a caption on every photo",
+  "pass": true,
+  "seen": [
+   "集合写真",
+   "屋台グルメ",
+   "遊園地で",
+   "夕焼け",
+   "花火大会",
+   "桜並木"
+  ]
+ },
+ {
+  "req": "FR-03.4",
+  "check": "cover is one of the album photos",
+  "pass": true,
+  "seen": [
+   98,
+   100
+  ]
+ },
+ {
+  "req": "FR-03.5",
+  "check": "weather (and place when visible) estimated from the images",
+  "pass": true,
+  "seen": {
+   "weather": [
+    "晴れ",
+    null,
+    "晴れ",
+    "晴れ",
+    null,
+    "晴れ"
+   ],
+   "place": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  }
+ },
+ {
+  "req": "FR-04",
+  "check": "a stroke is saved",
+  "pass": true,
+  "seen": {
+   "put": 200,
+   "elements": [
+    "stroke",
+    "text"
+   ]
+  }
+ },
+ {
+  "req": "FR-04.1",
+  "check": "text in the hand font is saved",
+  "pass": true,
+  "seen": [
+   "stroke",
+   "text"
+  ]
+ },
+ {
+  "req": "FR-04.2",
+  "check": "a sticker is accepted (then removed by the edit below)",
+  "pass": true,
+  "seen": {
+   "put with sticker": 200
+  }
+ },
+ {
+  "req": "FR-04.3",
+  "check": "saved decoration can be edited later (second PUT drops the sticker)",
+  "pass": true,
+  "seen": {
+   "second put": 200,
+   "elements now": [
+    "stroke",
+    "text"
+   ]
+  }
+ },
+ {
+  "req": "FR-09",
+  "check": "a friend is added as album member",
+  "pass": true,
+  "seen": {
+   "status": 204,
+   "members": [
+    "わたし",
+    "あやか"
+   ]
+  }
+ },
+ {
+  "req": "FR-09.1",
+  "check": "the member can decorate",
+  "pass": true,
+  "seen": {
+   "ayaka put": 200
+  }
+ },
+ {
+  "req": "FR-09.2",
+  "check": "a stale If-Match is refused (optimistic lock)",
+  "pass": true,
+  "seen": {
+   "status": 409,
+   "code": "VERSION_CONFLICT"
+  }
+ },
+ {
+  "req": "FR-10",
+  "check": "place / time / music / comment / members / weather are on the album photo",
+  "pass": true,
+  "seen": {
+   "place": null,
+   "takenTime": "2026-09-21T10:00:00+09:00",
+   "music": null,
+   "photoComment": "3人とも良い笑顔すぎる！",
+   "weather": "晴れ"
+  }
+ },
+ {
+  "req": "FR-10.1",
+  "check": "details can be edited by hand",
+  "pass": true,
+  "seen": {
+   "status": 200,
+   "photoComment": "audit comment",
+   "music": "audit song"
+  }
+ },
+ {
+  "req": "FR-08",
+  "check": "search finds a user by ID",
+  "pass": true,
+  "seen": [
+   "rin"
+  ]
+ },
+ {
+  "req": "FR-08",
+  "check": "request -> shows in the inbox -> accept -> friends",
+  "pass": true,
+  "seen": {
+   "request": 204,
+   "inbox": true,
+   "accept": 204,
+   "friends": true
+  }
+ },
+ {
+  "req": "FR-05",
+  "check": "a share link is issued",
+  "pass": true,
+  "seen": {
+   "status": 200,
+   "shareUrl": "http://localhost:8080/s/h6K824-xNe3z7uCIuay9aGXcmouD2qq9"
+  }
+ },
+ {
+  "req": "FR-05.2",
+  "check": "/s/{token} carries og:title and og:image, and the og image is a JPEG",
+  "pass": true,
+  "seen": {
+   "page": 200,
+   "og": 200,
+   "ogBytes": 86484
+  }
+ },
+ {
+  "req": "FR-05.3",
+  "check": "the shared album is readable with no login",
+  "pass": true,
+  "seen": {
+   "status": 200,
+   "title": "遊園地日和",
+   "photos": 3
+  }
+ },
+ {
+  "req": "FR-06",
+  "check": "an album is sealed as a capsule",
+  "pass": true,
+  "seen": {
+   "status": 200,
+   "capsule": {
+    "id": 9,
+    "status": "SEALED",
+    "openTime": "2027-09-27T12:00:00+09:00",
+    "daysRemaining": 365
+   }
+  }
+ },
+ {
+  "req": "FR-06.1",
+  "check": "before the open date the server returns neither the message nor the album",
+  "pass": true,
+  "seen": {
+   "get": 200,
+   "fields": [
+    "daysRemaining",
+    "id",
+    "openTime",
+    "status"
+   ],
+   "open": 409,
+   "code": "CAPSULE_NOT_YET_OPEN",
+   "messageLeaked": false
+  }
+ },
+ {
+  "req": "FR-07",
+  "check": "register, then log in with the name and password (a wrong password is refused)",
+  "pass": true,
+  "seen": {
+   "register": 200,
+   "login": 200,
+   "wrongPassword": 401,
+   "me": "reg0c7975"
+  }
+ },
+ {
+  "req": "FR-07.1",
+  "check": "a stored refresh token gets a new access token (what a reload does)",
+  "pass": true,
+  "seen": {
+   "refresh": 200
+  }
+ }
+]

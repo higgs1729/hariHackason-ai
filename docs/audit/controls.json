@@ -1,0 +1,9598 @@
+{
+ "fixtures": {
+  "album": 30,
+  "photo": 105,
+  "ayaka": 2,
+  "capsule": 8,
+  "share": "ww70FEzOSL_I4P7ipaEtsRwZKYLbcm6R"
+ },
+ "controls": [
+  {
+   "screen": "home",
+   "path": "/",
+   "setup": [],
+   "n": 1,
+   "tag": "button",
+   "role": "",
+   "name": "はじめる",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "アカウントを作る",
+    "ログインはこちら"
+   ],
+   "goneText": [
+    "ログイン"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "ログインはこちら"
+   ],
+   "errors": [],
+   "ms": 1525,
+   "shot": "home-01.jpg"
+  },
+  {
+   "screen": "home",
+   "path": "/",
+   "setup": [],
+   "n": 2,
+   "tag": "button",
+   "role": "",
+   "name": "ログイン",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "アカウントを作る"
+   ],
+   "goneText": [
+    "はじめる"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "アカウントを作る"
+   ],
+   "errors": [],
+   "ms": 1511,
+   "shot": "home-02.jpg"
+  },
+  {
+   "screen": "home-login",
+   "path": "/",
+   "setup": [
+    "ログイン"
+   ],
+   "n": 1,
+   "tag": "button",
+   "role": "",
+   "name": "ログイン",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1544,
+   "shot": "home-login-01.jpg",
+   "effect": "NO VISIBLE CHANGE"
+  },
+  {
+   "screen": "home-login",
+   "path": "/",
+   "setup": [
+    "ログイン"
+   ],
+   "n": 2,
+   "tag": "button",
+   "role": "",
+   "name": "アカウントを作る",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "はじめる",
+    "ログインはこちら"
+   ],
+   "goneText": [
+    "ログイン",
+    "ログイン"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "はじめる",
+    "ログインはこちら"
+   ],
+   "errors": [],
+   "ms": 1513,
+   "shot": "home-login-02.jpg"
+  },
+  {
+   "screen": "home-register",
+   "path": "/",
+   "setup": [
+    "はじめる"
+   ],
+   "n": 1,
+   "tag": "button",
+   "role": "",
+   "name": "はじめる",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1514,
+   "shot": "home-register-01.jpg",
+   "effect": "NO VISIBLE CHANGE"
+  },
+  {
+   "screen": "home-register",
+   "path": "/",
+   "setup": [
+    "はじめる"
+   ],
+   "n": 2,
+   "tag": "button",
+   "role": "",
+   "name": "ログインはこちら",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "ログイン",
+    "ログイン"
+   ],
+   "goneText": [
+    "はじめる",
+    "ログインはこちら"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "アカウントを作る",
+    "ログイン"
+   ],
+   "errors": [],
+   "ms": 1510,
+   "shot": "home-register-02.jpg"
+  },
+  {
+   "screen": "me-capsules",
+   "path": "/me?tab=capsules",
+   "setup": [],
+   "n": 1,
+   "tag": "button",
+   "role": "",
+   "name": "名前を変える",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "やめる",
+    "保存"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "やめる",
+    "保存"
+   ],
+   "errors": [],
+   "ms": 1511,
+   "shot": "me-capsules-01.jpg"
+  },
+  {
+   "screen": "me-capsules",
+   "path": "/me?tab=capsules",
+   "setup": [],
+   "n": 2,
+   "tag": "button",
+   "role": "tab",
+   "name": "アルバム",
+   "state": "//false/",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/me?tab=albums",
+   "newText": [
+    "桜と花火の一日",
+    "2026.09.27",
+    "2026.09.27",
+    "2026.09.27"
+   ],
+   "goneText": [
+    "2026.09.27 に開けた",
+    "2026.09.27 に開けた",
+    "2026.09.27 に開けた"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "アルバム: //true/",
+    "カプセル: //false/"
+   ],
+   "newControls": [
+    "2026.09.22 のアルバム 2026.09.22",
+    "2026.09.24 のアルバム 2026.09.24",
+    "お昼のピース 2026.09.25",
+    "仲間と過ごした一日 2026.09.25"
+   ],
+   "errors": [],
+   "ms": 1525,
+   "shot": "me-capsules-02.jpg"
+  },
+  {
+   "screen": "me-capsules",
+   "path": "/me?tab=capsules",
+   "setup": [],
+   "n": 3,
+   "tag": "button",
+   "role": "tab",
+   "name": "カプセル",
+   "state": "//true/",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1509,
+   "shot": "me-capsules-03.jpg",
+   "effect": "NO VISIBLE CHANGE"
+  },
+  {
+   "screen": "me-capsules",
+   "path": "/me?tab=capsules",
+   "setup": [],
+   "n": 4,
+   "tag": "button",
+   "role": "tab",
+   "name": "友達",
+   "state": "//false/",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/me?tab=friends",
+   "newText": [
+    "QRで友達を追加",
+    "さがす",
+    "あやか",
+    "@ayaka"
+   ],
+   "goneText": [
+    "青空と笑顔の日",
+    "2026.09.27 に開けた",
+    "友達と青空日和"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "カプセル: //false/",
+    "友達: //true/"
+   ],
+   "newControls": [
+    "QRで友達を追加",
+    "あやか @ayaka",
+    "さがす",
+    "みき @miki"
+   ],
+   "errors": [],
+   "ms": 1523,
+   "shot": "me-capsules-04.jpg"
+  },
+  {
+   "screen": "me-capsules",
+   "path": "/me?tab=capsules",
+   "setup": [],
+   "n": 5,
+   "tag": "a",
+   "role": "",
+   "name": "青空と笑顔の日 2026.09.27 に開けた",
+   "state": "///",
+   "href": "/album/10?capsule=1",
+   "disabled": false,
+   "urlAfter": "/album/10?capsule=1",
+   "newText": [
+    "過去の自分から",
+    "1年後のわたしへ。この日のこと覚えてる？",
+    "2026.09.27",
+    "編集"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1527,
+   "shot": "me-capsules-05.jpg"
+  },
+  {
+   "screen": "me-capsules",
+   "path": "/me?tab=capsules",
+   "setup": [],
+   "n": 6,
+   "tag": "a",
+   "role": "",
+   "name": "友達と青空日和 2026.09.27 に開けた",
+   "state": "///",
+   "href": "/album/11?capsule=2",
+   "disabled": false,
+   "urlAfter": "/album/11?capsule=2",
+   "newText": [
+    "過去の自分から",
+    "1年後のわたしへ。この日のこと覚えてる？",
+    "2026.09.27",
+    "編集"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1520,
+   "shot": "me-capsules-06.jpg"
+  },
+  {
+   "screen": "me-capsules",
+   "path": "/me?tab=capsules",
+   "setup": [],
+   "n": 7,
+   "tag": "a",
+   "role": "",
+   "name": "青空と笑顔の日 2026.09.27 に開けた",
+   "state": "///",
+   "href": "/album/12?capsule=3",
+   "disabled": false,
+   "urlAfter": "/album/12?capsule=3",
+   "newText": [
+    "過去の自分から",
+    "1年後のわたしへ。この日のこと覚えてる？",
+    "2026.09.27",
+    "編集"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "3ショット",
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア"
+   ],
+   "errors": [],
+   "ms": 1509,
+   "shot": "me-capsules-07.jpg"
+  },
+  {
+   "screen": "me-capsules",
+   "path": "/me?tab=capsules",
+   "setup": [],
+   "n": 8,
+   "tag": "a",
+   "role": "",
+   "name": "青空と笑顔 2026.09.27 に開けた",
+   "state": "///",
+   "href": "/album/13?capsule=4",
+   "disabled": false,
+   "urlAfter": "/album/13?capsule=4",
+   "newText": [
+    "過去の自分から",
+    "1年後のわたしへ。この日のこと覚えてる？",
+    "2026.09.27",
+    "編集"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "ひと休み",
+    "シェア"
+   ],
+   "errors": [],
+   "ms": 1512,
+   "shot": "me-capsules-08.jpg"
+  },
+  {
+   "screen": "me-capsules",
+   "path": "/me?tab=capsules",
+   "setup": [],
+   "n": 9,
+   "tag": "a",
+   "role": "",
+   "name": "青空と笑顔 2026.09.27 に開けた",
+   "state": "///",
+   "href": "/album/14?capsule=5",
+   "disabled": false,
+   "urlAfter": "/album/14?capsule=5",
+   "newText": [
+    "過去の自分から",
+    "1年後のわたしへ。この日のこと覚えてる？",
+    "2026.09.27",
+    "編集"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "3ショット",
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア"
+   ],
+   "errors": [],
+   "ms": 1523,
+   "shot": "me-capsules-09.jpg"
+  },
+  {
+   "screen": "me-capsules",
+   "path": "/me?tab=capsules",
+   "setup": [],
+   "n": 10,
+   "tag": "a",
+   "role": "",
+   "name": "あと365日 2027.09.27 に開けられる",
+   "state": "///",
+   "href": "/capsule/6",
+   "disabled": false,
+   "urlAfter": "/capsule/6",
+   "newText": [
+    "タイムカプセルが",
+    "完成しました！",
+    "あと 365 日で開けられます",
+    "タイムカプセルを開ける"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "その他のオプション",
+    "タイムカプセルを開ける",
+    "戻る"
+   ],
+   "errors": [],
+   "ms": 1517,
+   "shot": "me-capsules-10.jpg"
+  },
+  {
+   "screen": "me-capsules",
+   "path": "/me?tab=capsules",
+   "setup": [],
+   "n": 11,
+   "tag": "a",
+   "role": "",
+   "name": "あと365日 2027.09.27 に開けられる",
+   "state": "///",
+   "href": "/capsule/7",
+   "disabled": false,
+   "urlAfter": "/capsule/7",
+   "newText": [
+    "タイムカプセルが",
+    "完成しました！",
+    "あと 365 日で開けられます",
+    "タイムカプセルを開ける"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "その他のオプション",
+    "タイムカプセルを開ける",
+    "戻る"
+   ],
+   "errors": [],
+   "ms": 1507,
+   "shot": "me-capsules-11.jpg"
+  },
+  {
+   "screen": "me-capsules",
+   "path": "/me?tab=capsules",
+   "setup": [],
+   "n": 12,
+   "tag": "button",
+   "role": "",
+   "name": "写真を撮る",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/camera",
+   "newText": [
+    "AIに撮り方を聞く",
+    "ビデオ",
+    "写真"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "AIに撮り方を聞く",
+    "アルバムを作成",
+    "カメラを切り替える",
+    "写真ライブラリから選ぶ"
+   ],
+   "errors": [],
+   "ms": 1517,
+   "shot": "me-capsules-12.jpg"
+  },
+  {
+   "screen": "me-friends",
+   "path": "/me?tab=friends",
+   "setup": [],
+   "n": 1,
+   "tag": "button",
+   "role": "",
+   "name": "名前を変える",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "やめる",
+    "保存"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "やめる",
+    "保存"
+   ],
+   "errors": [],
+   "ms": 1520,
+   "shot": "me-friends-01.jpg"
+  },
+  {
+   "screen": "me-friends",
+   "path": "/me?tab=friends",
+   "setup": [],
+   "n": 2,
+   "tag": "button",
+   "role": "tab",
+   "name": "アルバム",
+   "state": "//false/",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/me?tab=albums",
+   "newText": [
+    "桜と花火の一日",
+    "2026.09.27",
+    "青空と笑顔",
+    "2026.09.27"
+   ],
+   "goneText": [
+    "QRで友達を追加",
+    "さがす",
+    "あやか"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "アルバム: //true/",
+    "友達: //false/"
+   ],
+   "newControls": [
+    "2026.09.22 のアルバム 2026.09.22",
+    "2026.09.24 のアルバム 2026.09.24",
+    "お昼のピース 2026.09.25",
+    "仲間と過ごした一日 2026.09.25"
+   ],
+   "errors": [],
+   "ms": 1512,
+   "shot": "me-friends-02.jpg"
+  },
+  {
+   "screen": "me-friends",
+   "path": "/me?tab=friends",
+   "setup": [],
+   "n": 3,
+   "tag": "button",
+   "role": "tab",
+   "name": "カプセル",
+   "state": "//false/",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/me?tab=capsules",
+   "newText": [
+    "青空と笑顔の日",
+    "2026.09.27 に開けた",
+    "友達と青空日和",
+    "2026.09.27 に開けた"
+   ],
+   "goneText": [
+    "QRで友達を追加",
+    "さがす",
+    "あやか"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "カプセル: //true/",
+    "友達: //false/"
+   ],
+   "newControls": [
+    "あと365日 2027.09.27 に開けられる",
+    "友達と青空日和 2026.09.27 に開けた",
+    "青空と笑顔 2026.09.27 に開けた",
+    "青空と笑顔の日 2026.09.27 に開けた"
+   ],
+   "errors": [],
+   "ms": 1522,
+   "shot": "me-friends-03.jpg"
+  },
+  {
+   "screen": "me-friends",
+   "path": "/me?tab=friends",
+   "setup": [],
+   "n": 4,
+   "tag": "button",
+   "role": "tab",
+   "name": "友達",
+   "state": "//true/",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1515,
+   "shot": "me-friends-04.jpg",
+   "effect": "NO VISIBLE CHANGE"
+  },
+  {
+   "screen": "me-friends",
+   "path": "/me?tab=friends",
+   "setup": [],
+   "n": 5,
+   "tag": "a",
+   "role": "",
+   "name": "QRで友達を追加",
+   "state": "///",
+   "href": "/friends/qr",
+   "disabled": false,
+   "urlAfter": "/friends/qr",
+   "newText": [
+    "友達を追加",
+    "見せる",
+    "読み取る",
+    "友達にこの画面を読み取ってもらってね"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "戻る",
+    "見せる",
+    "読み取る"
+   ],
+   "errors": [],
+   "ms": 1517,
+   "shot": "me-friends-05.jpg"
+  },
+  {
+   "screen": "me-friends",
+   "path": "/me?tab=friends",
+   "setup": [],
+   "n": 6,
+   "tag": "button",
+   "role": "",
+   "name": "さがす",
+   "state": "///",
+   "href": "",
+   "disabled": true,
+   "effect": "disabled in this state"
+  },
+  {
+   "screen": "me-friends",
+   "path": "/me?tab=friends",
+   "setup": [],
+   "n": 7,
+   "tag": "a",
+   "role": "",
+   "name": "あやか @ayaka",
+   "state": "///",
+   "href": "/reunion/2",
+   "disabled": false,
+   "urlAfter": "/reunion/2",
+   "newText": [
+    "あやかとの思い出",
+    "青空と笑顔の日",
+    "2026.09.21 ・ 青空セルフィー"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "次の写真",
+    "止める",
+    "閉じる",
+    "青空と笑顔の日 2026.09.21 ・ 青空セルフィー"
+   ],
+   "errors": [],
+   "ms": 1520,
+   "shot": "me-friends-07.jpg"
+  },
+  {
+   "screen": "me-friends",
+   "path": "/me?tab=friends",
+   "setup": [],
+   "n": 8,
+   "tag": "a",
+   "role": "",
+   "name": "みき @miki",
+   "state": "///",
+   "href": "/reunion/3",
+   "disabled": false,
+   "urlAfter": "/reunion/3",
+   "newText": [
+    "みきとの思い出",
+    "最高の1日",
+    "2026.09.24 ・ 放課後"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "最高の1日 2026.09.24 ・ 放課後",
+    "次の写真",
+    "止める",
+    "閉じる"
+   ],
+   "errors": [],
+   "ms": 1511,
+   "shot": "me-friends-08.jpg"
+  },
+  {
+   "screen": "me-friends",
+   "path": "/me?tab=friends",
+   "setup": [],
+   "n": 9,
+   "tag": "a",
+   "role": "",
+   "name": "りん @rin",
+   "state": "///",
+   "href": "/reunion/4",
+   "disabled": false,
+   "urlAfter": "/reunion/4",
+   "newText": [
+    "りんとの思い出",
+    "お昼のピース",
+    "2026.09.25 ・ 放課後"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "お昼のピース 2026.09.25 ・ 放課後",
+    "次の写真",
+    "止める",
+    "閉じる"
+   ],
+   "errors": [],
+   "ms": 1526,
+   "shot": "me-friends-09.jpg"
+  },
+  {
+   "screen": "me-friends",
+   "path": "/me?tab=friends",
+   "setup": [],
+   "n": 10,
+   "tag": "a",
+   "role": "",
+   "name": "監査 @auda0cad6",
+   "state": "///",
+   "href": "/reunion/5",
+   "disabled": false,
+   "urlAfter": "/reunion/5",
+   "newText": [
+    "監査との思い出",
+    "まだ監査と一緒のアルバムがありません。",
+    "今日を最初の1枚にしよう。",
+    "撮る"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "撮る",
+    "閉じる"
+   ],
+   "errors": [],
+   "ms": 1513,
+   "shot": "me-friends-10.jpg"
+  },
+  {
+   "screen": "me-friends",
+   "path": "/me?tab=friends",
+   "setup": [],
+   "n": 11,
+   "tag": "a",
+   "role": "",
+   "name": "監査 @auda565d4",
+   "state": "///",
+   "href": "/reunion/6",
+   "disabled": false,
+   "urlAfter": "/reunion/6",
+   "newText": [
+    "監査との思い出",
+    "まだ監査と一緒のアルバムがありません。",
+    "今日を最初の1枚にしよう。",
+    "撮る"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "撮る",
+    "閉じる"
+   ],
+   "errors": [],
+   "ms": 1515,
+   "shot": "me-friends-11.jpg"
+  },
+  {
+   "screen": "me-friends",
+   "path": "/me?tab=friends",
+   "setup": [],
+   "n": 12,
+   "tag": "a",
+   "role": "",
+   "name": "監査 @auddf24e0",
+   "state": "///",
+   "href": "/reunion/7",
+   "disabled": false,
+   "urlAfter": "/reunion/7",
+   "newText": [
+    "監査との思い出",
+    "まだ監査と一緒のアルバムがありません。",
+    "今日を最初の1枚にしよう。",
+    "撮る"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "撮る",
+    "閉じる"
+   ],
+   "errors": [],
+   "ms": 1510,
+   "shot": "me-friends-12.jpg"
+  },
+  {
+   "screen": "me-friends",
+   "path": "/me?tab=friends",
+   "setup": [],
+   "n": 13,
+   "tag": "a",
+   "role": "",
+   "name": "監査 @aud58b21d",
+   "state": "///",
+   "href": "/reunion/8",
+   "disabled": false,
+   "urlAfter": "/reunion/8",
+   "newText": [
+    "監査との思い出",
+    "まだ監査と一緒のアルバムがありません。",
+    "今日を最初の1枚にしよう。",
+    "撮る"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "撮る",
+    "閉じる"
+   ],
+   "errors": [],
+   "ms": 1512,
+   "shot": "me-friends-13.jpg"
+  },
+  {
+   "screen": "me-friends",
+   "path": "/me?tab=friends",
+   "setup": [],
+   "n": 14,
+   "tag": "button",
+   "role": "",
+   "name": "写真を撮る",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/camera",
+   "newText": [
+    "AIに撮り方を聞く",
+    "ビデオ",
+    "写真"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "AIに撮り方を聞く",
+    "アルバムを作成",
+    "カメラを切り替える",
+    "写真ライブラリから選ぶ"
+   ],
+   "errors": [],
+   "ms": 1514,
+   "shot": "me-friends-14.jpg"
+  },
+  {
+   "screen": "me-name-edit",
+   "path": "/me",
+   "setup": [
+    "名前を変える"
+   ],
+   "n": 1,
+   "tag": "button",
+   "role": "",
+   "name": "やめる",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "わたし",
+    "@nao"
+   ],
+   "goneText": [
+    "やめる",
+    "保存"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "名前を変える"
+   ],
+   "errors": [],
+   "ms": 1524,
+   "shot": "me-name-edit-01.jpg"
+  },
+  {
+   "screen": "me-name-edit",
+   "path": "/me",
+   "setup": [
+    "名前を変える"
+   ],
+   "n": 2,
+   "tag": "button",
+   "role": "",
+   "name": "保存",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "わたし",
+    "@nao"
+   ],
+   "goneText": [
+    "やめる",
+    "保存"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "名前を変える"
+   ],
+   "errors": [],
+   "ms": 1530,
+   "shot": "me-name-edit-02.jpg"
+  },
+  {
+   "screen": "me-name-edit",
+   "path": "/me",
+   "setup": [
+    "名前を変える"
+   ],
+   "n": 3,
+   "tag": "button",
+   "role": "tab",
+   "name": "アルバム",
+   "state": "//true/",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/me?tab=albums",
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1513,
+   "shot": "me-name-edit-03.jpg"
+  },
+  {
+   "screen": "me-name-edit",
+   "path": "/me",
+   "setup": [
+    "名前を変える"
+   ],
+   "n": 4,
+   "tag": "button",
+   "role": "tab",
+   "name": "カプセル",
+   "state": "//false/",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/me?tab=capsules",
+   "newText": [
+    "2026.09.27 に開けた",
+    "2026.09.27 に開けた",
+    "2026.09.27 に開けた",
+    "2026.09.27 に開けた"
+   ],
+   "goneText": [
+    "桜と花火の一日",
+    "2026.09.27",
+    "2026.09.27"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "アルバム: //false/",
+    "カプセル: //true/"
+   ],
+   "newControls": [
+    "あと365日 2027.09.27 に開けられる",
+    "友達と青空日和 2026.09.27 に開けた",
+    "青空と笑顔 2026.09.27 に開けた",
+    "青空と笑顔の日 2026.09.27 に開けた"
+   ],
+   "errors": [],
+   "ms": 1524,
+   "shot": "me-name-edit-04.jpg"
+  },
+  {
+   "screen": "me-name-edit",
+   "path": "/me",
+   "setup": [
+    "名前を変える"
+   ],
+   "n": 5,
+   "tag": "button",
+   "role": "tab",
+   "name": "友達",
+   "state": "//false/",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/me?tab=friends",
+   "newText": [
+    "QRで友達を追加",
+    "さがす",
+    "あやか",
+    "@ayaka"
+   ],
+   "goneText": [
+    "桜と花火の一日",
+    "2026.09.27",
+    "青空と笑顔"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "アルバム: //false/",
+    "友達: //true/"
+   ],
+   "newControls": [
+    "QRで友達を追加",
+    "あやか @ayaka",
+    "さがす",
+    "みき @miki"
+   ],
+   "errors": [],
+   "ms": 1525,
+   "shot": "me-name-edit-05.jpg"
+  },
+  {
+   "screen": "me-name-edit",
+   "path": "/me",
+   "setup": [
+    "名前を変える"
+   ],
+   "n": 6,
+   "tag": "a",
+   "role": "",
+   "name": "桜と花火の一日 2026.09.27",
+   "state": "///",
+   "href": "/album/18",
+   "disabled": false,
+   "urlAfter": "/album/18",
+   "newText": [
+    "編集",
+    "桜並木",
+    "花火と笑顔",
+    "桜並木"
+   ],
+   "goneText": [
+    "やめる",
+    "保存",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1529,
+   "shot": "me-name-edit-06.jpg"
+  },
+  {
+   "screen": "me-name-edit",
+   "path": "/me",
+   "setup": [
+    "名前を変える"
+   ],
+   "n": 7,
+   "tag": "a",
+   "role": "",
+   "name": "青空と笑顔 2026.09.27",
+   "state": "///",
+   "href": "/album/14",
+   "disabled": false,
+   "urlAfter": "/album/14",
+   "newText": [
+    "編集",
+    "3ショット",
+    "食べ歩き",
+    "ピース"
+   ],
+   "goneText": [
+    "やめる",
+    "保存",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "3ショット",
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア"
+   ],
+   "errors": [],
+   "ms": 1523,
+   "shot": "me-name-edit-07.jpg"
+  },
+  {
+   "screen": "me-name-edit",
+   "path": "/me",
+   "setup": [
+    "名前を変える"
+   ],
+   "n": 8,
+   "tag": "a",
+   "role": "",
+   "name": "青空と笑顔 2026.09.27",
+   "state": "///",
+   "href": "/album/13",
+   "disabled": false,
+   "urlAfter": "/album/13",
+   "newText": [
+    "編集",
+    "三人で",
+    "食べ歩き",
+    "ひと休み"
+   ],
+   "goneText": [
+    "やめる",
+    "保存",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "ひと休み",
+    "シェア"
+   ],
+   "errors": [],
+   "ms": 1516,
+   "shot": "me-name-edit-08.jpg"
+  },
+  {
+   "screen": "me-name-edit",
+   "path": "/me",
+   "setup": [
+    "名前を変える"
+   ],
+   "n": 9,
+   "tag": "a",
+   "role": "",
+   "name": "青空と笑顔の日 2026.09.27",
+   "state": "///",
+   "href": "/album/12",
+   "disabled": false,
+   "urlAfter": "/album/12",
+   "newText": [
+    "編集",
+    "3ショット",
+    "食べ歩き",
+    "休憩中"
+   ],
+   "goneText": [
+    "やめる",
+    "保存",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "3ショット",
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア"
+   ],
+   "errors": [],
+   "ms": 1523,
+   "shot": "me-name-edit-09.jpg"
+  },
+  {
+   "screen": "me-name-edit",
+   "path": "/me",
+   "setup": [
+    "名前を変える"
+   ],
+   "n": 10,
+   "tag": "a",
+   "role": "",
+   "name": "友達と青空日和 2026.09.27",
+   "state": "///",
+   "href": "/album/11",
+   "disabled": false,
+   "urlAfter": "/album/11",
+   "newText": [
+    "編集",
+    "青空バック",
+    "食べ歩き",
+    "ピースサイン"
+   ],
+   "goneText": [
+    "やめる",
+    "保存",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1518,
+   "shot": "me-name-edit-10.jpg"
+  },
+  {
+   "screen": "me-name-edit",
+   "path": "/me",
+   "setup": [
+    "名前を変える"
+   ],
+   "n": 11,
+   "tag": "a",
+   "role": "",
+   "name": "青空と笑顔の日 2026.09.27",
+   "state": "///",
+   "href": "/album/10",
+   "disabled": false,
+   "urlAfter": "/album/10",
+   "newText": [
+    "編集",
+    "青空ピース",
+    "屋台グルメ",
+    "ベンチ休憩"
+   ],
+   "goneText": [
+    "やめる",
+    "保存",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1523,
+   "shot": "me-name-edit-11.jpg"
+  },
+  {
+   "screen": "me-name-edit",
+   "path": "/me",
+   "setup": [
+    "名前を変える"
+   ],
+   "n": 12,
+   "tag": "a",
+   "role": "",
+   "name": "季節をこえた思い出 2026.09.27",
+   "state": "///",
+   "href": "/album/9",
+   "disabled": false,
+   "urlAfter": "/album/9",
+   "newText": [
+    "編集",
+    "夕焼けの丘",
+    "花火の夜",
+    "海と夕日"
+   ],
+   "goneText": [
+    "やめる",
+    "保存",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1522,
+   "shot": "me-name-edit-12.jpg"
+  },
+  {
+   "screen": "me-name-edit",
+   "path": "/me",
+   "setup": [
+    "名前を変える"
+   ],
+   "n": 13,
+   "tag": "a",
+   "role": "",
+   "name": "友との特別な日 2026.09.27",
+   "state": "///",
+   "href": "/album/6",
+   "disabled": false,
+   "urlAfter": "/album/6",
+   "newText": [
+    "編集",
+    "丘の夕日",
+    "花火",
+    "海の夕日"
+   ],
+   "goneText": [
+    "やめる",
+    "保存",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1519,
+   "shot": "me-name-edit-13.jpg"
+  },
+  {
+   "screen": "me-name-edit",
+   "path": "/me",
+   "setup": [
+    "名前を変える"
+   ],
+   "n": 14,
+   "tag": "a",
+   "role": "",
+   "name": "青春の一日 2026.09.25",
+   "state": "///",
+   "href": "/album/8",
+   "disabled": false,
+   "urlAfter": "/album/8",
+   "newText": [
+    "編集",
+    "円陣",
+    "ジャンプ",
+    "この写真を飾る"
+   ],
+   "goneText": [
+    "やめる",
+    "保存",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "ジャンプ"
+   ],
+   "errors": [],
+   "ms": 1519,
+   "shot": "me-name-edit-14.jpg"
+  },
+  {
+   "screen": "me-name-edit",
+   "path": "/me",
+   "setup": [
+    "名前を変える"
+   ],
+   "n": 15,
+   "tag": "a",
+   "role": "",
+   "name": "仲間と過ごした一日 2026.09.25",
+   "state": "///",
+   "href": "/album/5",
+   "disabled": false,
+   "urlAfter": "/album/5",
+   "newText": [
+    "編集",
+    "円陣",
+    "ジャンプ",
+    "この写真を飾る"
+   ],
+   "goneText": [
+    "やめる",
+    "保存",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "ジャンプ"
+   ],
+   "errors": [],
+   "ms": 1517,
+   "shot": "me-name-edit-15.jpg"
+  },
+  {
+   "screen": "me-name-edit",
+   "path": "/me",
+   "setup": [
+    "名前を変える"
+   ],
+   "n": 16,
+   "tag": "a",
+   "role": "",
+   "name": "お昼のピース 2026.09.25",
+   "state": "///",
+   "href": "/album/2",
+   "disabled": false,
+   "urlAfter": "/album/2",
+   "newText": [
+    "編集",
+    "放課後",
+    "梅田",
+    "みんなで"
+   ],
+   "goneText": [
+    "やめる",
+    "保存",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "みんなで",
+    "シェア"
+   ],
+   "errors": [],
+   "ms": 1513,
+   "shot": "me-name-edit-16.jpg"
+  },
+  {
+   "screen": "me-name-edit",
+   "path": "/me",
+   "setup": [
+    "名前を変える"
+   ],
+   "n": 17,
+   "tag": "a",
+   "role": "",
+   "name": "秋晴れと笑顔の一日 2026.09.24",
+   "state": "///",
+   "href": "/album/7",
+   "disabled": false,
+   "urlAfter": "/album/7",
+   "newText": [
+    "編集",
+    "制服日和",
+    "屋台グルメ",
+    "階段で一枚"
+   ],
+   "goneText": [
+    "やめる",
+    "保存",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1523,
+   "shot": "me-name-edit-17.jpg"
+  },
+  {
+   "screen": "me-name-edit",
+   "path": "/me",
+   "setup": [
+    "名前を変える"
+   ],
+   "n": 18,
+   "tag": "a",
+   "role": "",
+   "name": "青空とはしゃぐ午後 2026.09.24",
+   "state": "///",
+   "href": "/album/4",
+   "disabled": false,
+   "urlAfter": "/album/4",
+   "newText": [
+    "編集",
+    "青空日和",
+    "食べ歩き",
+    "記念撮影"
+   ],
+   "goneText": [
+    "やめる",
+    "保存",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1515,
+   "shot": "me-name-edit-18.jpg"
+  },
+  {
+   "screen": "me-name-edit",
+   "path": "/me",
+   "setup": [
+    "名前を変える"
+   ],
+   "n": 19,
+   "tag": "a",
+   "role": "",
+   "name": "2026.09.24 のアルバム 2026.09.24",
+   "state": "///",
+   "href": "/album/3",
+   "disabled": false,
+   "urlAfter": "/album/3",
+   "newText": [
+    "編集",
+    "この写真を飾る",
+    "シェア",
+    "場所"
+   ],
+   "goneText": [
+    "やめる",
+    "保存",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1526,
+   "shot": "me-name-edit-19.jpg"
+  },
+  {
+   "screen": "me-name-edit",
+   "path": "/me",
+   "setup": [
+    "名前を変える"
+   ],
+   "n": 20,
+   "tag": "a",
+   "role": "",
+   "name": "最高の1日 2026.09.24",
+   "state": "///",
+   "href": "/album/1",
+   "disabled": false,
+   "urlAfter": "/album/1",
+   "newText": [
+    "編集",
+    "放課後",
+    "梅田",
+    "みんなで"
+   ],
+   "goneText": [
+    "やめる",
+    "保存",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "みんなで",
+    "シェア"
+   ],
+   "errors": [],
+   "ms": 1509,
+   "shot": "me-name-edit-20.jpg"
+  },
+  {
+   "screen": "me-name-edit",
+   "path": "/me",
+   "setup": [
+    "名前を変える"
+   ],
+   "n": 21,
+   "tag": "a",
+   "role": "",
+   "name": "2026.09.22 のアルバム 2026.09.22",
+   "state": "///",
+   "href": "/album/24",
+   "disabled": false,
+   "urlAfter": "/album/24",
+   "newText": [
+    "編集",
+    "12:00",
+    "12:01",
+    "12:02"
+   ],
+   "goneText": [
+    "やめる",
+    "保存",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "12:00",
+    "12:01",
+    "12:02",
+    "この写真を飾る"
+   ],
+   "errors": [],
+   "ms": 1525,
+   "shot": "me-name-edit-21.jpg"
+  },
+  {
+   "screen": "me-name-edit",
+   "path": "/me",
+   "setup": [
+    "名前を変える"
+   ],
+   "n": 22,
+   "tag": "a",
+   "role": "",
+   "name": "2026.09.22 のアルバム 2026.09.22",
+   "state": "///",
+   "href": "/album/21",
+   "disabled": false,
+   "urlAfter": "/album/21",
+   "newText": [
+    "編集",
+    "この写真を飾る",
+    "シェア",
+    "場所"
+   ],
+   "goneText": [
+    "やめる",
+    "保存",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1516,
+   "shot": "me-name-edit-22.jpg"
+  },
+  {
+   "screen": "me-name-edit",
+   "path": "/me",
+   "setup": [
+    "名前を変える"
+   ],
+   "n": 23,
+   "tag": "a",
+   "role": "",
+   "name": "友達との思い出 2026.09.22",
+   "state": "///",
+   "href": "/album/16",
+   "disabled": false,
+   "urlAfter": "/album/16",
+   "newText": [
+    "編集",
+    "夕日",
+    "花火",
+    "花見"
+   ],
+   "goneText": [
+    "やめる",
+    "保存",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1524,
+   "shot": "me-name-edit-23.jpg"
+  },
+  {
+   "screen": "me-name-edit",
+   "path": "/me",
+   "setup": [
+    "名前を変える"
+   ],
+   "n": 24,
+   "tag": "a",
+   "role": "",
+   "name": "特別な一日 2026.09.21",
+   "state": "///",
+   "href": "/album/28",
+   "disabled": false,
+   "urlAfter": "/album/28",
+   "newText": [
+    "編集",
+    "夕日",
+    "花火の夜",
+    "桜並木"
+   ],
+   "goneText": [
+    "やめる",
+    "保存",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1535,
+   "shot": "me-name-edit-24.jpg"
+  },
+  {
+   "screen": "me-name-edit",
+   "path": "/me",
+   "setup": [
+    "名前を変える"
+   ],
+   "n": 25,
+   "tag": "a",
+   "role": "",
+   "name": "青空と笑顔の日 2026.09.21",
+   "state": "///",
+   "href": "/album/27",
+   "disabled": false,
+   "urlAfter": "/album/27",
+   "newText": [
+    "編集",
+    "青空セルフィー",
+    "屋台グルメ",
+    "遊園地デート"
+   ],
+   "goneText": [
+    "やめる",
+    "保存",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1517,
+   "shot": "me-name-edit-25.jpg"
+  },
+  {
+   "screen": "me-name-edit",
+   "path": "/me",
+   "setup": [
+    "名前を変える"
+   ],
+   "n": 26,
+   "tag": "a",
+   "role": "",
+   "name": "友達と特別な一日 2026.09.21",
+   "state": "///",
+   "href": "/album/26",
+   "disabled": false,
+   "urlAfter": "/album/26",
+   "newText": [
+    "編集",
+    "夕焼け",
+    "花火大会",
+    "桜並木"
+   ],
+   "goneText": [
+    "やめる",
+    "保存",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1512,
+   "shot": "me-name-edit-26.jpg"
+  },
+  {
+   "screen": "me-name-edit",
+   "path": "/me",
+   "setup": [
+    "名前を変える"
+   ],
+   "n": 27,
+   "tag": "a",
+   "role": "",
+   "name": "秋晴れの遠足日和 2026.09.21",
+   "state": "///",
+   "href": "/album/25",
+   "disabled": false,
+   "urlAfter": "/album/25",
+   "newText": [
+    "編集",
+    "青空の下で",
+    "おやつタイム",
+    "ピースサイン"
+   ],
+   "goneText": [
+    "やめる",
+    "保存",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "おやつタイム",
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア"
+   ],
+   "errors": [],
+   "ms": 1521,
+   "shot": "me-name-edit-27.jpg"
+  },
+  {
+   "screen": "me-name-edit",
+   "path": "/me",
+   "setup": [
+    "名前を変える"
+   ],
+   "n": 28,
+   "tag": "a",
+   "role": "",
+   "name": "友達との思い出 2026.09.21",
+   "state": "///",
+   "href": "/album/23",
+   "disabled": false,
+   "urlAfter": "/album/23",
+   "newText": [
+    "編集",
+    "夕焼け",
+    "花火",
+    "桜並木"
+   ],
+   "goneText": [
+    "やめる",
+    "保存",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1513,
+   "shot": "me-name-edit-28.jpg"
+  },
+  {
+   "screen": "me-name-edit",
+   "path": "/me",
+   "setup": [
+    "名前を変える"
+   ],
+   "n": 29,
+   "tag": "a",
+   "role": "",
+   "name": "青空と笑顔の遠足 2026.09.21",
+   "state": "///",
+   "href": "/album/22",
+   "disabled": false,
+   "urlAfter": "/album/22",
+   "newText": [
+    "編集",
+    "青空ピース",
+    "屋台グルメ",
+    "遊園地で"
+   ],
+   "goneText": [
+    "やめる",
+    "保存",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1517,
+   "shot": "me-name-edit-29.jpg"
+  },
+  {
+   "screen": "me-name-edit",
+   "path": "/me",
+   "setup": [
+    "名前を変える"
+   ],
+   "n": 30,
+   "tag": "a",
+   "role": "",
+   "name": "友達との時間 2026.09.21",
+   "state": "///",
+   "href": "/album/20",
+   "disabled": false,
+   "urlAfter": "/album/20",
+   "newText": [
+    "編集",
+    "夕焼け",
+    "花火大会",
+    "桜並木"
+   ],
+   "goneText": [
+    "やめる",
+    "保存",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1518,
+   "shot": "me-name-edit-30.jpg"
+  },
+  {
+   "screen": "me-name-edit",
+   "path": "/me",
+   "setup": [
+    "名前を変える"
+   ],
+   "n": 31,
+   "tag": "a",
+   "role": "",
+   "name": "青空とはしゃぐ休日 2026.09.21",
+   "state": "///",
+   "href": "/album/19",
+   "disabled": false,
+   "urlAfter": "/album/19",
+   "newText": [
+    "編集",
+    "3人で笑顔",
+    "おやつタイム",
+    "階段でピース"
+   ],
+   "goneText": [
+    "やめる",
+    "保存",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "3人で笑顔",
+    "おやつタイム",
+    "この写真を飾る",
+    "その他のオプション"
+   ],
+   "errors": [],
+   "ms": 1522,
+   "shot": "me-name-edit-31.jpg"
+  },
+  {
+   "screen": "me-name-edit",
+   "path": "/me",
+   "setup": [
+    "名前を変える"
+   ],
+   "n": 32,
+   "tag": "a",
+   "role": "",
+   "name": "夕焼けと青空の一日 2026.09.21",
+   "state": "///",
+   "href": "/album/17",
+   "disabled": false,
+   "urlAfter": "/album/17",
+   "newText": [
+    "編集",
+    "夕日",
+    "青空",
+    "この写真を飾る"
+   ],
+   "goneText": [
+    "やめる",
+    "保存",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1528,
+   "shot": "me-name-edit-32.jpg"
+  },
+  {
+   "screen": "me-name-edit",
+   "path": "/me",
+   "setup": [
+    "名前を変える"
+   ],
+   "n": 33,
+   "tag": "a",
+   "role": "",
+   "name": "友達と青空日和 2026.09.21",
+   "state": "///",
+   "href": "/album/15",
+   "disabled": false,
+   "urlAfter": "/album/15",
+   "newText": [
+    "編集",
+    "青空とピース",
+    "おやつタイム",
+    "階段でパシャリ"
+   ],
+   "goneText": [
+    "やめる",
+    "保存",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "おやつタイム",
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア"
+   ],
+   "errors": [],
+   "ms": 1531,
+   "shot": "me-name-edit-33.jpg"
+  },
+  {
+   "screen": "me-name-edit",
+   "path": "/me",
+   "setup": [
+    "名前を変える"
+   ],
+   "n": 34,
+   "tag": "button",
+   "role": "",
+   "name": "写真を撮る",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/camera",
+   "newText": [
+    "AIに撮り方を聞く",
+    "ビデオ",
+    "写真"
+   ],
+   "goneText": [
+    "やめる",
+    "保存",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "AIに撮り方を聞く",
+    "アルバムを作成",
+    "カメラを切り替える",
+    "写真ライブラリから選ぶ"
+   ],
+   "errors": [],
+   "ms": 1525,
+   "shot": "me-name-edit-34.jpg"
+  },
+  {
+   "screen": "friend-qr-show",
+   "path": "/friends/qr?mode=show",
+   "setup": [],
+   "n": 1,
+   "tag": "button",
+   "role": "",
+   "name": "戻る",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/me?tab=friends",
+   "newText": [
+    "わたし",
+    "@nao",
+    "アルバム",
+    "カプセル"
+   ],
+   "goneText": [
+    "友達を追加",
+    "見せる",
+    "読み取る"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "QRで友達を追加",
+    "あやか @ayaka",
+    "さがす",
+    "みき @miki"
+   ],
+   "errors": [],
+   "ms": 1525,
+   "shot": "friend-qr-show-01.jpg"
+  },
+  {
+   "screen": "friend-qr-show",
+   "path": "/friends/qr?mode=show",
+   "setup": [],
+   "n": 2,
+   "tag": "button",
+   "role": "tab",
+   "name": "見せる",
+   "state": "//true/",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "あと 9:57 で新しいQRに変わります"
+   ],
+   "goneText": [
+    "あと 9:58 で新しいQRに変わります"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1522,
+   "shot": "friend-qr-show-02.jpg"
+  },
+  {
+   "screen": "friend-qr-show",
+   "path": "/friends/qr?mode=show",
+   "setup": [],
+   "n": 3,
+   "tag": "button",
+   "role": "tab",
+   "name": "読み取る",
+   "state": "//false/",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/friends/qr?mode=scan",
+   "newText": [
+    "読み取れないときはコードを入力",
+    "追加"
+   ],
+   "goneText": [
+    "友達にこの画面を読み取ってもらってね",
+    "あと 9:58 で新しいQRに変わります"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "見せる: //false/",
+    "読み取る: //true/"
+   ],
+   "newControls": [
+    "追加"
+   ],
+   "errors": [],
+   "ms": 1517,
+   "shot": "friend-qr-show-03.jpg"
+  },
+  {
+   "screen": "friend-qr-scan",
+   "path": "/friends/qr?mode=scan",
+   "setup": [],
+   "n": 1,
+   "tag": "button",
+   "role": "",
+   "name": "戻る",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/me?tab=friends",
+   "newText": [
+    "わたし",
+    "@nao",
+    "アルバム",
+    "カプセル"
+   ],
+   "goneText": [
+    "友達を追加",
+    "見せる",
+    "読み取る"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "QRで友達を追加",
+    "あやか @ayaka",
+    "さがす",
+    "みき @miki"
+   ],
+   "errors": [],
+   "ms": 1519,
+   "shot": "friend-qr-scan-01.jpg"
+  },
+  {
+   "screen": "friend-qr-scan",
+   "path": "/friends/qr?mode=scan",
+   "setup": [],
+   "n": 2,
+   "tag": "button",
+   "role": "tab",
+   "name": "見せる",
+   "state": "//false/",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/friends/qr?mode=show",
+   "newText": [
+    "友達にこの画面を読み取ってもらってね",
+    "あと 9:58 で新しいQRに変わります"
+   ],
+   "goneText": [
+    "読み取れないときはコードを入力",
+    "追加"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "見せる: //true/",
+    "読み取る: //false/"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1519,
+   "shot": "friend-qr-scan-02.jpg"
+  },
+  {
+   "screen": "friend-qr-scan",
+   "path": "/friends/qr?mode=scan",
+   "setup": [],
+   "n": 3,
+   "tag": "button",
+   "role": "tab",
+   "name": "読み取る",
+   "state": "//true/",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1516,
+   "shot": "friend-qr-scan-03.jpg",
+   "effect": "NO VISIBLE CHANGE"
+  },
+  {
+   "screen": "friend-qr-scan",
+   "path": "/friends/qr?mode=scan",
+   "setup": [],
+   "n": 4,
+   "tag": "button",
+   "role": "",
+   "name": "追加",
+   "state": "///",
+   "href": "",
+   "disabled": true,
+   "effect": "disabled in this state"
+  },
+  {
+   "screen": "reunion",
+   "path": "/reunion/2",
+   "setup": [],
+   "n": 1,
+   "tag": "button",
+   "role": "",
+   "name": "閉じる",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/me?tab=friends",
+   "newText": [
+    "わたし",
+    "@nao",
+    "アルバム",
+    "カプセル"
+   ],
+   "goneText": [
+    "あやかとの思い出",
+    "青空と笑顔の日",
+    "2026.09.21 ・ 青空セルフィー"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "QRで友達を追加",
+    "あやか @ayaka",
+    "さがす",
+    "みき @miki"
+   ],
+   "errors": [],
+   "ms": 1518,
+   "shot": "reunion-01.jpg"
+  },
+  {
+   "screen": "reunion",
+   "path": "/reunion/2",
+   "setup": [],
+   "n": 2,
+   "tag": "button",
+   "role": "",
+   "name": "次の写真",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "2026.09.21 ・ 屋台グルメ"
+   ],
+   "goneText": [
+    "2026.09.21 ・ 青空セルフィー"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "青空と笑顔の日 2026.09.21 ・ 屋台グルメ"
+   ],
+   "errors": [],
+   "ms": 1516,
+   "shot": "reunion-02.jpg"
+  },
+  {
+   "screen": "reunion",
+   "path": "/reunion/2",
+   "setup": [],
+   "n": 3,
+   "tag": "a",
+   "role": "",
+   "name": "青空と笑顔の日 2026.09.21 ・ 青空セルフィー",
+   "state": "///",
+   "href": "/album/27",
+   "disabled": false,
+   "urlAfter": "/album/27",
+   "newText": [
+    "2026.09.21",
+    "編集",
+    "青空セルフィー",
+    "屋台グルメ"
+   ],
+   "goneText": [
+    "あやかとの思い出",
+    "2026.09.21 ・ 青空セルフィー"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1521,
+   "shot": "reunion-03.jpg"
+  },
+  {
+   "screen": "reunion",
+   "path": "/reunion/2",
+   "setup": [],
+   "n": 4,
+   "tag": "button",
+   "role": "",
+   "name": "止める",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "再生"
+   ],
+   "errors": [],
+   "ms": 1508,
+   "shot": "reunion-04.jpg"
+  },
+  {
+   "screen": "camera",
+   "path": "/camera",
+   "setup": [],
+   "n": 1,
+   "tag": "button",
+   "role": "",
+   "name": "閉じる",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/me",
+   "newText": [
+    "わたし",
+    "@nao",
+    "アルバム",
+    "カプセル"
+   ],
+   "goneText": [
+    "AIに撮り方を聞く",
+    "ビデオ",
+    "写真"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "2026.09.22 のアルバム 2026.09.22",
+    "2026.09.24 のアルバム 2026.09.24",
+    "お昼のピース 2026.09.25",
+    "アルバム"
+   ],
+   "errors": [],
+   "ms": 1520,
+   "shot": "camera-01.jpg"
+  },
+  {
+   "screen": "camera",
+   "path": "/camera",
+   "setup": [],
+   "n": 2,
+   "tag": "button",
+   "role": "",
+   "name": "写真ライブラリから選ぶ",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": true,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1518,
+   "shot": "camera-02.jpg"
+  },
+  {
+   "screen": "camera",
+   "path": "/camera",
+   "setup": [],
+   "n": 3,
+   "tag": "button",
+   "role": "",
+   "name": "AIに撮り方を聞く",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "何人？",
+    "3人",
+    "どんな感じ？",
+    "わちゃわちゃ"
+   ],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "1人増やす",
+    "1人減らす",
+    "かっこよく",
+    "かわいく"
+   ],
+   "errors": [],
+   "ms": 1529,
+   "shot": "camera-03.jpg"
+  },
+  {
+   "screen": "camera",
+   "path": "/camera",
+   "setup": [],
+   "n": 4,
+   "tag": "button",
+   "role": "",
+   "name": "アルバムを作成",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/album/new",
+   "newText": [
+    "Best Friends ♡",
+    "2026.09.20",
+    "10/10",
+    "17:30"
+   ],
+   "goneText": [
+    "AIに撮り方を聞く",
+    "ビデオ",
+    "写真"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "02:04の写真を外す",
+    "17:30の写真を外す",
+    "17:31の写真を外す",
+    "AIでアルバムにまとめる（10枚）"
+   ],
+   "errors": [],
+   "ms": 1522,
+   "shot": "camera-04.jpg"
+  },
+  {
+   "screen": "camera",
+   "path": "/camera",
+   "setup": [],
+   "n": 5,
+   "tag": "button",
+   "role": "",
+   "name": "写真を撮る",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": true,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1519,
+   "shot": "camera-05.jpg"
+  },
+  {
+   "screen": "camera",
+   "path": "/camera",
+   "setup": [],
+   "n": 6,
+   "tag": "button",
+   "role": "",
+   "name": "カメラを切り替える",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1517,
+   "shot": "camera-06.jpg",
+   "effect": "NO VISIBLE CHANGE"
+  },
+  {
+   "screen": "album-create",
+   "path": "/album/new",
+   "setup": [],
+   "n": 1,
+   "tag": "button",
+   "role": "",
+   "name": "戻る",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/camera",
+   "newText": [
+    "AIに撮り方を聞く",
+    "ビデオ",
+    "写真"
+   ],
+   "goneText": [
+    "Best Friends ♡",
+    "2026.09.20",
+    "10/10"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "AIに撮り方を聞く",
+    "アルバムを作成",
+    "カメラを切り替える",
+    "写真を撮る"
+   ],
+   "errors": [],
+   "ms": 1514,
+   "shot": "album-create-01.jpg"
+  },
+  {
+   "screen": "album-create",
+   "path": "/album/new",
+   "setup": [],
+   "n": 2,
+   "tag": "button",
+   "role": "",
+   "name": "その他のオプション",
+   "state": "///false",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "マイページ",
+    "ログアウト"
+   ],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [
+    "その他のオプション: ///true"
+   ],
+   "newControls": [
+    "マイページ",
+    "ログアウト"
+   ],
+   "errors": [],
+   "ms": 1519,
+   "shot": "album-create-02.jpg"
+  },
+  {
+   "screen": "album-create",
+   "path": "/album/new",
+   "setup": [],
+   "n": 3,
+   "tag": "button",
+   "role": "",
+   "name": "17:30の写真を外す",
+   "state": "true///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "9/10",
+    "AIでアルバムにまとめる（9枚）"
+   ],
+   "goneText": [
+    "10/10",
+    "AIでアルバムにまとめる（10枚）"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "17:30の写真を入れる",
+    "AIでアルバムにまとめる（9枚）"
+   ],
+   "errors": [],
+   "ms": 1517,
+   "shot": "album-create-03.jpg"
+  },
+  {
+   "screen": "album-create",
+   "path": "/album/new",
+   "setup": [],
+   "n": 4,
+   "tag": "button",
+   "role": "",
+   "name": "17:30の写真を外す",
+   "state": "true///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "9/10",
+    "AIでアルバムにまとめる（9枚）"
+   ],
+   "goneText": [
+    "10/10",
+    "AIでアルバムにまとめる（10枚）"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "17:30の写真を入れる",
+    "AIでアルバムにまとめる（9枚）"
+   ],
+   "errors": [],
+   "ms": 1512,
+   "shot": "album-create-04.jpg"
+  },
+  {
+   "screen": "album-create",
+   "path": "/album/new",
+   "setup": [],
+   "n": 5,
+   "tag": "button",
+   "role": "",
+   "name": "17:30の写真を外す",
+   "state": "true///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "9/10",
+    "AIでアルバムにまとめる（9枚）"
+   ],
+   "goneText": [
+    "10/10",
+    "AIでアルバムにまとめる（10枚）"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "17:30の写真を入れる",
+    "AIでアルバムにまとめる（9枚）"
+   ],
+   "errors": [],
+   "ms": 1521,
+   "shot": "album-create-05.jpg"
+  },
+  {
+   "screen": "album-create",
+   "path": "/album/new",
+   "setup": [],
+   "n": 6,
+   "tag": "button",
+   "role": "",
+   "name": "17:30の写真を外す",
+   "state": "true///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "9/10",
+    "AIでアルバムにまとめる（9枚）"
+   ],
+   "goneText": [
+    "10/10",
+    "AIでアルバムにまとめる（10枚）"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "17:30の写真を入れる",
+    "AIでアルバムにまとめる（9枚）"
+   ],
+   "errors": [],
+   "ms": 1522,
+   "shot": "album-create-06.jpg"
+  },
+  {
+   "screen": "album-create",
+   "path": "/album/new",
+   "setup": [],
+   "n": 7,
+   "tag": "button",
+   "role": "",
+   "name": "17:31の写真を外す",
+   "state": "true///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "9/10",
+    "AIでアルバムにまとめる（9枚）"
+   ],
+   "goneText": [
+    "10/10",
+    "AIでアルバムにまとめる（10枚）"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "17:31の写真を入れる",
+    "AIでアルバムにまとめる（9枚）"
+   ],
+   "errors": [],
+   "ms": 1510,
+   "shot": "album-create-07.jpg"
+  },
+  {
+   "screen": "album-create",
+   "path": "/album/new",
+   "setup": [],
+   "n": 8,
+   "tag": "button",
+   "role": "",
+   "name": "17:31の写真を外す",
+   "state": "true///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "9/10",
+    "AIでアルバムにまとめる（9枚）"
+   ],
+   "goneText": [
+    "10/10",
+    "AIでアルバムにまとめる（10枚）"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "17:31の写真を入れる",
+    "AIでアルバムにまとめる（9枚）"
+   ],
+   "errors": [],
+   "ms": 1513,
+   "shot": "album-create-08.jpg"
+  },
+  {
+   "screen": "album-create",
+   "path": "/album/new",
+   "setup": [],
+   "n": 9,
+   "tag": "button",
+   "role": "",
+   "name": "17:31の写真を外す",
+   "state": "true///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "9/10",
+    "AIでアルバムにまとめる（9枚）"
+   ],
+   "goneText": [
+    "10/10",
+    "AIでアルバムにまとめる（10枚）"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "17:31の写真を入れる",
+    "AIでアルバムにまとめる（9枚）"
+   ],
+   "errors": [],
+   "ms": 1517,
+   "shot": "album-create-09.jpg"
+  },
+  {
+   "screen": "album-create",
+   "path": "/album/new",
+   "setup": [],
+   "n": 10,
+   "tag": "button",
+   "role": "",
+   "name": "17:31の写真を外す",
+   "state": "true///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "9/10",
+    "AIでアルバムにまとめる（9枚）"
+   ],
+   "goneText": [
+    "10/10",
+    "AIでアルバムにまとめる（10枚）"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "17:31の写真を入れる",
+    "AIでアルバムにまとめる（9枚）"
+   ],
+   "errors": [],
+   "ms": 1522,
+   "shot": "album-create-10.jpg"
+  },
+  {
+   "screen": "album-create",
+   "path": "/album/new",
+   "setup": [],
+   "n": 11,
+   "tag": "button",
+   "role": "",
+   "name": "02:04の写真を外す",
+   "state": "true///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "9/10",
+    "AIでアルバムにまとめる（9枚）"
+   ],
+   "goneText": [
+    "10/10",
+    "AIでアルバムにまとめる（10枚）"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "02:04の写真を入れる",
+    "AIでアルバムにまとめる（9枚）"
+   ],
+   "errors": [],
+   "ms": 1509,
+   "shot": "album-create-11.jpg"
+  },
+  {
+   "screen": "album-create",
+   "path": "/album/new",
+   "setup": [],
+   "n": 12,
+   "tag": "button",
+   "role": "",
+   "name": "02:04の写真を外す",
+   "state": "true///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "9/10",
+    "AIでアルバムにまとめる（9枚）"
+   ],
+   "goneText": [
+    "10/10",
+    "AIでアルバムにまとめる（10枚）"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "02:04の写真を入れる",
+    "AIでアルバムにまとめる（9枚）"
+   ],
+   "errors": [],
+   "ms": 1507,
+   "shot": "album-create-12.jpg"
+  },
+  {
+   "screen": "album-create",
+   "path": "/album/new",
+   "setup": [],
+   "n": 13,
+   "tag": "button",
+   "role": "",
+   "name": "AIでアルバムにまとめる（10枚）",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/album/generating/17",
+   "newText": [
+    "AIがアルバムにまとめています",
+    "準備中",
+    "0%"
+   ],
+   "goneText": [
+    "Best Friends ♡",
+    "2026.09.20",
+    "10/10"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1512,
+   "shot": "album-create-13.jpg"
+  },
+  {
+   "screen": "detail",
+   "path": "/album/18",
+   "setup": [],
+   "n": 1,
+   "tag": "button",
+   "role": "",
+   "name": "戻る",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/me",
+   "newText": [
+    "@nao",
+    "アルバム",
+    "カプセル",
+    "友達"
+   ],
+   "goneText": [
+    "編集",
+    "桜並木",
+    "花火と笑顔"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "2026.09.22 のアルバム 2026.09.22",
+    "2026.09.24 のアルバム 2026.09.24",
+    "お昼のピース 2026.09.25",
+    "アルバム"
+   ],
+   "errors": [],
+   "ms": 1523,
+   "shot": "detail-01.jpg"
+  },
+  {
+   "screen": "detail",
+   "path": "/album/18",
+   "setup": [],
+   "n": 2,
+   "tag": "button",
+   "role": "",
+   "name": "その他のオプション",
+   "state": "///false",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "マイページ",
+    "ログアウト"
+   ],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [
+    "その他のオプション: ///true"
+   ],
+   "newControls": [
+    "マイページ",
+    "ログアウト"
+   ],
+   "errors": [],
+   "ms": 1519,
+   "shot": "detail-02.jpg"
+  },
+  {
+   "screen": "detail",
+   "path": "/album/18",
+   "setup": [],
+   "n": 3,
+   "tag": "button",
+   "role": "",
+   "name": "タイトルを編集",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "やめる",
+    "保存"
+   ],
+   "goneText": [
+    "桜と花火の一日"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "やめる",
+    "保存"
+   ],
+   "errors": [],
+   "ms": 1516,
+   "shot": "detail-03.jpg"
+  },
+  {
+   "screen": "detail",
+   "path": "/album/18",
+   "setup": [],
+   "n": 4,
+   "tag": "button",
+   "role": "",
+   "name": "編集",
+   "state": "///false",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "閉じる",
+    "やめる",
+    "保存"
+   ],
+   "goneText": [
+    "編集"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "やめる",
+    "保存",
+    "閉じる"
+   ],
+   "errors": [],
+   "ms": 1528,
+   "shot": "detail-04.jpg"
+  },
+  {
+   "screen": "detail",
+   "path": "/album/18",
+   "setup": [],
+   "n": 5,
+   "tag": "button",
+   "role": "",
+   "name": "桜並木",
+   "state": "true///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1519,
+   "shot": "detail-05.jpg",
+   "effect": "NO VISIBLE CHANGE"
+  },
+  {
+   "screen": "detail",
+   "path": "/album/18",
+   "setup": [],
+   "n": 6,
+   "tag": "button",
+   "role": "",
+   "name": "花火と笑顔",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "花火バックにみんなで撮れて最高の一枚"
+   ],
+   "goneText": [
+    "満開の桜、めちゃきれいだったね",
+    "晴れ"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "花火と笑顔: true///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1508,
+   "shot": "detail-06.jpg"
+  },
+  {
+   "screen": "detail",
+   "path": "/album/18",
+   "setup": [],
+   "n": 7,
+   "tag": "button",
+   "role": "",
+   "name": "桜並木",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "この道歩くだけで春を感じたよね"
+   ],
+   "goneText": [
+    "満開の桜、めちゃきれいだったね"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1522,
+   "shot": "detail-07.jpg"
+  },
+  {
+   "screen": "detail",
+   "path": "/album/18",
+   "setup": [],
+   "n": 8,
+   "tag": "button",
+   "role": "",
+   "name": "花火と笑顔",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "みんなの笑顔が花火より輝いてた"
+   ],
+   "goneText": [
+    "満開の桜、めちゃきれいだったね",
+    "晴れ"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "花火と笑顔: true///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1540,
+   "shot": "detail-08.jpg"
+  },
+  {
+   "screen": "detail",
+   "path": "/album/18",
+   "setup": [],
+   "n": 9,
+   "tag": "button",
+   "role": "",
+   "name": "桜並木",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "2026.09.27 01:48",
+    "何回見ても飽きない桜のトンネル"
+   ],
+   "goneText": [
+    "2026.09.27 01:47",
+    "満開の桜、めちゃきれいだったね"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1515,
+   "shot": "detail-09.jpg"
+  },
+  {
+   "screen": "detail",
+   "path": "/album/18",
+   "setup": [],
+   "n": 10,
+   "tag": "button",
+   "role": "",
+   "name": "花火と笑顔",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "2026.09.27 01:48",
+    "この瞬間ずっと覚えておきたいな"
+   ],
+   "goneText": [
+    "2026.09.27 01:47",
+    "満開の桜、めちゃきれいだったね",
+    "晴れ"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "花火と笑顔: true///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1512,
+   "shot": "detail-10.jpg"
+  },
+  {
+   "screen": "detail",
+   "path": "/album/18",
+   "setup": [],
+   "n": 11,
+   "tag": "a",
+   "role": "",
+   "name": "この写真を飾る",
+   "state": "///",
+   "href": "/album/18/decorate/61",
+   "disabled": false,
+   "urlAfter": "/album/18/decorate/61",
+   "newText": [
+    "♡",
+    "BEST",
+    "保存して友達とシェア"
+   ],
+   "goneText": [
+    "編集",
+    "花火と笑顔",
+    "花火と笑顔"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "ひとつ戻す",
+    "ハートのスタンプ",
+    "ペン",
+    "保存"
+   ],
+   "errors": [],
+   "ms": 1521,
+   "shot": "detail-11.jpg"
+  },
+  {
+   "screen": "detail",
+   "path": "/album/18",
+   "setup": [],
+   "n": 12,
+   "tag": "a",
+   "role": "",
+   "name": "シェア",
+   "state": "///",
+   "href": "/album/18/share",
+   "disabled": false,
+   "urlAfter": "/album/18/share",
+   "newText": [
+    "あやか",
+    "みき",
+    "りん",
+    "監査"
+   ],
+   "goneText": [
+    "編集",
+    "桜並木",
+    "花火と笑顔"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "あやかを見せる相手にする",
+    "みきを見せる相手にする",
+    "りんを見せる相手にする",
+    "友達と共有する"
+   ],
+   "errors": [],
+   "ms": 1516,
+   "shot": "detail-12.jpg"
+  },
+  {
+   "screen": "detail-more",
+   "path": "/album/18",
+   "setup": [
+    "その他のオプション"
+   ],
+   "n": 1,
+   "tag": "button",
+   "role": "",
+   "name": "戻る",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [],
+   "goneText": [
+    "マイページ",
+    "ログアウト"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "その他のオプション: ///false"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1520,
+   "shot": "detail-more-01.jpg"
+  },
+  {
+   "screen": "detail-more",
+   "path": "/album/18",
+   "setup": [
+    "その他のオプション"
+   ],
+   "n": 2,
+   "tag": "button",
+   "role": "",
+   "name": "その他のオプション",
+   "state": "///true",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [],
+   "goneText": [
+    "マイページ",
+    "ログアウト"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "その他のオプション: ///false"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1516,
+   "shot": "detail-more-02.jpg"
+  },
+  {
+   "screen": "detail-more",
+   "path": "/album/18",
+   "setup": [
+    "その他のオプション"
+   ],
+   "n": 3,
+   "tag": "button",
+   "role": "menuitem",
+   "name": "マイページ",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/me",
+   "newText": [
+    "@nao",
+    "アルバム",
+    "カプセル",
+    "友達"
+   ],
+   "goneText": [
+    "マイページ",
+    "ログアウト",
+    "編集"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "2026.09.22 のアルバム 2026.09.22",
+    "2026.09.24 のアルバム 2026.09.24",
+    "お昼のピース 2026.09.25",
+    "アルバム"
+   ],
+   "errors": [],
+   "ms": 1523,
+   "shot": "detail-more-03.jpg"
+  },
+  {
+   "screen": "detail-more",
+   "path": "/album/18",
+   "setup": [
+    "その他のオプション"
+   ],
+   "n": 4,
+   "tag": "button",
+   "role": "menuitem",
+   "name": "ログアウト",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/",
+   "newText": [
+    "ai",
+    "あの時の、最高を、ずっと。",
+    "はじめる",
+    "ログイン"
+   ],
+   "goneText": [
+    "マイページ",
+    "ログアウト",
+    "桜と花火の一日"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "はじめる",
+    "ログイン"
+   ],
+   "errors": [],
+   "ms": 1508,
+   "shot": "detail-more-04.jpg"
+  },
+  {
+   "screen": "detail-more",
+   "path": "/album/18",
+   "setup": [
+    "その他のオプション"
+   ],
+   "n": 5,
+   "tag": "button",
+   "role": "",
+   "name": "タイトルを編集",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [],
+   "goneText": [
+    "マイページ",
+    "ログアウト"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "その他のオプション: ///false"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1520,
+   "shot": "detail-more-05.jpg"
+  },
+  {
+   "screen": "detail-more",
+   "path": "/album/18",
+   "setup": [
+    "その他のオプション"
+   ],
+   "n": 6,
+   "tag": "button",
+   "role": "",
+   "name": "編集",
+   "state": "///false",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [],
+   "goneText": [
+    "マイページ",
+    "ログアウト"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "その他のオプション: ///false"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1515,
+   "shot": "detail-more-06.jpg"
+  },
+  {
+   "screen": "detail-more",
+   "path": "/album/18",
+   "setup": [
+    "その他のオプション"
+   ],
+   "n": 7,
+   "tag": "button",
+   "role": "",
+   "name": "桜並木",
+   "state": "true///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [],
+   "goneText": [
+    "マイページ",
+    "ログアウト"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "その他のオプション: ///false"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1520,
+   "shot": "detail-more-07.jpg"
+  },
+  {
+   "screen": "detail-more",
+   "path": "/album/18",
+   "setup": [
+    "その他のオプション"
+   ],
+   "n": 8,
+   "tag": "button",
+   "role": "",
+   "name": "花火と笑顔",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [],
+   "goneText": [
+    "マイページ",
+    "ログアウト"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "その他のオプション: ///false"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1520,
+   "shot": "detail-more-08.jpg"
+  },
+  {
+   "screen": "detail-more",
+   "path": "/album/18",
+   "setup": [
+    "その他のオプション"
+   ],
+   "n": 9,
+   "tag": "button",
+   "role": "",
+   "name": "桜並木",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [],
+   "goneText": [
+    "マイページ",
+    "ログアウト"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "その他のオプション: ///false"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1511,
+   "shot": "detail-more-09.jpg"
+  },
+  {
+   "screen": "detail-more",
+   "path": "/album/18",
+   "setup": [
+    "その他のオプション"
+   ],
+   "n": 10,
+   "tag": "button",
+   "role": "",
+   "name": "花火と笑顔",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [],
+   "goneText": [
+    "マイページ",
+    "ログアウト"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "その他のオプション: ///false"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1519,
+   "shot": "detail-more-10.jpg"
+  },
+  {
+   "screen": "detail-more",
+   "path": "/album/18",
+   "setup": [
+    "その他のオプション"
+   ],
+   "n": 11,
+   "tag": "button",
+   "role": "",
+   "name": "桜並木",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [],
+   "goneText": [
+    "マイページ",
+    "ログアウト"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "その他のオプション: ///false"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1520,
+   "shot": "detail-more-11.jpg"
+  },
+  {
+   "screen": "detail-more",
+   "path": "/album/18",
+   "setup": [
+    "その他のオプション"
+   ],
+   "n": 12,
+   "tag": "button",
+   "role": "",
+   "name": "花火と笑顔",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [],
+   "goneText": [
+    "マイページ",
+    "ログアウト"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "その他のオプション: ///false"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1517,
+   "shot": "detail-more-12.jpg"
+  },
+  {
+   "screen": "detail-more",
+   "path": "/album/18",
+   "setup": [
+    "その他のオプション"
+   ],
+   "n": 13,
+   "tag": "a",
+   "role": "",
+   "name": "この写真を飾る",
+   "state": "///",
+   "href": "/album/18/decorate/61",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [],
+   "goneText": [
+    "マイページ",
+    "ログアウト"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "その他のオプション: ///false"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1509,
+   "shot": "detail-more-13.jpg"
+  },
+  {
+   "screen": "detail-more",
+   "path": "/album/18",
+   "setup": [
+    "その他のオプション"
+   ],
+   "n": 14,
+   "tag": "a",
+   "role": "",
+   "name": "シェア",
+   "state": "///",
+   "href": "/album/18/share",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [],
+   "goneText": [
+    "マイページ",
+    "ログアウト"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "その他のオプション: ///false"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1510,
+   "shot": "detail-more-14.jpg"
+  },
+  {
+   "screen": "detail-title-edit",
+   "path": "/album/18",
+   "setup": [
+    "タイトルを編集"
+   ],
+   "n": 1,
+   "tag": "button",
+   "role": "",
+   "name": "戻る",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/me",
+   "newText": [
+    "@nao",
+    "アルバム",
+    "カプセル",
+    "友達"
+   ],
+   "goneText": [
+    "やめる",
+    "保存",
+    "編集"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "2026.09.22 のアルバム 2026.09.22",
+    "2026.09.24 のアルバム 2026.09.24",
+    "お昼のピース 2026.09.25",
+    "アルバム"
+   ],
+   "errors": [],
+   "ms": 1519,
+   "shot": "detail-title-edit-01.jpg"
+  },
+  {
+   "screen": "detail-title-edit",
+   "path": "/album/18",
+   "setup": [
+    "タイトルを編集"
+   ],
+   "n": 2,
+   "tag": "button",
+   "role": "",
+   "name": "その他のオプション",
+   "state": "///false",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "マイページ",
+    "ログアウト"
+   ],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [
+    "その他のオプション: ///true"
+   ],
+   "newControls": [
+    "マイページ",
+    "ログアウト"
+   ],
+   "errors": [],
+   "ms": 1528,
+   "shot": "detail-title-edit-02.jpg"
+  },
+  {
+   "screen": "detail-title-edit",
+   "path": "/album/18",
+   "setup": [
+    "タイトルを編集"
+   ],
+   "n": 3,
+   "tag": "button",
+   "role": "",
+   "name": "やめる",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "桜と花火の一日"
+   ],
+   "goneText": [
+    "やめる",
+    "保存"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1515,
+   "shot": "detail-title-edit-03.jpg"
+  },
+  {
+   "screen": "detail-title-edit",
+   "path": "/album/18",
+   "setup": [
+    "タイトルを編集"
+   ],
+   "n": 4,
+   "tag": "button",
+   "role": "",
+   "name": "保存",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "桜と花火の一日"
+   ],
+   "goneText": [
+    "やめる",
+    "保存"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1518,
+   "shot": "detail-title-edit-04.jpg"
+  },
+  {
+   "screen": "detail-title-edit",
+   "path": "/album/18",
+   "setup": [
+    "タイトルを編集"
+   ],
+   "n": 5,
+   "tag": "button",
+   "role": "",
+   "name": "編集",
+   "state": "///false",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "閉じる"
+   ],
+   "goneText": [
+    "編集"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "閉じる"
+   ],
+   "errors": [],
+   "ms": 1513,
+   "shot": "detail-title-edit-05.jpg"
+  },
+  {
+   "screen": "detail-title-edit",
+   "path": "/album/18",
+   "setup": [
+    "タイトルを編集"
+   ],
+   "n": 6,
+   "tag": "button",
+   "role": "",
+   "name": "桜並木",
+   "state": "true///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1522,
+   "shot": "detail-title-edit-06.jpg",
+   "effect": "NO VISIBLE CHANGE"
+  },
+  {
+   "screen": "detail-title-edit",
+   "path": "/album/18",
+   "setup": [
+    "タイトルを編集"
+   ],
+   "n": 7,
+   "tag": "button",
+   "role": "",
+   "name": "花火と笑顔",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "花火バックにみんなで撮れて最高の一枚"
+   ],
+   "goneText": [
+    "満開の桜、めちゃきれいだったね",
+    "晴れ"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "花火と笑顔: true///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1514,
+   "shot": "detail-title-edit-07.jpg"
+  },
+  {
+   "screen": "detail-title-edit",
+   "path": "/album/18",
+   "setup": [
+    "タイトルを編集"
+   ],
+   "n": 8,
+   "tag": "button",
+   "role": "",
+   "name": "桜並木",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "この道歩くだけで春を感じたよね"
+   ],
+   "goneText": [
+    "満開の桜、めちゃきれいだったね"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1517,
+   "shot": "detail-title-edit-08.jpg"
+  },
+  {
+   "screen": "detail-title-edit",
+   "path": "/album/18",
+   "setup": [
+    "タイトルを編集"
+   ],
+   "n": 9,
+   "tag": "button",
+   "role": "",
+   "name": "花火と笑顔",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "みんなの笑顔が花火より輝いてた"
+   ],
+   "goneText": [
+    "満開の桜、めちゃきれいだったね",
+    "晴れ"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "花火と笑顔: true///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1525,
+   "shot": "detail-title-edit-09.jpg"
+  },
+  {
+   "screen": "detail-title-edit",
+   "path": "/album/18",
+   "setup": [
+    "タイトルを編集"
+   ],
+   "n": 10,
+   "tag": "button",
+   "role": "",
+   "name": "桜並木",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "2026.09.27 01:48",
+    "何回見ても飽きない桜のトンネル"
+   ],
+   "goneText": [
+    "2026.09.27 01:47",
+    "満開の桜、めちゃきれいだったね"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1528,
+   "shot": "detail-title-edit-10.jpg"
+  },
+  {
+   "screen": "detail-title-edit",
+   "path": "/album/18",
+   "setup": [
+    "タイトルを編集"
+   ],
+   "n": 11,
+   "tag": "button",
+   "role": "",
+   "name": "花火と笑顔",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "2026.09.27 01:48",
+    "この瞬間ずっと覚えておきたいな"
+   ],
+   "goneText": [
+    "2026.09.27 01:47",
+    "満開の桜、めちゃきれいだったね",
+    "晴れ"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "花火と笑顔: true///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1527,
+   "shot": "detail-title-edit-11.jpg"
+  },
+  {
+   "screen": "detail-title-edit",
+   "path": "/album/18",
+   "setup": [
+    "タイトルを編集"
+   ],
+   "n": 12,
+   "tag": "a",
+   "role": "",
+   "name": "この写真を飾る",
+   "state": "///",
+   "href": "/album/18/decorate/61",
+   "disabled": false,
+   "urlAfter": "/album/18/decorate/61",
+   "newText": [
+    "桜と花火の一日",
+    "♡",
+    "BEST",
+    "保存して友達とシェア"
+   ],
+   "goneText": [
+    "やめる",
+    "保存",
+    "編集"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "ひとつ戻す",
+    "ハートのスタンプ",
+    "ペン",
+    "保存して友達とシェア"
+   ],
+   "errors": [],
+   "ms": 1520,
+   "shot": "detail-title-edit-12.jpg"
+  },
+  {
+   "screen": "detail-title-edit",
+   "path": "/album/18",
+   "setup": [
+    "タイトルを編集"
+   ],
+   "n": 13,
+   "tag": "a",
+   "role": "",
+   "name": "シェア",
+   "state": "///",
+   "href": "/album/18/share",
+   "disabled": false,
+   "urlAfter": "/album/18/share",
+   "newText": [
+    "あやか",
+    "みき",
+    "りん",
+    "監査"
+   ],
+   "goneText": [
+    "やめる",
+    "保存",
+    "編集"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "あやかを見せる相手にする",
+    "みきを見せる相手にする",
+    "りんを見せる相手にする",
+    "友達と共有する"
+   ],
+   "errors": [],
+   "ms": 1514,
+   "shot": "detail-title-edit-13.jpg"
+  },
+  {
+   "screen": "detail-meta-edit",
+   "path": "/album/18",
+   "setup": [
+    "編集"
+   ],
+   "n": 1,
+   "tag": "button",
+   "role": "",
+   "name": "戻る",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/me",
+   "newText": [
+    "@nao",
+    "アルバム",
+    "カプセル",
+    "友達"
+   ],
+   "goneText": [
+    "閉じる",
+    "桜並木",
+    "花火と笑顔"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "2026.09.22 のアルバム 2026.09.22",
+    "2026.09.24 のアルバム 2026.09.24",
+    "お昼のピース 2026.09.25",
+    "アルバム"
+   ],
+   "errors": [],
+   "ms": 1518,
+   "shot": "detail-meta-edit-01.jpg"
+  },
+  {
+   "screen": "detail-meta-edit",
+   "path": "/album/18",
+   "setup": [
+    "編集"
+   ],
+   "n": 2,
+   "tag": "button",
+   "role": "",
+   "name": "その他のオプション",
+   "state": "///false",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "マイページ",
+    "ログアウト"
+   ],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [
+    "その他のオプション: ///true"
+   ],
+   "newControls": [
+    "マイページ",
+    "ログアウト"
+   ],
+   "errors": [],
+   "ms": 1520,
+   "shot": "detail-meta-edit-02.jpg"
+  },
+  {
+   "screen": "detail-meta-edit",
+   "path": "/album/18",
+   "setup": [
+    "編集"
+   ],
+   "n": 3,
+   "tag": "button",
+   "role": "",
+   "name": "タイトルを編集",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [],
+   "goneText": [
+    "桜と花火の一日"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1525,
+   "shot": "detail-meta-edit-03.jpg"
+  },
+  {
+   "screen": "detail-meta-edit",
+   "path": "/album/18",
+   "setup": [
+    "編集"
+   ],
+   "n": 4,
+   "tag": "button",
+   "role": "",
+   "name": "閉じる",
+   "state": "///true",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "編集"
+   ],
+   "goneText": [
+    "閉じる",
+    "やめる",
+    "保存"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "編集"
+   ],
+   "errors": [],
+   "ms": 1520,
+   "shot": "detail-meta-edit-04.jpg"
+  },
+  {
+   "screen": "detail-meta-edit",
+   "path": "/album/18",
+   "setup": [
+    "編集"
+   ],
+   "n": 5,
+   "tag": "button",
+   "role": "",
+   "name": "桜並木",
+   "state": "true///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1510,
+   "shot": "detail-meta-edit-05.jpg",
+   "effect": "NO VISIBLE CHANGE"
+  },
+  {
+   "screen": "detail-meta-edit",
+   "path": "/album/18",
+   "setup": [
+    "編集"
+   ],
+   "n": 6,
+   "tag": "button",
+   "role": "",
+   "name": "花火と笑顔",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "花火バックにみんなで撮れて最高の一枚"
+   ],
+   "goneText": [
+    "満開の桜、めちゃきれいだったね",
+    "晴れ"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "花火と笑顔: true///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1514,
+   "shot": "detail-meta-edit-06.jpg"
+  },
+  {
+   "screen": "detail-meta-edit",
+   "path": "/album/18",
+   "setup": [
+    "編集"
+   ],
+   "n": 7,
+   "tag": "button",
+   "role": "",
+   "name": "桜並木",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "この道歩くだけで春を感じたよね"
+   ],
+   "goneText": [
+    "満開の桜、めちゃきれいだったね"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1513,
+   "shot": "detail-meta-edit-07.jpg"
+  },
+  {
+   "screen": "detail-meta-edit",
+   "path": "/album/18",
+   "setup": [
+    "編集"
+   ],
+   "n": 8,
+   "tag": "button",
+   "role": "",
+   "name": "花火と笑顔",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "みんなの笑顔が花火より輝いてた"
+   ],
+   "goneText": [
+    "満開の桜、めちゃきれいだったね",
+    "晴れ"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "花火と笑顔: true///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1517,
+   "shot": "detail-meta-edit-08.jpg"
+  },
+  {
+   "screen": "detail-meta-edit",
+   "path": "/album/18",
+   "setup": [
+    "編集"
+   ],
+   "n": 9,
+   "tag": "button",
+   "role": "",
+   "name": "桜並木",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "2026.09.27 01:48",
+    "何回見ても飽きない桜のトンネル"
+   ],
+   "goneText": [
+    "2026.09.27 01:47",
+    "満開の桜、めちゃきれいだったね"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1513,
+   "shot": "detail-meta-edit-09.jpg"
+  },
+  {
+   "screen": "detail-meta-edit",
+   "path": "/album/18",
+   "setup": [
+    "編集"
+   ],
+   "n": 10,
+   "tag": "button",
+   "role": "",
+   "name": "花火と笑顔",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "2026.09.27 01:48",
+    "この瞬間ずっと覚えておきたいな"
+   ],
+   "goneText": [
+    "2026.09.27 01:47",
+    "満開の桜、めちゃきれいだったね",
+    "晴れ"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "花火と笑顔: true///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1515,
+   "shot": "detail-meta-edit-10.jpg"
+  },
+  {
+   "screen": "detail-meta-edit",
+   "path": "/album/18",
+   "setup": [
+    "編集"
+   ],
+   "n": 11,
+   "tag": "a",
+   "role": "",
+   "name": "この写真を飾る",
+   "state": "///",
+   "href": "/album/18/decorate/61",
+   "disabled": false,
+   "urlAfter": "/album/18/decorate/61",
+   "newText": [
+    "♡",
+    "BEST",
+    "保存して友達とシェア"
+   ],
+   "goneText": [
+    "閉じる",
+    "花火と笑顔",
+    "花火と笑顔"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "ひとつ戻す",
+    "ハートのスタンプ",
+    "ペン",
+    "保存して友達とシェア"
+   ],
+   "errors": [],
+   "ms": 1514,
+   "shot": "detail-meta-edit-11.jpg"
+  },
+  {
+   "screen": "detail-meta-edit",
+   "path": "/album/18",
+   "setup": [
+    "編集"
+   ],
+   "n": 12,
+   "tag": "a",
+   "role": "",
+   "name": "シェア",
+   "state": "///",
+   "href": "/album/18/share",
+   "disabled": false,
+   "urlAfter": "/album/18/share",
+   "newText": [
+    "あやか",
+    "みき",
+    "りん",
+    "監査"
+   ],
+   "goneText": [
+    "閉じる",
+    "桜並木",
+    "花火と笑顔"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "あやかを見せる相手にする",
+    "みきを見せる相手にする",
+    "りんを見せる相手にする",
+    "友達と共有する"
+   ],
+   "errors": [],
+   "ms": 1518,
+   "shot": "detail-meta-edit-12.jpg"
+  },
+  {
+   "screen": "detail-meta-edit",
+   "path": "/album/18",
+   "setup": [
+    "編集"
+   ],
+   "n": 13,
+   "tag": "button",
+   "role": "",
+   "name": "やめる",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "編集"
+   ],
+   "goneText": [
+    "閉じる",
+    "やめる",
+    "保存"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "編集"
+   ],
+   "errors": [],
+   "ms": 1511,
+   "shot": "detail-meta-edit-13.jpg"
+  },
+  {
+   "screen": "detail-meta-edit",
+   "path": "/album/18",
+   "setup": [
+    "編集"
+   ],
+   "n": 14,
+   "tag": "button",
+   "role": "",
+   "name": "保存",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "編集"
+   ],
+   "goneText": [
+    "閉じる",
+    "やめる",
+    "保存"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "編集"
+   ],
+   "errors": [],
+   "ms": 1519,
+   "shot": "detail-meta-edit-14.jpg"
+  },
+  {
+   "screen": "share",
+   "path": "/album/18/share",
+   "setup": [],
+   "n": 1,
+   "tag": "button",
+   "role": "",
+   "name": "戻る",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/album/18/decorate/61",
+   "newText": [
+    "♡",
+    "桜並木",
+    "BEST",
+    "保存して友達とシェア"
+   ],
+   "goneText": [
+    "わたし",
+    "あやか",
+    "みき"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "ひとつ戻す",
+    "ハートのスタンプ",
+    "ペン",
+    "保存"
+   ],
+   "errors": [],
+   "ms": 1512,
+   "shot": "share-01.jpg"
+  },
+  {
+   "screen": "share",
+   "path": "/album/18/share",
+   "setup": [],
+   "n": 2,
+   "tag": "button",
+   "role": "",
+   "name": "その他のオプション",
+   "state": "///false",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "マイページ",
+    "ログアウト"
+   ],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [
+    "その他のオプション: ///true"
+   ],
+   "newControls": [
+    "マイページ",
+    "ログアウト"
+   ],
+   "errors": [],
+   "ms": 1511,
+   "shot": "share-02.jpg"
+  },
+  {
+   "screen": "share",
+   "path": "/album/18/share",
+   "setup": [],
+   "n": 3,
+   "tag": "button",
+   "role": "",
+   "name": "あやかを見せる相手にする",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "2人"
+   ],
+   "goneText": [
+    "1人",
+    "上の友達をタップ"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "あやかを見せる相手にする: true///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1523,
+   "shot": "share-03.jpg"
+  },
+  {
+   "screen": "share",
+   "path": "/album/18/share",
+   "setup": [],
+   "n": 4,
+   "tag": "button",
+   "role": "",
+   "name": "みきを見せる相手にする",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "2人"
+   ],
+   "goneText": [
+    "1人",
+    "上の友達をタップ"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "みきを見せる相手にする: true///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1513,
+   "shot": "share-04.jpg"
+  },
+  {
+   "screen": "share",
+   "path": "/album/18/share",
+   "setup": [],
+   "n": 5,
+   "tag": "button",
+   "role": "",
+   "name": "りんを見せる相手にする",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "2人"
+   ],
+   "goneText": [
+    "1人",
+    "上の友達をタップ"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "りんを見せる相手にする: true///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1518,
+   "shot": "share-05.jpg"
+  },
+  {
+   "screen": "share",
+   "path": "/album/18/share",
+   "setup": [],
+   "n": 6,
+   "tag": "button",
+   "role": "",
+   "name": "監査を見せる相手にする",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "2人"
+   ],
+   "goneText": [
+    "1人",
+    "上の友達をタップ"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "監査を見せる相手にする: true///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1512,
+   "shot": "share-06.jpg"
+  },
+  {
+   "screen": "share",
+   "path": "/album/18/share",
+   "setup": [],
+   "n": 7,
+   "tag": "button",
+   "role": "",
+   "name": "監査を見せる相手にする",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "2人"
+   ],
+   "goneText": [
+    "1人",
+    "上の友達をタップ"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "監査を見せる相手にする: true///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1520,
+   "shot": "share-07.jpg"
+  },
+  {
+   "screen": "share",
+   "path": "/album/18/share",
+   "setup": [],
+   "n": 8,
+   "tag": "button",
+   "role": "",
+   "name": "監査を見せる相手にする",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "2人"
+   ],
+   "goneText": [
+    "1人",
+    "上の友達をタップ"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "監査を見せる相手にする: true///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1508,
+   "shot": "share-08.jpg"
+  },
+  {
+   "screen": "share",
+   "path": "/album/18/share",
+   "setup": [],
+   "n": 9,
+   "tag": "button",
+   "role": "",
+   "name": "監査を見せる相手にする",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "2人"
+   ],
+   "goneText": [
+    "1人",
+    "上の友達をタップ"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "監査を見せる相手にする: true///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1517,
+   "shot": "share-09.jpg"
+  },
+  {
+   "screen": "share",
+   "path": "/album/18/share",
+   "setup": [],
+   "n": 10,
+   "tag": "button",
+   "role": "",
+   "name": "友達と共有する",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "http://localhost:8080/s/5rQBASFSi9z01bd0F14jJBVHvECnGwNs",
+    "タイムカプセルを作成する"
+   ],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "http://localhost:8080/s/5rQBASFSi9z01bd0F14jJBVHvECnGwNs",
+    "タイムカプセルを作成する"
+   ],
+   "errors": [],
+   "ms": 1514,
+   "shot": "share-10.jpg"
+  },
+  {
+   "screen": "me-friends-search",
+   "path": "/me?tab=friends",
+   "setup": [
+    [
+     "fill",
+     "友達をさがす",
+     "r"
+    ],
+    "さがす"
+   ],
+   "n": 1,
+   "tag": "button",
+   "role": "",
+   "name": "名前を変える",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "やめる",
+    "保存"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "やめる",
+    "保存"
+   ],
+   "errors": [],
+   "ms": 1523,
+   "shot": "me-friends-search-01.jpg"
+  },
+  {
+   "screen": "me-friends-search",
+   "path": "/me?tab=friends",
+   "setup": [
+    [
+     "fill",
+     "友達をさがす",
+     "r"
+    ],
+    "さがす"
+   ],
+   "n": 2,
+   "tag": "button",
+   "role": "tab",
+   "name": "アルバム",
+   "state": "//false/",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/me?tab=albums",
+   "newText": [
+    "彩り豊かな日",
+    "2026.09.27",
+    "桜と花火の一日",
+    "2026.09.27"
+   ],
+   "goneText": [
+    "QRで友達を追加",
+    "さがす",
+    "りん"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "アルバム: //true/",
+    "友達: //false/"
+   ],
+   "newControls": [
+    "2026.09.22 のアルバム 2026.09.22",
+    "2026.09.24 のアルバム 2026.09.24",
+    "お昼のピース 2026.09.25",
+    "仲間と過ごした一日 2026.09.25"
+   ],
+   "errors": [],
+   "ms": 1520,
+   "shot": "me-friends-search-02.jpg"
+  },
+  {
+   "screen": "me-friends-search",
+   "path": "/me?tab=friends",
+   "setup": [
+    [
+     "fill",
+     "友達をさがす",
+     "r"
+    ],
+    "さがす"
+   ],
+   "n": 3,
+   "tag": "button",
+   "role": "tab",
+   "name": "カプセル",
+   "state": "//false/",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/me?tab=capsules",
+   "newText": [
+    "青空と笑顔の日",
+    "2026.09.27 に開けた",
+    "友達と青空日和",
+    "2026.09.27 に開けた"
+   ],
+   "goneText": [
+    "QRで友達を追加",
+    "さがす",
+    "りん"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "カプセル: //true/",
+    "友達: //false/"
+   ],
+   "newControls": [
+    "あと365日 2027.09.27 に開けられる",
+    "友達と青空日和 2026.09.27 に開けた",
+    "青空と笑顔 2026.09.27 に開けた",
+    "青空と笑顔の日 2026.09.27 に開けた"
+   ],
+   "errors": [],
+   "ms": 1524,
+   "shot": "me-friends-search-03.jpg"
+  },
+  {
+   "screen": "me-friends-search",
+   "path": "/me?tab=friends",
+   "setup": [
+    [
+     "fill",
+     "友達をさがす",
+     "r"
+    ],
+    "さがす"
+   ],
+   "n": 4,
+   "tag": "button",
+   "role": "tab",
+   "name": "友達",
+   "state": "//true/",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1524,
+   "shot": "me-friends-search-04.jpg",
+   "effect": "NO VISIBLE CHANGE"
+  },
+  {
+   "screen": "me-friends-search",
+   "path": "/me?tab=friends",
+   "setup": [
+    [
+     "fill",
+     "友達をさがす",
+     "r"
+    ],
+    "さがす"
+   ],
+   "n": 5,
+   "tag": "a",
+   "role": "",
+   "name": "QRで友達を追加",
+   "state": "///",
+   "href": "/friends/qr",
+   "disabled": false,
+   "urlAfter": "/friends/qr",
+   "newText": [
+    "友達を追加",
+    "見せる",
+    "読み取る",
+    "友達にこの画面を読み取ってもらってね"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "戻る",
+    "見せる",
+    "読み取る"
+   ],
+   "errors": [],
+   "ms": 1526,
+   "shot": "me-friends-search-05.jpg"
+  },
+  {
+   "screen": "me-friends-search",
+   "path": "/me?tab=friends",
+   "setup": [
+    [
+     "fill",
+     "友達をさがす",
+     "r"
+    ],
+    "さがす"
+   ],
+   "n": 6,
+   "tag": "button",
+   "role": "",
+   "name": "さがす",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1527,
+   "shot": "me-friends-search-06.jpg",
+   "effect": "NO VISIBLE CHANGE"
+  },
+  {
+   "screen": "me-friends-search",
+   "path": "/me?tab=friends",
+   "setup": [
+    [
+     "fill",
+     "友達をさがす",
+     "r"
+    ],
+    "さがす"
+   ],
+   "n": 7,
+   "tag": "button",
+   "role": "",
+   "name": "登録に友達申請",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "申請しました"
+   ],
+   "goneText": [
+    "申請"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1527,
+   "shot": "me-friends-search-07.jpg"
+  },
+  {
+   "screen": "me-friends-search",
+   "path": "/me?tab=friends",
+   "setup": [
+    [
+     "fill",
+     "友達をさがす",
+     "r"
+    ],
+    "さがす"
+   ],
+   "n": 8,
+   "tag": "a",
+   "role": "",
+   "name": "あやか @ayaka",
+   "state": "///",
+   "href": "/reunion/2",
+   "disabled": false,
+   "urlAfter": "/reunion/2",
+   "newText": [
+    "あやかとの思い出",
+    "青空と笑顔の日",
+    "2026.09.21 ・ 青空セルフィー"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "次の写真",
+    "止める",
+    "閉じる",
+    "青空と笑顔の日 2026.09.21 ・ 青空セルフィー"
+   ],
+   "errors": [],
+   "ms": 1512,
+   "shot": "me-friends-search-08.jpg"
+  },
+  {
+   "screen": "me-friends-search",
+   "path": "/me?tab=friends",
+   "setup": [
+    [
+     "fill",
+     "友達をさがす",
+     "r"
+    ],
+    "さがす"
+   ],
+   "n": 9,
+   "tag": "a",
+   "role": "",
+   "name": "みき @miki",
+   "state": "///",
+   "href": "/reunion/3",
+   "disabled": false,
+   "urlAfter": "/reunion/3",
+   "newText": [
+    "みきとの思い出",
+    "最高の1日",
+    "2026.09.24 ・ 放課後"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "最高の1日 2026.09.24 ・ 放課後",
+    "次の写真",
+    "止める",
+    "閉じる"
+   ],
+   "errors": [],
+   "ms": 1519,
+   "shot": "me-friends-search-09.jpg"
+  },
+  {
+   "screen": "me-friends-search",
+   "path": "/me?tab=friends",
+   "setup": [
+    [
+     "fill",
+     "友達をさがす",
+     "r"
+    ],
+    "さがす"
+   ],
+   "n": 10,
+   "tag": "a",
+   "role": "",
+   "name": "りん @rin",
+   "state": "///",
+   "href": "/reunion/4",
+   "disabled": false,
+   "urlAfter": "/reunion/4",
+   "newText": [
+    "りんとの思い出",
+    "お昼のピース",
+    "2026.09.25 ・ 放課後"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "お昼のピース 2026.09.25 ・ 放課後",
+    "次の写真",
+    "止める",
+    "閉じる"
+   ],
+   "errors": [],
+   "ms": 1535,
+   "shot": "me-friends-search-10.jpg"
+  },
+  {
+   "screen": "me-friends-search",
+   "path": "/me?tab=friends",
+   "setup": [
+    [
+     "fill",
+     "友達をさがす",
+     "r"
+    ],
+    "さがす"
+   ],
+   "n": 11,
+   "tag": "a",
+   "role": "",
+   "name": "監査 @auda0cad6",
+   "state": "///",
+   "href": "/reunion/5",
+   "disabled": false,
+   "urlAfter": "/reunion/5",
+   "newText": [
+    "監査との思い出",
+    "まだ監査と一緒のアルバムがありません。",
+    "今日を最初の1枚にしよう。",
+    "撮る"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "撮る",
+    "閉じる"
+   ],
+   "errors": [],
+   "ms": 1511,
+   "shot": "me-friends-search-11.jpg"
+  },
+  {
+   "screen": "me-friends-search",
+   "path": "/me?tab=friends",
+   "setup": [
+    [
+     "fill",
+     "友達をさがす",
+     "r"
+    ],
+    "さがす"
+   ],
+   "n": 12,
+   "tag": "a",
+   "role": "",
+   "name": "監査 @auda565d4",
+   "state": "///",
+   "href": "/reunion/6",
+   "disabled": false,
+   "urlAfter": "/reunion/6",
+   "newText": [
+    "監査との思い出",
+    "まだ監査と一緒のアルバムがありません。",
+    "今日を最初の1枚にしよう。",
+    "撮る"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "撮る",
+    "閉じる"
+   ],
+   "errors": [],
+   "ms": 1525,
+   "shot": "me-friends-search-12.jpg"
+  },
+  {
+   "screen": "me-friends-search",
+   "path": "/me?tab=friends",
+   "setup": [
+    [
+     "fill",
+     "友達をさがす",
+     "r"
+    ],
+    "さがす"
+   ],
+   "n": 13,
+   "tag": "a",
+   "role": "",
+   "name": "監査 @auddf24e0",
+   "state": "///",
+   "href": "/reunion/7",
+   "disabled": false,
+   "urlAfter": "/reunion/7",
+   "newText": [
+    "監査との思い出",
+    "まだ監査と一緒のアルバムがありません。",
+    "今日を最初の1枚にしよう。",
+    "撮る"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "撮る",
+    "閉じる"
+   ],
+   "errors": [],
+   "ms": 1526,
+   "shot": "me-friends-search-13.jpg"
+  },
+  {
+   "screen": "me-friends-search",
+   "path": "/me?tab=friends",
+   "setup": [
+    [
+     "fill",
+     "友達をさがす",
+     "r"
+    ],
+    "さがす"
+   ],
+   "n": 14,
+   "tag": "a",
+   "role": "",
+   "name": "監査 @aud58b21d",
+   "state": "///",
+   "href": "/reunion/8",
+   "disabled": false,
+   "urlAfter": "/reunion/8",
+   "newText": [
+    "監査との思い出",
+    "まだ監査と一緒のアルバムがありません。",
+    "今日を最初の1枚にしよう。",
+    "撮る"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "撮る",
+    "閉じる"
+   ],
+   "errors": [],
+   "ms": 1519,
+   "shot": "me-friends-search-14.jpg"
+  },
+  {
+   "screen": "me-friends-search",
+   "path": "/me?tab=friends",
+   "setup": [
+    [
+     "fill",
+     "友達をさがす",
+     "r"
+    ],
+    "さがす"
+   ],
+   "n": 15,
+   "tag": "button",
+   "role": "",
+   "name": "写真を撮る",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/camera",
+   "newText": [
+    "AIに撮り方を聞く",
+    "ビデオ",
+    "写真"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "AIに撮り方を聞く",
+    "アルバムを作成",
+    "カメラを切り替える",
+    "写真ライブラリから選ぶ"
+   ],
+   "errors": [],
+   "ms": 1522,
+   "shot": "me-friends-search-15.jpg"
+  },
+  {
+   "screen": "capsule-create",
+   "path": "/album/18/capsule/new",
+   "setup": [],
+   "n": 1,
+   "tag": "button",
+   "role": "",
+   "name": "戻る",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/album/18/share",
+   "newText": [
+    "わたし",
+    "あやか",
+    "みき",
+    "りん"
+   ],
+   "goneText": [
+    "タイムカプセル",
+    "1年後の自分へ",
+    "この思い出を、"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "あやかを見せる相手にする",
+    "みきを見せる相手にする",
+    "りんを見せる相手にする",
+    "友達と共有する"
+   ],
+   "errors": [],
+   "ms": 1534,
+   "shot": "capsule-create-01.jpg"
+  },
+  {
+   "screen": "capsule-create",
+   "path": "/album/18/capsule/new",
+   "setup": [],
+   "n": 2,
+   "tag": "button",
+   "role": "",
+   "name": "その他のオプション",
+   "state": "///false",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "マイページ",
+    "ログアウト"
+   ],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [
+    "その他のオプション: ///true"
+   ],
+   "newControls": [
+    "マイページ",
+    "ログアウト"
+   ],
+   "errors": [],
+   "ms": 1526,
+   "shot": "capsule-create-02.jpg"
+  },
+  {
+   "screen": "capsule-create",
+   "path": "/album/18/capsule/new",
+   "setup": [],
+   "n": 3,
+   "tag": "button",
+   "role": "radio",
+   "name": "1年後",
+   "state": "/true//",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1511,
+   "shot": "capsule-create-03.jpg",
+   "effect": "NO VISIBLE CHANGE"
+  },
+  {
+   "screen": "capsule-create",
+   "path": "/album/18/capsule/new",
+   "setup": [],
+   "n": 4,
+   "tag": "button",
+   "role": "radio",
+   "name": "卒業式（半年後）",
+   "state": "/false//",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "卒業式（半年後）の自分へ",
+    "2027.03.28"
+   ],
+   "goneText": [
+    "1年後の自分へ",
+    "2027.09.27"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "1年後: /false//",
+    "卒業式（半年後）: /true//"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1527,
+   "shot": "capsule-create-04.jpg"
+  },
+  {
+   "screen": "capsule-create",
+   "path": "/album/18/capsule/new",
+   "setup": [],
+   "n": 5,
+   "tag": "button",
+   "role": "",
+   "name": "タイムカプセルを作成する",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/capsule/8",
+   "newText": [
+    "タイムカプセルが",
+    "完成しました！",
+    "あと 364 日で開けられます",
+    "タイムカプセルを開ける"
+   ],
+   "goneText": [
+    "タイムカプセル",
+    "1年後の自分へ",
+    "この思い出を、"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "タイムカプセルを開ける"
+   ],
+   "errors": [],
+   "ms": 1523,
+   "shot": "capsule-create-05.jpg"
+  },
+  {
+   "screen": "capsule-done",
+   "path": "/capsule/6",
+   "setup": [],
+   "n": 1,
+   "tag": "button",
+   "role": "",
+   "name": "戻る",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/me?tab=capsules",
+   "newText": [
+    "わたし",
+    "@nao",
+    "アルバム",
+    "カプセル"
+   ],
+   "goneText": [
+    "タイムカプセルが",
+    "完成しました！",
+    "あと 365 日で開けられます"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "あと364日 2027.09.27 に開けられる",
+    "あと365日 2027.09.27 に開けられる",
+    "アルバム",
+    "カプセル"
+   ],
+   "errors": [],
+   "ms": 1511,
+   "shot": "capsule-done-01.jpg"
+  },
+  {
+   "screen": "capsule-done",
+   "path": "/capsule/6",
+   "setup": [],
+   "n": 2,
+   "tag": "button",
+   "role": "",
+   "name": "その他のオプション",
+   "state": "///false",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newText": [
+    "マイページ",
+    "ログアウト"
+   ],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [
+    "その他のオプション: ///true"
+   ],
+   "newControls": [
+    "マイページ",
+    "ログアウト"
+   ],
+   "errors": [],
+   "ms": 1517,
+   "shot": "capsule-done-02.jpg"
+  },
+  {
+   "screen": "capsule-done",
+   "path": "/capsule/6",
+   "setup": [],
+   "n": 3,
+   "tag": "button",
+   "role": "",
+   "name": "タイムカプセルを開ける",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/album/9?capsule=6",
+   "newText": [
+    "過去の自分から",
+    "audit",
+    "季節をこえた思い出",
+    "2026.09.27"
+   ],
+   "goneText": [
+    "タイムカプセルが",
+    "完成しました！",
+    "あと 365 日で開けられます"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "シェア",
+    "タイトルを編集",
+    "夕焼けの丘"
+   ],
+   "errors": [
+    "Failed to load resource: the server responded with a status of 409 ()"
+   ],
+   "ms": 1529,
+   "shot": "capsule-done-03.jpg"
+  },
+  {
+   "screen": "me-albums",
+   "path": "/me",
+   "setup": [],
+   "n": 1,
+   "tag": "button",
+   "role": "",
+   "name": "名前を変える",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "newText": [
+    "やめる",
+    "保存"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "やめる",
+    "保存"
+   ],
+   "errors": [],
+   "ms": 1529,
+   "shot": "me-albums-01.jpg"
+  },
+  {
+   "screen": "me-albums",
+   "path": "/me",
+   "setup": [],
+   "n": 2,
+   "tag": "button",
+   "role": "tab",
+   "name": "アルバム",
+   "state": "//true/",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/me?tab=albums",
+   "newTab": null,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1517,
+   "shot": "me-albums-02.jpg"
+  },
+  {
+   "screen": "me-albums",
+   "path": "/me",
+   "setup": [],
+   "n": 3,
+   "tag": "button",
+   "role": "tab",
+   "name": "カプセル",
+   "state": "//false/",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/me?tab=capsules",
+   "newTab": null,
+   "newText": [
+    "2026.09.27 に開けた",
+    "2026.09.27 に開けた",
+    "2026.09.27 に開けた",
+    "2026.09.27 に開けた"
+   ],
+   "goneText": [
+    "彩り豊かな日",
+    "2026.09.27",
+    "桜と花火の一日"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "アルバム: //false/",
+    "カプセル: //true/"
+   ],
+   "newControls": [
+    "あと364日 2027.09.27 に開けられる",
+    "あと365日 2027.09.27 に開けられる",
+    "友達と青空日和 2026.09.27 に開けた",
+    "季節をこえた思い出 2026.09.27 に開けた"
+   ],
+   "errors": [],
+   "ms": 1523,
+   "shot": "me-albums-03.jpg"
+  },
+  {
+   "screen": "me-albums",
+   "path": "/me",
+   "setup": [],
+   "n": 4,
+   "tag": "button",
+   "role": "tab",
+   "name": "友達",
+   "state": "//false/",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/me?tab=friends",
+   "newTab": null,
+   "newText": [
+    "QRで友達を追加",
+    "さがす",
+    "あやか",
+    "@ayaka"
+   ],
+   "goneText": [
+    "彩り豊かな日",
+    "2026.09.27",
+    "桜と花火の一日"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "アルバム: //false/",
+    "友達: //true/"
+   ],
+   "newControls": [
+    "QRで友達を追加",
+    "あやか @ayaka",
+    "さがす",
+    "みき @miki"
+   ],
+   "errors": [],
+   "ms": 1515,
+   "shot": "me-albums-04.jpg"
+  },
+  {
+   "screen": "me-albums",
+   "path": "/me",
+   "setup": [],
+   "n": 5,
+   "tag": "a",
+   "role": "",
+   "name": "彩り豊かな日 2026.09.27",
+   "state": "///",
+   "href": "/album/30",
+   "disabled": false,
+   "urlAfter": "/album/30",
+   "newTab": null,
+   "newText": [
+    "編集",
+    "花見日和",
+    "花火大会",
+    "この写真を飾る"
+   ],
+   "goneText": [
+    "@nao",
+    "アルバム",
+    "カプセル"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1516,
+   "shot": "me-albums-05.jpg"
+  },
+  {
+   "screen": "me-albums",
+   "path": "/me",
+   "setup": [],
+   "n": 6,
+   "tag": "a",
+   "role": "",
+   "name": "桜と花火の一日 2026.09.27",
+   "state": "///",
+   "href": "/album/18",
+   "disabled": false,
+   "urlAfter": "/album/18",
+   "newTab": null,
+   "newText": [
+    "編集",
+    "桜並木",
+    "花火と笑顔",
+    "桜並木"
+   ],
+   "goneText": [
+    "@nao",
+    "アルバム",
+    "カプセル"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1510,
+   "shot": "me-albums-06.jpg"
+  },
+  {
+   "screen": "me-albums",
+   "path": "/me",
+   "setup": [],
+   "n": 7,
+   "tag": "a",
+   "role": "",
+   "name": "青空と笑顔 2026.09.27",
+   "state": "///",
+   "href": "/album/14",
+   "disabled": false,
+   "urlAfter": "/album/14",
+   "newTab": null,
+   "newText": [
+    "編集",
+    "3ショット",
+    "食べ歩き",
+    "ピース"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "3ショット",
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア"
+   ],
+   "errors": [],
+   "ms": 1513,
+   "shot": "me-albums-07.jpg"
+  },
+  {
+   "screen": "me-albums",
+   "path": "/me",
+   "setup": [],
+   "n": 8,
+   "tag": "a",
+   "role": "",
+   "name": "青空と笑顔 2026.09.27",
+   "state": "///",
+   "href": "/album/13",
+   "disabled": false,
+   "urlAfter": "/album/13",
+   "newTab": null,
+   "newText": [
+    "編集",
+    "三人で",
+    "食べ歩き",
+    "ひと休み"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "ひと休み",
+    "シェア"
+   ],
+   "errors": [],
+   "ms": 1513,
+   "shot": "me-albums-08.jpg"
+  },
+  {
+   "screen": "me-albums",
+   "path": "/me",
+   "setup": [],
+   "n": 9,
+   "tag": "a",
+   "role": "",
+   "name": "青空と笑顔の日 2026.09.27",
+   "state": "///",
+   "href": "/album/12",
+   "disabled": false,
+   "urlAfter": "/album/12",
+   "newTab": null,
+   "newText": [
+    "編集",
+    "3ショット",
+    "食べ歩き",
+    "休憩中"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "3ショット",
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア"
+   ],
+   "errors": [],
+   "ms": 1523,
+   "shot": "me-albums-09.jpg"
+  },
+  {
+   "screen": "me-albums",
+   "path": "/me",
+   "setup": [],
+   "n": 10,
+   "tag": "a",
+   "role": "",
+   "name": "友達と青空日和 2026.09.27",
+   "state": "///",
+   "href": "/album/11",
+   "disabled": false,
+   "urlAfter": "/album/11",
+   "newTab": null,
+   "newText": [
+    "編集",
+    "青空バック",
+    "食べ歩き",
+    "ピースサイン"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1518,
+   "shot": "me-albums-10.jpg"
+  },
+  {
+   "screen": "me-albums",
+   "path": "/me",
+   "setup": [],
+   "n": 11,
+   "tag": "a",
+   "role": "",
+   "name": "青空と笑顔の日 2026.09.27",
+   "state": "///",
+   "href": "/album/10",
+   "disabled": false,
+   "urlAfter": "/album/10",
+   "newTab": null,
+   "newText": [
+    "編集",
+    "青空ピース",
+    "屋台グルメ",
+    "ベンチ休憩"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1506,
+   "shot": "me-albums-11.jpg"
+  },
+  {
+   "screen": "me-albums",
+   "path": "/me",
+   "setup": [],
+   "n": 12,
+   "tag": "a",
+   "role": "",
+   "name": "季節をこえた思い出 2026.09.27",
+   "state": "///",
+   "href": "/album/9",
+   "disabled": false,
+   "urlAfter": "/album/9",
+   "newTab": null,
+   "newText": [
+    "編集",
+    "夕焼けの丘",
+    "花火の夜",
+    "海と夕日"
+   ],
+   "goneText": [
+    "@nao",
+    "アルバム",
+    "カプセル"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1512,
+   "shot": "me-albums-12.jpg"
+  },
+  {
+   "screen": "me-albums",
+   "path": "/me",
+   "setup": [],
+   "n": 13,
+   "tag": "a",
+   "role": "",
+   "name": "友との特別な日 2026.09.27",
+   "state": "///",
+   "href": "/album/6",
+   "disabled": false,
+   "urlAfter": "/album/6",
+   "newTab": null,
+   "newText": [
+    "編集",
+    "丘の夕日",
+    "花火",
+    "海の夕日"
+   ],
+   "goneText": [
+    "@nao",
+    "アルバム",
+    "カプセル"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1523,
+   "shot": "me-albums-13.jpg"
+  },
+  {
+   "screen": "me-albums",
+   "path": "/me",
+   "setup": [],
+   "n": 14,
+   "tag": "a",
+   "role": "",
+   "name": "青春の一日 2026.09.25",
+   "state": "///",
+   "href": "/album/8",
+   "disabled": false,
+   "urlAfter": "/album/8",
+   "newTab": null,
+   "newText": [
+    "編集",
+    "円陣",
+    "ジャンプ",
+    "この写真を飾る"
+   ],
+   "goneText": [
+    "@nao",
+    "アルバム",
+    "カプセル"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "ジャンプ"
+   ],
+   "errors": [],
+   "ms": 1513,
+   "shot": "me-albums-14.jpg"
+  },
+  {
+   "screen": "me-albums",
+   "path": "/me",
+   "setup": [],
+   "n": 15,
+   "tag": "a",
+   "role": "",
+   "name": "仲間と過ごした一日 2026.09.25",
+   "state": "///",
+   "href": "/album/5",
+   "disabled": false,
+   "urlAfter": "/album/5",
+   "newTab": null,
+   "newText": [
+    "編集",
+    "円陣",
+    "ジャンプ",
+    "この写真を飾る"
+   ],
+   "goneText": [
+    "@nao",
+    "アルバム",
+    "カプセル"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "ジャンプ"
+   ],
+   "errors": [],
+   "ms": 1534,
+   "shot": "me-albums-15.jpg"
+  },
+  {
+   "screen": "me-albums",
+   "path": "/me",
+   "setup": [],
+   "n": 16,
+   "tag": "a",
+   "role": "",
+   "name": "お昼のピース 2026.09.25",
+   "state": "///",
+   "href": "/album/2",
+   "disabled": false,
+   "urlAfter": "/album/2",
+   "newTab": null,
+   "newText": [
+    "編集",
+    "放課後",
+    "梅田",
+    "みんなで"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "みんなで",
+    "シェア"
+   ],
+   "errors": [],
+   "ms": 1525,
+   "shot": "me-albums-16.jpg"
+  },
+  {
+   "screen": "me-albums",
+   "path": "/me",
+   "setup": [],
+   "n": 17,
+   "tag": "a",
+   "role": "",
+   "name": "秋晴れと笑顔の一日 2026.09.24",
+   "state": "///",
+   "href": "/album/7",
+   "disabled": false,
+   "urlAfter": "/album/7",
+   "newTab": null,
+   "newText": [
+    "編集",
+    "制服日和",
+    "屋台グルメ",
+    "階段で一枚"
+   ],
+   "goneText": [
+    "@nao",
+    "アルバム",
+    "カプセル"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1517,
+   "shot": "me-albums-17.jpg"
+  },
+  {
+   "screen": "me-albums",
+   "path": "/me",
+   "setup": [],
+   "n": 18,
+   "tag": "a",
+   "role": "",
+   "name": "青空とはしゃぐ午後 2026.09.24",
+   "state": "///",
+   "href": "/album/4",
+   "disabled": false,
+   "urlAfter": "/album/4",
+   "newTab": null,
+   "newText": [
+    "編集",
+    "青空日和",
+    "食べ歩き",
+    "記念撮影"
+   ],
+   "goneText": [
+    "@nao",
+    "アルバム",
+    "カプセル"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1519,
+   "shot": "me-albums-18.jpg"
+  },
+  {
+   "screen": "me-albums",
+   "path": "/me",
+   "setup": [],
+   "n": 19,
+   "tag": "a",
+   "role": "",
+   "name": "2026.09.24 のアルバム 2026.09.24",
+   "state": "///",
+   "href": "/album/3",
+   "disabled": false,
+   "urlAfter": "/album/3",
+   "newTab": null,
+   "newText": [
+    "編集",
+    "この写真を飾る",
+    "シェア",
+    "場所"
+   ],
+   "goneText": [
+    "@nao",
+    "アルバム",
+    "カプセル"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1522,
+   "shot": "me-albums-19.jpg"
+  },
+  {
+   "screen": "me-albums",
+   "path": "/me",
+   "setup": [],
+   "n": 20,
+   "tag": "a",
+   "role": "",
+   "name": "最高の1日 2026.09.24",
+   "state": "///",
+   "href": "/album/1",
+   "disabled": false,
+   "urlAfter": "/album/1",
+   "newTab": null,
+   "newText": [
+    "編集",
+    "放課後",
+    "梅田",
+    "みんなで"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "みんなで",
+    "シェア"
+   ],
+   "errors": [],
+   "ms": 1513,
+   "shot": "me-albums-20.jpg"
+  },
+  {
+   "screen": "me-albums",
+   "path": "/me",
+   "setup": [],
+   "n": 21,
+   "tag": "a",
+   "role": "",
+   "name": "2026.09.22 のアルバム 2026.09.22",
+   "state": "///",
+   "href": "/album/24",
+   "disabled": false,
+   "urlAfter": "/album/24",
+   "newTab": null,
+   "newText": [
+    "編集",
+    "12:00",
+    "12:01",
+    "12:02"
+   ],
+   "goneText": [
+    "@nao",
+    "アルバム",
+    "カプセル"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "12:00",
+    "12:01",
+    "12:02",
+    "この写真を飾る"
+   ],
+   "errors": [],
+   "ms": 1514,
+   "shot": "me-albums-21.jpg"
+  },
+  {
+   "screen": "me-albums",
+   "path": "/me",
+   "setup": [],
+   "n": 22,
+   "tag": "a",
+   "role": "",
+   "name": "2026.09.22 のアルバム 2026.09.22",
+   "state": "///",
+   "href": "/album/21",
+   "disabled": false,
+   "urlAfter": "/album/21",
+   "newTab": null,
+   "newText": [
+    "編集",
+    "この写真を飾る",
+    "シェア",
+    "場所"
+   ],
+   "goneText": [
+    "@nao",
+    "アルバム",
+    "カプセル"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1519,
+   "shot": "me-albums-22.jpg"
+  },
+  {
+   "screen": "me-albums",
+   "path": "/me",
+   "setup": [],
+   "n": 23,
+   "tag": "a",
+   "role": "",
+   "name": "友達との思い出 2026.09.22",
+   "state": "///",
+   "href": "/album/16",
+   "disabled": false,
+   "urlAfter": "/album/16",
+   "newTab": null,
+   "newText": [
+    "編集",
+    "夕日",
+    "花火",
+    "花見"
+   ],
+   "goneText": [
+    "@nao",
+    "アルバム",
+    "カプセル"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1534,
+   "shot": "me-albums-23.jpg"
+  },
+  {
+   "screen": "me-albums",
+   "path": "/me",
+   "setup": [],
+   "n": 24,
+   "tag": "a",
+   "role": "",
+   "name": "特別な一日 2026.09.21",
+   "state": "///",
+   "href": "/album/28",
+   "disabled": false,
+   "urlAfter": "/album/28",
+   "newTab": null,
+   "newText": [
+    "編集",
+    "夕日",
+    "花火の夜",
+    "桜並木"
+   ],
+   "goneText": [
+    "@nao",
+    "アルバム",
+    "カプセル"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1511,
+   "shot": "me-albums-24.jpg"
+  },
+  {
+   "screen": "me-albums",
+   "path": "/me",
+   "setup": [],
+   "n": 25,
+   "tag": "a",
+   "role": "",
+   "name": "青空と笑顔の日 2026.09.21",
+   "state": "///",
+   "href": "/album/27",
+   "disabled": false,
+   "urlAfter": "/album/27",
+   "newTab": null,
+   "newText": [
+    "編集",
+    "青空セルフィー",
+    "屋台グルメ",
+    "遊園地デート"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1527,
+   "shot": "me-albums-25.jpg"
+  },
+  {
+   "screen": "me-albums",
+   "path": "/me",
+   "setup": [],
+   "n": 26,
+   "tag": "a",
+   "role": "",
+   "name": "友達と特別な一日 2026.09.21",
+   "state": "///",
+   "href": "/album/26",
+   "disabled": false,
+   "urlAfter": "/album/26",
+   "newTab": null,
+   "newText": [
+    "編集",
+    "夕焼け",
+    "花火大会",
+    "桜並木"
+   ],
+   "goneText": [
+    "@nao",
+    "アルバム",
+    "カプセル"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1525,
+   "shot": "me-albums-26.jpg"
+  },
+  {
+   "screen": "me-albums",
+   "path": "/me",
+   "setup": [],
+   "n": 27,
+   "tag": "a",
+   "role": "",
+   "name": "秋晴れの遠足日和 2026.09.21",
+   "state": "///",
+   "href": "/album/25",
+   "disabled": false,
+   "urlAfter": "/album/25",
+   "newTab": null,
+   "newText": [
+    "編集",
+    "青空の下で",
+    "おやつタイム",
+    "ピースサイン"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "おやつタイム",
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア"
+   ],
+   "errors": [],
+   "ms": 1514,
+   "shot": "me-albums-27.jpg"
+  },
+  {
+   "screen": "me-albums",
+   "path": "/me",
+   "setup": [],
+   "n": 28,
+   "tag": "a",
+   "role": "",
+   "name": "友達との思い出 2026.09.21",
+   "state": "///",
+   "href": "/album/23",
+   "disabled": false,
+   "urlAfter": "/album/23",
+   "newTab": null,
+   "newText": [
+    "編集",
+    "夕焼け",
+    "花火",
+    "桜並木"
+   ],
+   "goneText": [
+    "@nao",
+    "アルバム",
+    "カプセル"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1522,
+   "shot": "me-albums-28.jpg"
+  },
+  {
+   "screen": "me-albums",
+   "path": "/me",
+   "setup": [],
+   "n": 29,
+   "tag": "a",
+   "role": "",
+   "name": "青空と笑顔の遠足 2026.09.21",
+   "state": "///",
+   "href": "/album/22",
+   "disabled": false,
+   "urlAfter": "/album/22",
+   "newTab": null,
+   "newText": [
+    "編集",
+    "青空ピース",
+    "屋台グルメ",
+    "遊園地で"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1517,
+   "shot": "me-albums-29.jpg"
+  },
+  {
+   "screen": "me-albums",
+   "path": "/me",
+   "setup": [],
+   "n": 30,
+   "tag": "a",
+   "role": "",
+   "name": "友達との時間 2026.09.21",
+   "state": "///",
+   "href": "/album/20",
+   "disabled": false,
+   "urlAfter": "/album/20",
+   "newTab": null,
+   "newText": [
+    "編集",
+    "夕焼け",
+    "花火大会",
+    "桜並木"
+   ],
+   "goneText": [
+    "@nao",
+    "アルバム",
+    "カプセル"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1513,
+   "shot": "me-albums-30.jpg"
+  },
+  {
+   "screen": "me-albums",
+   "path": "/me",
+   "setup": [],
+   "n": 31,
+   "tag": "a",
+   "role": "",
+   "name": "青空とはしゃぐ休日 2026.09.21",
+   "state": "///",
+   "href": "/album/19",
+   "disabled": false,
+   "urlAfter": "/album/19",
+   "newTab": null,
+   "newText": [
+    "編集",
+    "3人で笑顔",
+    "おやつタイム",
+    "階段でピース"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "3人で笑顔",
+    "おやつタイム",
+    "この写真を飾る",
+    "その他のオプション"
+   ],
+   "errors": [],
+   "ms": 1519,
+   "shot": "me-albums-31.jpg"
+  },
+  {
+   "screen": "me-albums",
+   "path": "/me",
+   "setup": [],
+   "n": 32,
+   "tag": "a",
+   "role": "",
+   "name": "夕焼けと青空の一日 2026.09.21",
+   "state": "///",
+   "href": "/album/17",
+   "disabled": false,
+   "urlAfter": "/album/17",
+   "newTab": null,
+   "newText": [
+    "編集",
+    "夕日",
+    "青空",
+    "この写真を飾る"
+   ],
+   "goneText": [
+    "@nao",
+    "アルバム",
+    "カプセル"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1512,
+   "shot": "me-albums-32.jpg"
+  },
+  {
+   "screen": "me-albums",
+   "path": "/me",
+   "setup": [],
+   "n": 33,
+   "tag": "a",
+   "role": "",
+   "name": "友達と青空日和 2026.09.21",
+   "state": "///",
+   "href": "/album/15",
+   "disabled": false,
+   "urlAfter": "/album/15",
+   "newTab": null,
+   "newText": [
+    "編集",
+    "青空とピース",
+    "おやつタイム",
+    "階段でパシャリ"
+   ],
+   "goneText": [
+    "@nao",
+    "アルバム",
+    "カプセル"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "おやつタイム",
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア"
+   ],
+   "errors": [],
+   "ms": 1519,
+   "shot": "me-albums-33.jpg"
+  },
+  {
+   "screen": "me-albums",
+   "path": "/me",
+   "setup": [],
+   "n": 34,
+   "tag": "a",
+   "role": "",
+   "name": "夕焼けと青春 2026.09.20",
+   "state": "///",
+   "href": "/album/29",
+   "disabled": false,
+   "urlAfter": "/album/29",
+   "newTab": null,
+   "newText": [
+    "編集",
+    "夕日",
+    "波音",
+    "水平線"
+   ],
+   "goneText": [
+    "@nao",
+    "アルバム",
+    "カプセル"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "せーの",
+    "その他のオプション",
+    "シェア"
+   ],
+   "errors": [],
+   "ms": 1517,
+   "shot": "me-albums-34.jpg"
+  },
+  {
+   "screen": "me-albums",
+   "path": "/me",
+   "setup": [],
+   "n": 35,
+   "tag": "button",
+   "role": "",
+   "name": "写真を撮る",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/camera",
+   "newTab": null,
+   "newText": [
+    "AIに撮り方を聞く",
+    "ビデオ",
+    "写真"
+   ],
+   "goneText": [
+    "わたし",
+    "@nao",
+    "アルバム"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "AIに撮り方を聞く",
+    "アルバムを作成",
+    "カメラを切り替える",
+    "写真ライブラリから選ぶ"
+   ],
+   "errors": [],
+   "ms": 1511,
+   "shot": "me-albums-35.jpg"
+  },
+  {
+   "screen": "generating-failed",
+   "path": "/album/generating/999999999",
+   "setup": [],
+   "n": 1,
+   "tag": "button",
+   "role": "",
+   "name": "写真を選び直す",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/album/new",
+   "newTab": null,
+   "newText": [
+    "Best Friends ♡",
+    "2026.09.27",
+    "2/2",
+    "02:23"
+   ],
+   "goneText": [
+    "AIがアルバムにまとめています",
+    "接続中",
+    "0%"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "02:23の写真を外す",
+    "AIでアルバムにまとめる（2枚）",
+    "その他のオプション",
+    "戻る"
+   ],
+   "errors": [],
+   "ms": 1546,
+   "shot": "generating-failed-01.jpg"
+  },
+  {
+   "screen": "camera-hint",
+   "path": "/camera",
+   "setup": [
+    "AIに撮り方を聞く"
+   ],
+   "n": 1,
+   "tag": "button",
+   "role": "",
+   "name": "閉じる",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "effect": "covered by 「AIに撮り方を聞く」 in this state"
+  },
+  {
+   "screen": "camera-hint",
+   "path": "/camera",
+   "setup": [
+    "AIに撮り方を聞く"
+   ],
+   "n": 2,
+   "tag": "button",
+   "role": "",
+   "name": "写真ライブラリから選ぶ",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "effect": "covered by 「AIに撮り方を聞く」 in this state"
+  },
+  {
+   "screen": "camera-hint",
+   "path": "/camera",
+   "setup": [
+    "AIに撮り方を聞く"
+   ],
+   "n": 3,
+   "tag": "button",
+   "role": "",
+   "name": "AIに撮り方を聞く",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "effect": "covered by 「AIに撮り方を聞く (open sheet)」 in this state"
+  },
+  {
+   "screen": "camera-hint",
+   "path": "/camera",
+   "setup": [
+    "AIに撮り方を聞く"
+   ],
+   "n": 4,
+   "tag": "button",
+   "role": "",
+   "name": "アルバムを作成",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "effect": "covered by 「AIに撮り方を聞く (open sheet)」 in this state"
+  },
+  {
+   "screen": "camera-hint",
+   "path": "/camera",
+   "setup": [
+    "AIに撮り方を聞く"
+   ],
+   "n": 5,
+   "tag": "button",
+   "role": "",
+   "name": "写真を撮る",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "effect": "covered by 「AIに撮り方を聞く (open sheet)」 in this state"
+  },
+  {
+   "screen": "camera-hint",
+   "path": "/camera",
+   "setup": [
+    "AIに撮り方を聞く"
+   ],
+   "n": 6,
+   "tag": "button",
+   "role": "",
+   "name": "カメラを切り替える",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "effect": "covered by 「AIに撮り方を聞く (open sheet)」 in this state"
+  },
+  {
+   "screen": "camera-hint",
+   "path": "/camera",
+   "setup": [
+    "AIに撮り方を聞く"
+   ],
+   "n": 7,
+   "tag": "button",
+   "role": "",
+   "name": "閉じる",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "newText": [],
+   "goneText": [
+    "AIに撮り方を聞く",
+    "何人？",
+    "3人"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1521,
+   "shot": "camera-hint-07.jpg"
+  },
+  {
+   "screen": "camera-hint",
+   "path": "/camera",
+   "setup": [
+    "AIに撮り方を聞く"
+   ],
+   "n": 8,
+   "tag": "button",
+   "role": "",
+   "name": "1人減らす",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "newText": [
+    "2人"
+   ],
+   "goneText": [
+    "3人",
+    "みんなで文字を作ってみよう！"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1525,
+   "shot": "camera-hint-08.jpg"
+  },
+  {
+   "screen": "camera-hint",
+   "path": "/camera",
+   "setup": [
+    "AIに撮り方を聞く"
+   ],
+   "n": 9,
+   "tag": "button",
+   "role": "",
+   "name": "1人増やす",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "newText": [
+    "4人"
+   ],
+   "goneText": [
+    "3人"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1523,
+   "shot": "camera-hint-09.jpg"
+  },
+  {
+   "screen": "camera-hint",
+   "path": "/camera",
+   "setup": [
+    "AIに撮り方を聞く"
+   ],
+   "n": 10,
+   "tag": "button",
+   "role": "radio",
+   "name": "わちゃわちゃ",
+   "state": "/true//",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1522,
+   "shot": "camera-hint-10.jpg",
+   "effect": "NO VISIBLE CHANGE"
+  },
+  {
+   "screen": "camera-hint",
+   "path": "/camera",
+   "setup": [
+    "AIに撮り方を聞く"
+   ],
+   "n": 11,
+   "tag": "button",
+   "role": "radio",
+   "name": "エモく",
+   "state": "/false//",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [
+    "わちゃわちゃ: /false//",
+    "エモく: /true//"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1515,
+   "shot": "camera-hint-11.jpg"
+  },
+  {
+   "screen": "camera-hint",
+   "path": "/camera",
+   "setup": [
+    "AIに撮り方を聞く"
+   ],
+   "n": 12,
+   "tag": "button",
+   "role": "radio",
+   "name": "かわいく",
+   "state": "/false//",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [
+    "わちゃわちゃ: /false//",
+    "かわいく: /true//"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1519,
+   "shot": "camera-hint-12.jpg"
+  },
+  {
+   "screen": "camera-hint",
+   "path": "/camera",
+   "setup": [
+    "AIに撮り方を聞く"
+   ],
+   "n": 13,
+   "tag": "button",
+   "role": "radio",
+   "name": "かっこよく",
+   "state": "/false//",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [
+    "わちゃわちゃ: /false//",
+    "かっこよく: /true//"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1520,
+   "shot": "camera-hint-13.jpg"
+  },
+  {
+   "screen": "camera-hint",
+   "path": "/camera",
+   "setup": [
+    "AIに撮り方を聞く"
+   ],
+   "n": 14,
+   "tag": "button",
+   "role": "",
+   "name": "聞いてみる",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "newText": [
+    "考え中…"
+   ],
+   "goneText": [
+    "聞いてみる"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "考え中…"
+   ],
+   "errors": [],
+   "ms": 1518,
+   "shot": "camera-hint-14.jpg"
+  },
+  {
+   "screen": "camera-hint",
+   "path": "/camera",
+   "setup": [
+    "AIに撮り方を聞く"
+   ],
+   "n": 15,
+   "tag": "button",
+   "role": "",
+   "name": "みんなで一斉にジャンプ！",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "newText": [
+    "3、2、1でジャンプ",
+    "スロー再生すると青春っぽい",
+    "ほかの案",
+    "これで撮る"
+   ],
+   "goneText": [
+    "何人？",
+    "3人",
+    "どんな感じ？"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "これで撮る",
+    "ほかの案"
+   ],
+   "errors": [],
+   "ms": 1541,
+   "shot": "camera-hint-15.jpg"
+  },
+  {
+   "screen": "camera-hint",
+   "path": "/camera",
+   "setup": [
+    "AIに撮り方を聞く"
+   ],
+   "n": 16,
+   "tag": "button",
+   "role": "",
+   "name": "今度は一人ずつ増えてみよう！",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "newText": [
+    "最初は一人だけ",
+    "1枚撮るごとに一人ずつ増える",
+    "最後は全員集合",
+    "ほかの案"
+   ],
+   "goneText": [
+    "何人？",
+    "3人",
+    "どんな感じ？"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "これで撮る",
+    "ほかの案"
+   ],
+   "errors": [],
+   "ms": 1522,
+   "shot": "camera-hint-16.jpg"
+  },
+  {
+   "screen": "camera-hint",
+   "path": "/camera",
+   "setup": [
+    "AIに撮り方を聞く"
+   ],
+   "n": 17,
+   "tag": "button",
+   "role": "",
+   "name": "空中で止まろう！",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "newText": [
+    "ジャンプした瞬間を連写",
+    "つなげると空中に浮いて見える",
+    "ほかの案",
+    "これで撮る"
+   ],
+   "goneText": [
+    "何人？",
+    "3人",
+    "どんな感じ？"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "これで撮る",
+    "ほかの案"
+   ],
+   "errors": [],
+   "ms": 1515,
+   "shot": "camera-hint-17.jpg"
+  },
+  {
+   "screen": "camera-hint",
+   "path": "/camera",
+   "setup": [
+    "AIに撮り方を聞く"
+   ],
+   "n": 18,
+   "tag": "button",
+   "role": "",
+   "name": "みんなで瞬間移動！",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "newText": [
+    "同じポーズのまま",
+    "場所を少しずつずらして撮る",
+    "つなげるとスーッと移動して見える",
+    "ほかの案"
+   ],
+   "goneText": [
+    "何人？",
+    "3人",
+    "どんな感じ？"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "これで撮る",
+    "ほかの案"
+   ],
+   "errors": [],
+   "ms": 1520,
+   "shot": "camera-hint-18.jpg"
+  },
+  {
+   "screen": "camera-hint",
+   "path": "/camera",
+   "setup": [
+    "AIに撮り方を聞く"
+   ],
+   "n": 19,
+   "tag": "button",
+   "role": "",
+   "name": "全員で変なことして！",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "newText": [
+    "全員で変な動き",
+    "数年後に見返すと絶対笑う",
+    "ほかの案",
+    "これで撮る"
+   ],
+   "goneText": [
+    "何人？",
+    "3人",
+    "どんな感じ？"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "これで撮る",
+    "ほかの案"
+   ],
+   "errors": [],
+   "ms": 1515,
+   "shot": "camera-hint-19.jpg"
+  },
+  {
+   "screen": "camera-hint",
+   "path": "/camera",
+   "setup": [
+    "AIに撮り方を聞く"
+   ],
+   "n": 20,
+   "tag": "button",
+   "role": "",
+   "name": "カメラを順番にのぞき込んで！",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "newText": [
+    "一人ずつ画面に顔を出す",
+    "最後に全員集合",
+    "ほかの案",
+    "これで撮る"
+   ],
+   "goneText": [
+    "何人？",
+    "3人",
+    "どんな感じ？"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "これで撮る",
+    "ほかの案"
+   ],
+   "errors": [],
+   "ms": 1523,
+   "shot": "camera-hint-20.jpg"
+  },
+  {
+   "screen": "camera-hint",
+   "path": "/camera",
+   "setup": [
+    "AIに撮り方を聞く"
+   ],
+   "n": 21,
+   "tag": "button",
+   "role": "",
+   "name": "秘密の合言葉を決めよう！",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "newText": [
+    "その場で謎の言葉を決める",
+    "全員で一緒に叫ぶ",
+    "未来で見て「何これ？」ってなる",
+    "ほかの案"
+   ],
+   "goneText": [
+    "何人？",
+    "3人",
+    "どんな感じ？"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "これで撮る",
+    "ほかの案"
+   ],
+   "errors": [],
+   "ms": 1515,
+   "shot": "camera-hint-21.jpg"
+  },
+  {
+   "screen": "camera-hint",
+   "path": "/camera",
+   "setup": [
+    "AIに撮り方を聞く"
+   ],
+   "n": 22,
+   "tag": "button",
+   "role": "",
+   "name": "この続きを未来で撮ろう！",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "newText": [
+    "一人が手を差し出すところまで撮る",
+    "再会したら相手がその手を取る",
+    "2本つないで完成",
+    "ほかの案"
+   ],
+   "goneText": [
+    "何人？",
+    "3人",
+    "どんな感じ？"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "これで撮る",
+    "ほかの案"
+   ],
+   "errors": [],
+   "ms": 1529,
+   "shot": "camera-hint-22.jpg"
+  },
+  {
+   "screen": "camera-hint",
+   "path": "/camera",
+   "setup": [
+    "AIに撮り方を聞く"
+   ],
+   "n": 23,
+   "tag": "button",
+   "role": "",
+   "name": "みんなで文字を作ってみよう！",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "newText": [
+    "1枚ごとに少しずつ移動",
+    "最後にハートなどの形を作る",
+    "ほかの案",
+    "これで撮る"
+   ],
+   "goneText": [
+    "何人？",
+    "3人",
+    "どんな感じ？"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "これで撮る",
+    "ほかの案"
+   ],
+   "errors": [],
+   "ms": 1519,
+   "shot": "camera-hint-23.jpg"
+  },
+  {
+   "screen": "camera-hint",
+   "path": "/camera",
+   "setup": [
+    "AIに撮り方を聞く"
+   ],
+   "n": 24,
+   "tag": "button",
+   "role": "",
+   "name": "未来で完成させる動画を撮ろう！",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "newText": [
+    "全員で「せーの……」まで撮って終了",
+    "再会した日に続きを撮る",
+    "ほかの案",
+    "これで撮る"
+   ],
+   "goneText": [
+    "何人？",
+    "3人",
+    "どんな感じ？"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "これで撮る",
+    "ほかの案"
+   ],
+   "errors": [],
+   "ms": 1512,
+   "shot": "camera-hint-24.jpg"
+  },
+  {
+   "screen": "camera-hint",
+   "path": "/camera",
+   "setup": [
+    "AIに撮り方を聞く"
+   ],
+   "n": 25,
+   "tag": "button",
+   "role": "",
+   "name": "違う場所で撮ってみよう！",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "newText": [
+    "いろんな場所で",
+    "同じポーズ・同じ構図で撮る",
+    "ほかの案",
+    "これで撮る"
+   ],
+   "goneText": [
+    "何人？",
+    "3人",
+    "どんな感じ？"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "これで撮る",
+    "ほかの案"
+   ],
+   "errors": [],
+   "ms": 1518,
+   "shot": "camera-hint-25.jpg"
+  },
+  {
+   "screen": "camera-hint",
+   "path": "/camera",
+   "setup": [
+    "AIに撮り方を聞く"
+   ],
+   "n": 26,
+   "tag": "button",
+   "role": "",
+   "name": "みんなで歩こう！",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "newText": [
+    "少しずつ前に進みながら撮る",
+    "最後に大きな一歩！",
+    "ほかの案",
+    "これで撮る"
+   ],
+   "goneText": [
+    "何人？",
+    "3人",
+    "どんな感じ？"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "これで撮る",
+    "ほかの案"
+   ],
+   "errors": [],
+   "ms": 1523,
+   "shot": "camera-hint-26.jpg"
+  },
+  {
+   "screen": "camera-hint-result",
+   "path": "/camera",
+   "setup": [
+    "AIに撮り方を聞く",
+    "聞いてみる"
+   ],
+   "n": 1,
+   "tag": "button",
+   "role": "",
+   "name": "閉じる",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "effect": "covered by 「AIに撮り方を聞く」 in this state"
+  },
+  {
+   "screen": "camera-hint-result",
+   "path": "/camera",
+   "setup": [
+    "AIに撮り方を聞く",
+    "聞いてみる"
+   ],
+   "n": 2,
+   "tag": "button",
+   "role": "",
+   "name": "写真ライブラリから選ぶ",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "effect": "covered by 「AIに撮り方を聞く」 in this state"
+  },
+  {
+   "screen": "camera-hint-result",
+   "path": "/camera",
+   "setup": [
+    "AIに撮り方を聞く",
+    "聞いてみる"
+   ],
+   "n": 3,
+   "tag": "button",
+   "role": "",
+   "name": "AIに撮り方を聞く",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "effect": "covered by 「AIに撮り方を聞く (open sheet)」 in this state"
+  },
+  {
+   "screen": "camera-hint-result",
+   "path": "/camera",
+   "setup": [
+    "AIに撮り方を聞く",
+    "聞いてみる"
+   ],
+   "n": 4,
+   "tag": "button",
+   "role": "",
+   "name": "アルバムを作成",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "effect": "covered by 「AIに撮り方を聞く (open sheet)」 in this state"
+  },
+  {
+   "screen": "camera-hint-result",
+   "path": "/camera",
+   "setup": [
+    "AIに撮り方を聞く",
+    "聞いてみる"
+   ],
+   "n": 5,
+   "tag": "button",
+   "role": "",
+   "name": "写真を撮る",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "effect": "covered by 「AIに撮り方を聞く (open sheet)」 in this state"
+  },
+  {
+   "screen": "camera-hint-result",
+   "path": "/camera",
+   "setup": [
+    "AIに撮り方を聞く",
+    "聞いてみる"
+   ],
+   "n": 6,
+   "tag": "button",
+   "role": "",
+   "name": "カメラを切り替える",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "effect": "covered by 「AIに撮り方を聞く (open sheet)」 in this state"
+  },
+  {
+   "screen": "camera-hint-result",
+   "path": "/camera",
+   "setup": [
+    "AIに撮り方を聞く",
+    "聞いてみる"
+   ],
+   "n": 7,
+   "tag": "button",
+   "role": "",
+   "name": "閉じる",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "newText": [],
+   "goneText": [
+    "AIに撮り方を聞く",
+    "3人でくっついてわちゃわちゃ感を全開に出そう",
+    "肩組んで顔寄せ合う"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1530,
+   "shot": "camera-hint-result-07.jpg"
+  },
+  {
+   "screen": "camera-hint-result",
+   "path": "/camera",
+   "setup": [
+    "AIに撮り方を聞く",
+    "聞いてみる"
+   ],
+   "n": 8,
+   "tag": "button",
+   "role": "",
+   "name": "ほかの案",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "newText": [
+    "考え中…"
+   ],
+   "goneText": [
+    "ほかの案"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "考え中…"
+   ],
+   "errors": [],
+   "ms": 1509,
+   "shot": "camera-hint-result-08.jpg"
+  },
+  {
+   "screen": "camera-hint-result",
+   "path": "/camera",
+   "setup": [
+    "AIに撮り方を聞く",
+    "聞いてみる"
+   ],
+   "n": 9,
+   "tag": "button",
+   "role": "",
+   "name": "これで撮る",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "newText": [],
+   "goneText": [
+    "AIに撮り方を聞く",
+    "AIに撮り方を聞く",
+    "中央の子を挟んで両側から抱きつく"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "撮り方を消す"
+   ],
+   "errors": [],
+   "ms": 1512,
+   "shot": "camera-hint-result-09.jpg"
+  },
+  {
+   "screen": "share-sent",
+   "path": "/album/30/share",
+   "setup": [
+    "友達と共有する"
+   ],
+   "n": 1,
+   "tag": "button",
+   "role": "",
+   "name": "戻る",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/album/30/decorate/105",
+   "newTab": null,
+   "newText": [
+    "♡",
+    "花見日和",
+    "BEST",
+    "保存して友達とシェア"
+   ],
+   "goneText": [
+    "わたし",
+    "あやか",
+    "みき"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "ひとつ戻す",
+    "ハートのスタンプ",
+    "ペン",
+    "保存"
+   ],
+   "errors": [],
+   "ms": 1517,
+   "shot": "share-sent-01.jpg"
+  },
+  {
+   "screen": "share-sent",
+   "path": "/album/30/share",
+   "setup": [
+    "友達と共有する"
+   ],
+   "n": 2,
+   "tag": "button",
+   "role": "",
+   "name": "その他のオプション",
+   "state": "///false",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "newText": [
+    "マイページ",
+    "ログアウト"
+   ],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [
+    "その他のオプション: ///true"
+   ],
+   "newControls": [
+    "マイページ",
+    "ログアウト"
+   ],
+   "errors": [],
+   "ms": 1509,
+   "shot": "share-sent-02.jpg"
+  },
+  {
+   "screen": "share-sent",
+   "path": "/album/30/share",
+   "setup": [
+    "友達と共有する"
+   ],
+   "n": 3,
+   "tag": "button",
+   "role": "",
+   "name": "あやかを見せる相手にする",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "newText": [
+    "あやか",
+    "2人"
+   ],
+   "goneText": [
+    "1人",
+    "上の友達をタップ"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "あやかを見せる相手にする: true///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1522,
+   "shot": "share-sent-03.jpg"
+  },
+  {
+   "screen": "share-sent",
+   "path": "/album/30/share",
+   "setup": [
+    "友達と共有する"
+   ],
+   "n": 4,
+   "tag": "button",
+   "role": "",
+   "name": "みきを見せる相手にする",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "newText": [
+    "みき",
+    "2人"
+   ],
+   "goneText": [
+    "1人",
+    "上の友達をタップ"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "みきを見せる相手にする: true///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1516,
+   "shot": "share-sent-04.jpg"
+  },
+  {
+   "screen": "share-sent",
+   "path": "/album/30/share",
+   "setup": [
+    "友達と共有する"
+   ],
+   "n": 5,
+   "tag": "button",
+   "role": "",
+   "name": "りんを見せる相手にする",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "newText": [
+    "りん",
+    "2人"
+   ],
+   "goneText": [
+    "1人",
+    "上の友達をタップ"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "りんを見せる相手にする: true///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1519,
+   "shot": "share-sent-05.jpg"
+  },
+  {
+   "screen": "share-sent",
+   "path": "/album/30/share",
+   "setup": [
+    "友達と共有する"
+   ],
+   "n": 6,
+   "tag": "button",
+   "role": "",
+   "name": "監査を見せる相手にする",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "newText": [
+    "監査",
+    "2人"
+   ],
+   "goneText": [
+    "1人",
+    "上の友達をタップ"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "監査を見せる相手にする: true///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1515,
+   "shot": "share-sent-06.jpg"
+  },
+  {
+   "screen": "share-sent",
+   "path": "/album/30/share",
+   "setup": [
+    "友達と共有する"
+   ],
+   "n": 7,
+   "tag": "button",
+   "role": "",
+   "name": "監査を見せる相手にする",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "newText": [
+    "監査",
+    "2人"
+   ],
+   "goneText": [
+    "1人",
+    "上の友達をタップ"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "監査を見せる相手にする: true///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1522,
+   "shot": "share-sent-07.jpg"
+  },
+  {
+   "screen": "share-sent",
+   "path": "/album/30/share",
+   "setup": [
+    "友達と共有する"
+   ],
+   "n": 8,
+   "tag": "button",
+   "role": "",
+   "name": "監査を見せる相手にする",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "newText": [
+    "監査",
+    "2人"
+   ],
+   "goneText": [
+    "1人",
+    "上の友達をタップ"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "監査を見せる相手にする: true///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1514,
+   "shot": "share-sent-08.jpg"
+  },
+  {
+   "screen": "share-sent",
+   "path": "/album/30/share",
+   "setup": [
+    "友達と共有する"
+   ],
+   "n": 9,
+   "tag": "button",
+   "role": "",
+   "name": "監査を見せる相手にする",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "newText": [
+    "監査",
+    "2人"
+   ],
+   "goneText": [
+    "1人",
+    "上の友達をタップ"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "監査を見せる相手にする: true///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1517,
+   "shot": "share-sent-09.jpg"
+  },
+  {
+   "screen": "share-sent",
+   "path": "/album/30/share",
+   "setup": [
+    "友達と共有する"
+   ],
+   "n": 10,
+   "tag": "button",
+   "role": "",
+   "name": "友達と共有する",
+   "state": "////disabled",
+   "href": "",
+   "disabled": true,
+   "effect": "disabled in this state"
+  },
+  {
+   "screen": "share-sent",
+   "path": "/album/30/share",
+   "setup": [
+    "友達と共有する"
+   ],
+   "n": 11,
+   "tag": "a",
+   "role": "",
+   "name": "http://localhost:8080/s/ww70FEzOSL_I4P7ipaEtsRwZKYLbcm6R",
+   "state": "///",
+   "href": "http://localhost:8080/s/ww70FEzOSL_I4P7ipaEtsRwZKYLbcm6R",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": "/s/ww70FEzOSL_I4P7ipaEtsRwZKYLbcm6R",
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1583,
+   "shot": "share-sent-11.jpg"
+  },
+  {
+   "screen": "share-sent",
+   "path": "/album/30/share",
+   "setup": [
+    "友達と共有する"
+   ],
+   "n": 12,
+   "tag": "button",
+   "role": "",
+   "name": "タイムカプセルを作成する",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/album/30/capsule/new",
+   "newTab": null,
+   "newText": [
+    "タイムカプセル",
+    "1年後の自分へ",
+    "この思い出を、",
+    "未来の自分に届けよう。"
+   ],
+   "goneText": [
+    "わたし",
+    "あやか",
+    "みき"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "1年後",
+    "卒業式（半年後）"
+   ],
+   "errors": [],
+   "ms": 1530,
+   "shot": "share-sent-12.jpg"
+  },
+  {
+   "screen": "public-share",
+   "path": "/s/ww70FEzOSL_I4P7ipaEtsRwZKYLbcm6R",
+   "setup": [],
+   "n": 0,
+   "name": "(none)",
+   "effect": "no controls",
+   "shot": "public-share-00.jpg"
+  },
+  {
+   "screen": "decorate",
+   "path": "/album/30/decorate/105",
+   "setup": [],
+   "n": 1,
+   "tag": "button",
+   "role": "",
+   "name": "戻る",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/album/30",
+   "newTab": null,
+   "canvasChanged": false,
+   "newText": [
+    "編集",
+    "花火大会",
+    "この写真を飾る",
+    "シェア"
+   ],
+   "goneText": [
+    "♡",
+    "BEST",
+    "保存して友達とシェア"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1520,
+   "shot": "decorate-01.jpg"
+  },
+  {
+   "screen": "decorate",
+   "path": "/album/30/decorate/105",
+   "setup": [],
+   "n": 2,
+   "tag": "button",
+   "role": "",
+   "name": "保存",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/album/30/share",
+   "newTab": null,
+   "canvasChanged": false,
+   "newText": [
+    "わたし",
+    "あやか",
+    "みき",
+    "りん"
+   ],
+   "goneText": [
+    "♡",
+    "花見日和",
+    "BEST"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "あやかを見せる相手にする",
+    "その他のオプション",
+    "みきを見せる相手にする",
+    "りんを見せる相手にする"
+   ],
+   "errors": [],
+   "ms": 1528,
+   "shot": "decorate-02.jpg"
+  },
+  {
+   "screen": "decorate",
+   "path": "/album/30/decorate/105",
+   "setup": [],
+   "n": 3,
+   "tag": "button",
+   "role": "",
+   "name": "花火大会を編集する",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/album/30/decorate/106",
+   "newTab": null,
+   "canvasChanged": false,
+   "newText": [
+    "花火大会"
+   ],
+   "goneText": [
+    "花見日和"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "ひとつ戻す: ////disabled"
+   ],
+   "newControls": [
+    "花見日和を編集する"
+   ],
+   "errors": [],
+   "ms": 1520,
+   "shot": "decorate-03.jpg"
+  },
+  {
+   "screen": "decorate",
+   "path": "/album/30/decorate/105",
+   "setup": [],
+   "n": 4,
+   "tag": "button",
+   "role": "",
+   "name": "ペン",
+   "state": "true///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "canvasChanged": false,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [
+    "ペン: false///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1518,
+   "shot": "decorate-04.jpg"
+  },
+  {
+   "screen": "decorate",
+   "path": "/album/30/decorate/105",
+   "setup": [],
+   "n": 5,
+   "tag": "button",
+   "role": "",
+   "name": "ハートのスタンプ",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "canvasChanged": false,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [
+    "ペン: false///",
+    "ハートのスタンプ: true///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1529,
+   "shot": "decorate-05.jpg"
+  },
+  {
+   "screen": "decorate",
+   "path": "/album/30/decorate/105",
+   "setup": [],
+   "n": 6,
+   "tag": "button",
+   "role": "",
+   "name": "文字",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "canvasChanged": false,
+   "newText": [
+    "追加"
+   ],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [
+    "文字: true///"
+   ],
+   "newControls": [
+    "追加"
+   ],
+   "errors": [],
+   "ms": 1578,
+   "shot": "decorate-06.jpg"
+  },
+  {
+   "screen": "decorate",
+   "path": "/album/30/decorate/105",
+   "setup": [],
+   "n": 7,
+   "tag": "button",
+   "role": "",
+   "name": "ひとつ戻す",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "canvasChanged": true,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1524,
+   "shot": "decorate-07.jpg"
+  },
+  {
+   "screen": "decorate",
+   "path": "/album/30/decorate/105",
+   "setup": [],
+   "n": 8,
+   "tag": "button",
+   "role": "",
+   "name": "色 #ff7fb0",
+   "state": "true///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "canvasChanged": false,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1521,
+   "shot": "decorate-08.jpg",
+   "effect": "NO VISIBLE CHANGE"
+  },
+  {
+   "screen": "decorate",
+   "path": "/album/30/decorate/105",
+   "setup": [],
+   "n": 9,
+   "tag": "button",
+   "role": "",
+   "name": "色 #ffffff",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "canvasChanged": false,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [
+    "色 #ff7fb0: false///",
+    "色 #ffffff: true///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1517,
+   "shot": "decorate-09.jpg"
+  },
+  {
+   "screen": "decorate",
+   "path": "/album/30/decorate/105",
+   "setup": [],
+   "n": 10,
+   "tag": "button",
+   "role": "",
+   "name": "色 #14264d",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "canvasChanged": false,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [
+    "色 #ff7fb0: false///",
+    "色 #14264d: true///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1518,
+   "shot": "decorate-10.jpg"
+  },
+  {
+   "screen": "decorate",
+   "path": "/album/30/decorate/105",
+   "setup": [],
+   "n": 11,
+   "tag": "button",
+   "role": "",
+   "name": "色 #ffd166",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "canvasChanged": false,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [
+    "色 #ff7fb0: false///",
+    "色 #ffd166: true///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1531,
+   "shot": "decorate-11.jpg"
+  },
+  {
+   "screen": "decorate",
+   "path": "/album/30/decorate/105",
+   "setup": [],
+   "n": 12,
+   "tag": "button",
+   "role": "",
+   "name": "保存して友達とシェア",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/album/30/share",
+   "newTab": null,
+   "canvasChanged": false,
+   "newText": [
+    "わたし",
+    "あやか",
+    "みき",
+    "りん"
+   ],
+   "goneText": [
+    "♡",
+    "花見日和",
+    "BEST"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "あやかを見せる相手にする",
+    "その他のオプション",
+    "みきを見せる相手にする",
+    "りんを見せる相手にする"
+   ],
+   "errors": [],
+   "ms": 1515,
+   "shot": "decorate-12.jpg"
+  },
+  {
+   "screen": "decorate-text",
+   "path": "/album/30/decorate/105",
+   "setup": [
+    "文字"
+   ],
+   "n": 1,
+   "tag": "button",
+   "role": "",
+   "name": "戻る",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/album/30",
+   "newTab": null,
+   "canvasChanged": false,
+   "newText": [
+    "編集",
+    "花火大会",
+    "この写真を飾る",
+    "シェア"
+   ],
+   "goneText": [
+    "♡",
+    "BEST",
+    "追加"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1519,
+   "shot": "decorate-text-01.jpg"
+  },
+  {
+   "screen": "decorate-text",
+   "path": "/album/30/decorate/105",
+   "setup": [
+    "文字"
+   ],
+   "n": 2,
+   "tag": "button",
+   "role": "",
+   "name": "保存",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/album/30/share",
+   "newTab": null,
+   "canvasChanged": false,
+   "newText": [
+    "わたし",
+    "あやか",
+    "みき",
+    "りん"
+   ],
+   "goneText": [
+    "♡",
+    "花見日和",
+    "BEST"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "あやかを見せる相手にする",
+    "その他のオプション",
+    "みきを見せる相手にする",
+    "りんを見せる相手にする"
+   ],
+   "errors": [],
+   "ms": 1515,
+   "shot": "decorate-text-02.jpg"
+  },
+  {
+   "screen": "decorate-text",
+   "path": "/album/30/decorate/105",
+   "setup": [
+    "文字"
+   ],
+   "n": 3,
+   "tag": "button",
+   "role": "",
+   "name": "花火大会を編集する",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/album/30/decorate/106",
+   "newTab": null,
+   "canvasChanged": false,
+   "newText": [
+    "花火大会"
+   ],
+   "goneText": [
+    "花見日和"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "ひとつ戻す: ////disabled"
+   ],
+   "newControls": [
+    "花見日和を編集する"
+   ],
+   "errors": [],
+   "ms": 1531,
+   "shot": "decorate-text-03.jpg"
+  },
+  {
+   "screen": "decorate-text",
+   "path": "/album/30/decorate/105",
+   "setup": [
+    "文字"
+   ],
+   "n": 4,
+   "tag": "button",
+   "role": "",
+   "name": "ペン",
+   "state": "true///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "canvasChanged": false,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [
+    "ペン: false///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1514,
+   "shot": "decorate-text-04.jpg"
+  },
+  {
+   "screen": "decorate-text",
+   "path": "/album/30/decorate/105",
+   "setup": [
+    "文字"
+   ],
+   "n": 5,
+   "tag": "button",
+   "role": "",
+   "name": "ハートのスタンプ",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "canvasChanged": false,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [
+    "ペン: false///",
+    "ハートのスタンプ: true///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1523,
+   "shot": "decorate-text-05.jpg"
+  },
+  {
+   "screen": "decorate-text",
+   "path": "/album/30/decorate/105",
+   "setup": [
+    "文字"
+   ],
+   "n": 6,
+   "tag": "button",
+   "role": "",
+   "name": "文字",
+   "state": "true///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "canvasChanged": false,
+   "newText": [],
+   "goneText": [
+    "追加"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "文字: false///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1523,
+   "shot": "decorate-text-06.jpg"
+  },
+  {
+   "screen": "decorate-text",
+   "path": "/album/30/decorate/105",
+   "setup": [
+    "文字"
+   ],
+   "n": 7,
+   "tag": "button",
+   "role": "",
+   "name": "ひとつ戻す",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "canvasChanged": true,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1526,
+   "shot": "decorate-text-07.jpg"
+  },
+  {
+   "screen": "decorate-text",
+   "path": "/album/30/decorate/105",
+   "setup": [
+    "文字"
+   ],
+   "n": 8,
+   "tag": "button",
+   "role": "",
+   "name": "色 #ff7fb0",
+   "state": "true///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "canvasChanged": false,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1514,
+   "shot": "decorate-text-08.jpg",
+   "effect": "NO VISIBLE CHANGE"
+  },
+  {
+   "screen": "decorate-text",
+   "path": "/album/30/decorate/105",
+   "setup": [
+    "文字"
+   ],
+   "n": 9,
+   "tag": "button",
+   "role": "",
+   "name": "色 #ffffff",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "canvasChanged": false,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [
+    "色 #ff7fb0: false///",
+    "色 #ffffff: true///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1523,
+   "shot": "decorate-text-09.jpg"
+  },
+  {
+   "screen": "decorate-text",
+   "path": "/album/30/decorate/105",
+   "setup": [
+    "文字"
+   ],
+   "n": 10,
+   "tag": "button",
+   "role": "",
+   "name": "色 #14264d",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "canvasChanged": false,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [
+    "色 #ff7fb0: false///",
+    "色 #14264d: true///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1521,
+   "shot": "decorate-text-10.jpg"
+  },
+  {
+   "screen": "decorate-text",
+   "path": "/album/30/decorate/105",
+   "setup": [
+    "文字"
+   ],
+   "n": 11,
+   "tag": "button",
+   "role": "",
+   "name": "色 #ffd166",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "canvasChanged": false,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [
+    "色 #ff7fb0: false///",
+    "色 #ffd166: true///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1517,
+   "shot": "decorate-text-11.jpg"
+  },
+  {
+   "screen": "decorate-text",
+   "path": "/album/30/decorate/105",
+   "setup": [
+    "文字"
+   ],
+   "n": 12,
+   "tag": "button",
+   "role": "",
+   "name": "追加",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "canvasChanged": true,
+   "newText": [],
+   "goneText": [
+    "追加"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "文字: false///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1555,
+   "shot": "decorate-text-12.jpg"
+  },
+  {
+   "screen": "decorate-text",
+   "path": "/album/30/decorate/105",
+   "setup": [
+    "文字"
+   ],
+   "n": 13,
+   "tag": "button",
+   "role": "",
+   "name": "保存して友達とシェア",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/album/30/share",
+   "newTab": null,
+   "canvasChanged": false,
+   "newText": [
+    "わたし",
+    "あやか",
+    "みき",
+    "りん"
+   ],
+   "goneText": [
+    "♡",
+    "花見日和",
+    "BEST"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "あやかを見せる相手にする",
+    "その他のオプション",
+    "みきを見せる相手にする",
+    "りんを見せる相手にする"
+   ],
+   "errors": [],
+   "ms": 1520,
+   "shot": "decorate-text-13.jpg"
+  },
+  {
+   "screen": "decorate-stamped",
+   "path": "/album/30/decorate/105",
+   "setup": [
+    "ハートのスタンプ",
+    [
+     "tap",
+     "落書きキャンバス"
+    ]
+   ],
+   "n": 1,
+   "tag": "button",
+   "role": "",
+   "name": "戻る",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/album/30",
+   "newTab": null,
+   "canvasChanged": false,
+   "newText": [
+    "編集",
+    "花火大会",
+    "この写真を飾る",
+    "シェア"
+   ],
+   "goneText": [
+    "♡",
+    "BEST",
+    "保存して友達とシェア"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "この写真を飾る",
+    "その他のオプション",
+    "シェア",
+    "タイトルを編集"
+   ],
+   "errors": [],
+   "ms": 1523,
+   "shot": "decorate-stamped-01.jpg"
+  },
+  {
+   "screen": "decorate-stamped",
+   "path": "/album/30/decorate/105",
+   "setup": [
+    "ハートのスタンプ",
+    [
+     "tap",
+     "落書きキャンバス"
+    ]
+   ],
+   "n": 2,
+   "tag": "button",
+   "role": "",
+   "name": "保存",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/album/30/share",
+   "newTab": null,
+   "canvasChanged": false,
+   "newText": [
+    "わたし",
+    "あやか",
+    "みき",
+    "りん"
+   ],
+   "goneText": [
+    "♡",
+    "花見日和",
+    "BEST"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "あやかを見せる相手にする",
+    "その他のオプション",
+    "みきを見せる相手にする",
+    "りんを見せる相手にする"
+   ],
+   "errors": [],
+   "ms": 1524,
+   "shot": "decorate-stamped-02.jpg"
+  },
+  {
+   "screen": "decorate-stamped",
+   "path": "/album/30/decorate/105",
+   "setup": [
+    "ハートのスタンプ",
+    [
+     "tap",
+     "落書きキャンバス"
+    ]
+   ],
+   "n": 3,
+   "tag": "button",
+   "role": "",
+   "name": "花火大会を編集する",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/album/30/decorate/106",
+   "newTab": null,
+   "canvasChanged": false,
+   "newText": [
+    "花火大会"
+   ],
+   "goneText": [
+    "花見日和"
+   ],
+   "fileChooser": false,
+   "stateChanged": [
+    "ひとつ戻す: ////disabled"
+   ],
+   "newControls": [
+    "花見日和を編集する"
+   ],
+   "errors": [],
+   "ms": 1518,
+   "shot": "decorate-stamped-03.jpg"
+  },
+  {
+   "screen": "decorate-stamped",
+   "path": "/album/30/decorate/105",
+   "setup": [
+    "ハートのスタンプ",
+    [
+     "tap",
+     "落書きキャンバス"
+    ]
+   ],
+   "n": 4,
+   "tag": "button",
+   "role": "",
+   "name": "ペン",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "canvasChanged": false,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [
+    "ペン: true///",
+    "ハートのスタンプ: false///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1521,
+   "shot": "decorate-stamped-04.jpg"
+  },
+  {
+   "screen": "decorate-stamped",
+   "path": "/album/30/decorate/105",
+   "setup": [
+    "ハートのスタンプ",
+    [
+     "tap",
+     "落書きキャンバス"
+    ]
+   ],
+   "n": 5,
+   "tag": "button",
+   "role": "",
+   "name": "ハートのスタンプ",
+   "state": "true///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "canvasChanged": false,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [
+    "ハートのスタンプ: false///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1525,
+   "shot": "decorate-stamped-05.jpg"
+  },
+  {
+   "screen": "decorate-stamped",
+   "path": "/album/30/decorate/105",
+   "setup": [
+    "ハートのスタンプ",
+    [
+     "tap",
+     "落書きキャンバス"
+    ]
+   ],
+   "n": 6,
+   "tag": "button",
+   "role": "",
+   "name": "文字",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "canvasChanged": false,
+   "newText": [
+    "追加"
+   ],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [
+    "文字: true///"
+   ],
+   "newControls": [
+    "追加"
+   ],
+   "errors": [],
+   "ms": 1528,
+   "shot": "decorate-stamped-06.jpg"
+  },
+  {
+   "screen": "decorate-stamped",
+   "path": "/album/30/decorate/105",
+   "setup": [
+    "ハートのスタンプ",
+    [
+     "tap",
+     "落書きキャンバス"
+    ]
+   ],
+   "n": 7,
+   "tag": "button",
+   "role": "",
+   "name": "ひとつ戻す",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "canvasChanged": true,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1518,
+   "shot": "decorate-stamped-07.jpg"
+  },
+  {
+   "screen": "decorate-stamped",
+   "path": "/album/30/decorate/105",
+   "setup": [
+    "ハートのスタンプ",
+    [
+     "tap",
+     "落書きキャンバス"
+    ]
+   ],
+   "n": 8,
+   "tag": "button",
+   "role": "",
+   "name": "色 #ff7fb0",
+   "state": "true///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "canvasChanged": false,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [],
+   "errors": [],
+   "ms": 1526,
+   "shot": "decorate-stamped-08.jpg",
+   "effect": "NO VISIBLE CHANGE"
+  },
+  {
+   "screen": "decorate-stamped",
+   "path": "/album/30/decorate/105",
+   "setup": [
+    "ハートのスタンプ",
+    [
+     "tap",
+     "落書きキャンバス"
+    ]
+   ],
+   "n": 9,
+   "tag": "button",
+   "role": "",
+   "name": "色 #ffffff",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "canvasChanged": false,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [
+    "色 #ff7fb0: false///",
+    "色 #ffffff: true///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1523,
+   "shot": "decorate-stamped-09.jpg"
+  },
+  {
+   "screen": "decorate-stamped",
+   "path": "/album/30/decorate/105",
+   "setup": [
+    "ハートのスタンプ",
+    [
+     "tap",
+     "落書きキャンバス"
+    ]
+   ],
+   "n": 10,
+   "tag": "button",
+   "role": "",
+   "name": "色 #14264d",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "canvasChanged": false,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [
+    "色 #ff7fb0: false///",
+    "色 #14264d: true///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1525,
+   "shot": "decorate-stamped-10.jpg"
+  },
+  {
+   "screen": "decorate-stamped",
+   "path": "/album/30/decorate/105",
+   "setup": [
+    "ハートのスタンプ",
+    [
+     "tap",
+     "落書きキャンバス"
+    ]
+   ],
+   "n": 11,
+   "tag": "button",
+   "role": "",
+   "name": "色 #ffd166",
+   "state": "false///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": null,
+   "newTab": null,
+   "canvasChanged": false,
+   "newText": [],
+   "goneText": [],
+   "fileChooser": false,
+   "stateChanged": [
+    "色 #ff7fb0: false///",
+    "色 #ffd166: true///"
+   ],
+   "newControls": [],
+   "errors": [],
+   "ms": 1510,
+   "shot": "decorate-stamped-11.jpg"
+  },
+  {
+   "screen": "decorate-stamped",
+   "path": "/album/30/decorate/105",
+   "setup": [
+    "ハートのスタンプ",
+    [
+     "tap",
+     "落書きキャンバス"
+    ]
+   ],
+   "n": 12,
+   "tag": "button",
+   "role": "",
+   "name": "保存して友達とシェア",
+   "state": "///",
+   "href": "",
+   "disabled": false,
+   "urlAfter": "/album/30/share",
+   "newTab": null,
+   "canvasChanged": false,
+   "newText": [
+    "わたし",
+    "あやか",
+    "みき",
+    "りん"
+   ],
+   "goneText": [
+    "♡",
+    "花見日和",
+    "BEST"
+   ],
+   "fileChooser": false,
+   "stateChanged": [],
+   "newControls": [
+    "あやかを見せる相手にする",
+    "その他のオプション",
+    "みきを見せる相手にする",
+    "りんを見せる相手にする"
+   ],
+   "errors": [],
+   "ms": 1520,
+   "shot": "decorate-stamped-12.jpg"
+  }
+ ]
+}
