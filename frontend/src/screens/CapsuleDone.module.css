@@ -58,28 +58,21 @@
 
 .illustration {
   position: relative;
-  margin-top: 70px;
+  margin-top: 50px;
   width: 230px;
-  height: 180px;
+  height: 230px;
 }
 
-.capsule {
+/* generated glass capsule on navy; screen blend drops the navy into the night sky */
+.capsuleArt {
   position: absolute;
-  top: 60px;
-  left: 59px;
-  width: 112px;
-  height: 62px;
-  border: 3px solid var(--white);
-  border-radius: var(--radius-pill);
-  transform: rotate(-35deg);
-}
-
-.seam {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  border-left: 3px solid var(--white);
+  inset: -25px;
+  width: calc(100% + 50px);
+  height: calc(100% + 50px);
+  object-fit: cover;
+  mix-blend-mode: screen;
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 42%, transparent 70%);
+  mask-image: radial-gradient(circle at 50% 50%, #000 42%, transparent 70%);
 }
 
 .sparkle {

@@ -47,7 +47,7 @@ export function Home() {
 
   return (
     <Screen className={styles.screen}>
-      <Photo asset="skySunset" className={styles.background}>
+      <Photo asset="skyBlue" className={styles.background}>
         <StatusBar tone="light" />
         <TopBar tone="light" left="none" />
 

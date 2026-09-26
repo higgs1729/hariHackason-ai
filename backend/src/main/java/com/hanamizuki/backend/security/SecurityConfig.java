@@ -50,7 +50,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/health").permitAll()
                         .requestMatchers("/s/**", "/og/**", "/api/share/**").permitAll()
                         // The SPA itself; Spring serves it in the demo build.
-                        .requestMatchers("/", "/index.html", "/assets/**", "/photos/**", "/favicon.svg").permitAll()
+                        .requestMatchers("/", "/index.html", "/assets/**", "/photos/**", "/bg/**", "/favicon.svg").permitAll()
                         // Client-side routes, forwarded to index.html by SpaController.
                         // The screens authenticate through /api, not here.
                         .requestMatchers(HttpMethod.GET, "/me", "/camera", "/friends/**",

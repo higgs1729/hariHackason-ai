@@ -36,6 +36,17 @@ PHONE = {'width': 390, 'height': 844}
 CAPSULE_MSG = '1年後のわたしへ。この日のこと覚えてる？'
 
 
+# Backgrounds are CSS images, which "load" does not wait for after a client-side route change.
+WAIT_FOR_BACKGROUNDS = """async () => {
+  const urls = new Set()
+  for (const el of document.querySelectorAll('*')) {
+    for (const m of getComputedStyle(el).backgroundImage.matchAll(/url\("([^"]+)"\)/g)) urls.add(m[1])
+  }
+  await Promise.all([...urls].map(u => new Promise(ok => { const i = new Image(); i.onload = i.onerror = ok; i.src = u })))
+  await new Promise(ok => requestAnimationFrame(() => requestAnimationFrame(ok)))
+}"""
+
+
 class Run:
     def __init__(self, base: str, out: Path):
         self.base = base.rstrip('/')
@@ -51,6 +62,7 @@ class Run:
     def shot(self, page: Page, name: str, note: str = ''):
         n = len(self.steps) + 1
         path = self.out / f'{n:02d}-{name}.jpg'
+        page.evaluate(WAIT_FOR_BACKGROUNDS)
         page.screenshot(path=str(path), type='jpeg', quality=80)
         self.steps.append({'n': n, 'step': name, 'note': note, 'url': page.url.replace(self.base, ''),
                            't': round(time.time() - self.t0, 1), 'shot': path.name})
@@ -78,6 +90,20 @@ def unique_photo(stem: str, out: Path) -> Path:
     return path
 
 
+def fake_camera_feed(out: Path) -> Path:
+    """One Y4M frame of the camera placeholder art, so the viewfinder shows the
+    poster's scene instead of Chrome's green test pattern."""
+    img = Image.open(ROOT / 'frontend/public/bg/friends.jpg').convert('YCbCr')
+    w, h = img.width // 2 * 2, img.height // 2 * 2
+    y, cb, cr = img.crop((0, 0, w, h)).split()
+    half = (w // 2, h // 2)
+    path = out / 'camera.y4m'
+    with open(path, 'wb') as f:
+        f.write(f'YUV4MPEG2 W{w} H{h} F30:1 Ip A1:1 C420jpeg\n'.encode())
+        f.write(b'FRAME\n' + y.tobytes() + cb.resize(half).tobytes() + cr.resize(half).tobytes())
+    return path
+
+
 def check(cond: bool, what: str):
     if not cond:
         raise AssertionError(what)
@@ -97,6 +123,7 @@ def run(args) -> Run:
     tmp = r.out / '_uploads'
     tmp.mkdir(exist_ok=True)
     uploads = [unique_photo(s, tmp) for s in SHOTS]
+    r.camera_feed = fake_camera_feed(tmp)
 
     status, seed = r.api('/api/dev/seed', method='POST')
     check(status == 200, 'seed failed')
@@ -116,7 +143,8 @@ def run(args) -> Run:
 def _drive(r: Run, p, uploads, args) -> Run:
     if True:
         browser = p.chromium.launch(channel='chrome', headless=not args.headed, args=[
-            '--use-fake-device-for-media-stream', '--use-fake-ui-for-media-stream'])
+            '--use-fake-device-for-media-stream', '--use-fake-ui-for-media-stream',
+            f'--use-file-for-fake-video-capture={r.camera_feed}'])
         ctx = browser.new_context(viewport=PHONE, device_scale_factor=2, locale='ja-JP',
                                   permissions=['camera'])
         page = r.page = ctx.new_page()
@@ -127,6 +155,7 @@ def _drive(r: Run, p, uploads, args) -> Run:
         # 0:00 login
         page.goto(r.base + '/')
         expect(page.get_by_role('button', name='はじめる')).to_be_visible()
+        page.wait_for_load_state('networkidle')
         r.shot(page, 'home')
         page.get_by_role('button', name='ログイン').click()
         page.get_by_placeholder('ID', exact=True).fill('nao')

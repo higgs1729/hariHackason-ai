@@ -2,18 +2,22 @@
  * Every photo / illustration slot in the UI resolves through this map.
  * Values are CSS `background-image` strings: photos from `public/photos/`
  * (cells cut from the sample contact sheets, about 295x245 each).
- * Full-screen slots put a gradient over the photo: it keeps white text
- * readable and hides the upscaling of a small cell.
+ * Full-screen backgrounds are illustrations from `public/bg/`, generated in the
+ * poster's style with local ComfyUI (Illustrious-XL, 768x1344, saved at 720 wide).
+ * A gradient over them keeps white text readable.
  */
 const photo = (cell: string) => `url("/photos/${cell}.jpg")`
+const bg = (name: string) => `url("/bg/${name}.jpg")`
 
 export const assets = {
-  /** sunset over the river, city skyline (home / capsule create background) */
-  skySunset: `linear-gradient(180deg, rgba(20, 38, 77, 0.35) 0%, rgba(20, 38, 77, 0) 40%, rgba(20, 38, 77, 0.55) 100%), ${photo('s2r2c3')}`,
+  /** bright summer sky, clouds, river and skyline (home) */
+  skyBlue: `linear-gradient(180deg, rgba(20, 38, 77, 0.15) 0%, rgba(20, 38, 77, 0) 35%, rgba(20, 38, 77, 0.35) 100%), ${bg('home')}`,
+  /** sunset over the river, city skyline (capsule create / generating) */
+  skySunset: `linear-gradient(180deg, rgba(20, 38, 77, 0.3) 0%, rgba(20, 38, 77, 0) 40%, rgba(20, 38, 77, 0.35) 100%), ${bg('sunset')}`,
   /** deep night sky (time capsule complete) */
-  skyNight: `linear-gradient(180deg, rgba(15, 31, 74, 0.55) 0%, rgba(15, 31, 74, 0.25) 55%, rgba(15, 31, 74, 0.7) 100%), ${photo('s1r4c5')}`,
-  /** friends at sunset, viewed from behind (camera preview / album hero) */
-  friendsSunset: `linear-gradient(180deg, rgba(20, 38, 77, 0.25) 0%, rgba(20, 38, 77, 0) 45%, rgba(20, 38, 77, 0.4) 100%), ${photo('s1r1c2')}`,
+  skyNight: `linear-gradient(180deg, rgba(15, 31, 74, 0.35) 0%, rgba(15, 31, 74, 0) 55%, rgba(15, 31, 74, 0.5) 100%), ${bg('night')}`,
+  /** friends from behind, peace signs at the sunset (camera preview / album hero placeholder) */
+  friendsSunset: `linear-gradient(180deg, rgba(20, 38, 77, 0.15) 0%, rgba(20, 38, 77, 0) 45%, rgba(20, 38, 77, 0.3) 100%), ${bg('friends')}`,
   /** generic album photo tiles */
   tile1: photo('s1r2c3'),
   tile2: photo('s2r4c3'),

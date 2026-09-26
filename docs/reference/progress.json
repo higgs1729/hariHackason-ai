@@ -1,0 +1,14 @@
+{
+  "screens": [
+    {
+      "stem": "05-share",
+      "rounds": 3,
+      "passed": false,
+      "residuals": [
+        "box avatar_strip: delta=4.89, edge_detected=False",
+        "box album_card: delta=3.46, edge_detected=False",
+        "box recipient_card: delta=2.52, edge_detected=True"
+      ]
+    }
+  ]
+}

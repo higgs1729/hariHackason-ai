@@ -85,9 +85,7 @@ export function CapsuleDone() {
                 <span className={`${styles.sparkle} ${styles.sparkleTwo}`} />
                 <span className={`${styles.sparkle} ${styles.sparkleThree}`} />
                 <span className={`${styles.sparkle} ${styles.sparkleFour}`} />
-                <span className={styles.capsule}>
-                  <span className={styles.seam} />
-                </span>
+                <img className={styles.capsuleArt} src="/bg/capsule.jpg" alt="" />
               </div>
               <p className={styles.remaining}>
                 {c?.status === 'OPENED' ? '開封済み' : remaining > 0 ? `あと ${remaining} 日で開けられます` : 'もう開けられます'}

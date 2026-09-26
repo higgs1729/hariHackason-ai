@@ -1,6 +1,7 @@
 .screen {
   min-height: 100%;
-  background: var(--blue-50);
+  /* watercolor clouds (public/bg/clouds.jpg, generated like the other backgrounds) */
+  background: linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.55)), url('/bg/clouds.jpg') center top / cover;
 }
 
 .save {
