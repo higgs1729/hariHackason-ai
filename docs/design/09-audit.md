@@ -71,6 +71,46 @@ Each state is loaded fresh (reload, log in through the stored refresh token, rep
 | 1 | はじめる | with the fields empty the browser's required-field check stops the submit; registering is checked by req_check FR-07 | OK |
 | 2 | ログインはこちら | shows 「アカウントを作る」, 「ログイン」; shows 「ログイン」 / 「ログイン」 | OK |
 
+### me-albums — `/me`
+
+| # | Control | Does what | OK |
+| --- | --- | --- | --- |
+| 1 | 名前を変える | shows 「やめる」, 「保存」; shows 「やめる」 / 「保存」 | OK |
+| 2 | アルバム | opens `/me?tab=albums` | OK |
+| 3 | カプセル | opens `/me?tab=capsules`; sets アルバム selected=false, カプセル selected=true | OK |
+| 4 | 友達 | opens `/me?tab=friends`; sets アルバム selected=false, 友達 selected=true | OK |
+| 5 | 彩り豊かな日 2026.09.27 | opens `/album/30` | OK |
+| 6 | 桜と花火の一日 2026.09.27 | opens `/album/18` | OK |
+| 7 | 青空と笑顔 2026.09.27 | opens `/album/14` | OK |
+| 8 | 青空と笑顔 2026.09.27 | opens `/album/13` | OK |
+| 9 | 青空と笑顔の日 2026.09.27 | opens `/album/12` | OK |
+| 10 | 友達と青空日和 2026.09.27 | opens `/album/11` | OK |
+| 11 | 青空と笑顔の日 2026.09.27 | opens `/album/10` | OK |
+| 12 | 季節をこえた思い出 2026.09.27 | opens `/album/9` | OK |
+| 13 | 友との特別な日 2026.09.27 | opens `/album/6` | OK |
+| 14 | 青春の一日 2026.09.25 | opens `/album/8` | OK |
+| 15 | 仲間と過ごした一日 2026.09.25 | opens `/album/5` | OK |
+| 16 | お昼のピース 2026.09.25 | opens `/album/2` | OK |
+| 17 | 秋晴れと笑顔の一日 2026.09.24 | opens `/album/7` | OK |
+| 18 | 青空とはしゃぐ午後 2026.09.24 | opens `/album/4` | OK |
+| 19 | 2026.09.24 のアルバム 2026.09.24 | opens `/album/3` | OK |
+| 20 | 最高の1日 2026.09.24 | opens `/album/1` | OK |
+| 21 | 2026.09.22 のアルバム 2026.09.22 | opens `/album/24` | OK |
+| 22 | 2026.09.22 のアルバム 2026.09.22 | opens `/album/21` | OK |
+| 23 | 友達との思い出 2026.09.22 | opens `/album/16` | OK |
+| 24 | 特別な一日 2026.09.21 | opens `/album/28` | OK |
+| 25 | 青空と笑顔の日 2026.09.21 | opens `/album/27` | OK |
+| 26 | 友達と特別な一日 2026.09.21 | opens `/album/26` | OK |
+| 27 | 秋晴れの遠足日和 2026.09.21 | opens `/album/25` | OK |
+| 28 | 友達との思い出 2026.09.21 | opens `/album/23` | OK |
+| 29 | 青空と笑顔の遠足 2026.09.21 | opens `/album/22` | OK |
+| 30 | 友達との時間 2026.09.21 | opens `/album/20` | OK |
+| 31 | 青空とはしゃぐ休日 2026.09.21 | opens `/album/19` | OK |
+| 32 | 夕焼けと青空の一日 2026.09.21 | opens `/album/17` | OK |
+| 33 | 友達と青空日和 2026.09.21 | opens `/album/15` | OK |
+| 34 | 夕焼けと青春 2026.09.20 | opens `/album/29` | OK |
+| 35 | 写真を撮る | opens `/camera` | OK |
+
 ### me-capsules — `/me?tab=capsules`
 
 | # | Control | Does what | OK |
@@ -183,6 +223,51 @@ Each state is loaded fresh (reload, log in through the stored refresh token, rep
 | 5 | 写真を撮る | opens the photo picker | OK |
 | 6 | カメラを切り替える | switches between the front and back camera; the fake device on the desktop has one camera, so the picture stays the same (phone: 09-handoff-human.md) | OK |
 
+### camera-hint — `/camera` after AIに撮り方を聞く
+
+| # | Control | Does what | OK |
+| --- | --- | --- | --- |
+| 1 | 閉じる | covered by 「AIに撮り方を聞く」 in this state (reachable again once that is closed) | OK |
+| 2 | 写真ライブラリから選ぶ | covered by 「AIに撮り方を聞く」 in this state (reachable again once that is closed) | OK |
+| 3 | AIに撮り方を聞く | covered by 「AIに撮り方を聞く (open sheet)」 in this state (reachable again once that is closed) | OK |
+| 4 | アルバムを作成 | covered by 「AIに撮り方を聞く (open sheet)」 in this state (reachable again once that is closed) | OK |
+| 5 | 写真を撮る | covered by 「AIに撮り方を聞く (open sheet)」 in this state (reachable again once that is closed) | OK |
+| 6 | カメラを切り替える | covered by 「AIに撮り方を聞く (open sheet)」 in this state (reachable again once that is closed) | OK |
+| 7 | 閉じる | removes 「AIに撮り方を聞く」 / 「何人？」 | OK |
+| 8 | 1人減らす | shows 「2人」 | OK |
+| 9 | 1人増やす | shows 「4人」 | OK |
+| 10 | わちゃわちゃ | already selected here; pressing it again keeps it selected | OK |
+| 11 | エモく | sets わちゃわちゃ checked=false, エモく checked=true | OK |
+| 12 | かわいく | sets わちゃわちゃ checked=false, かわいく checked=true | OK |
+| 13 | かっこよく | sets わちゃわちゃ checked=false, かっこよく checked=true | OK |
+| 14 | 聞いてみる | shows 「考え中…」; shows 「考え中…」 | OK |
+| 15 | みんなで一斉にジャンプ！ | shows 「これで撮る」, 「ほかの案」; shows 「3、2、1でジャンプ」 / 「スロー再生すると青春っぽい」 | OK |
+| 16 | 今度は一人ずつ増えてみよう！ | shows 「これで撮る」, 「ほかの案」; shows 「最初は一人だけ」 / 「1枚撮るごとに一人ずつ増える」 | OK |
+| 17 | 空中で止まろう！ | shows 「これで撮る」, 「ほかの案」; shows 「ジャンプした瞬間を連写」 / 「つなげると空中に浮いて見える」 | OK |
+| 18 | みんなで瞬間移動！ | shows 「これで撮る」, 「ほかの案」; shows 「同じポーズのまま」 / 「場所を少しずつずらして撮る」 | OK |
+| 19 | 全員で変なことして！ | shows 「これで撮る」, 「ほかの案」; shows 「全員で変な動き」 / 「数年後に見返すと絶対笑う」 | OK |
+| 20 | カメラを順番にのぞき込んで！ | shows 「これで撮る」, 「ほかの案」; shows 「一人ずつ画面に顔を出す」 / 「最後に全員集合」 | OK |
+| 21 | 秘密の合言葉を決めよう！ | shows 「これで撮る」, 「ほかの案」; shows 「その場で謎の言葉を決める」 / 「全員で一緒に叫ぶ」 | OK |
+| 22 | この続きを未来で撮ろう！ | shows 「これで撮る」, 「ほかの案」; shows 「一人が手を差し出すところまで撮る」 / 「再会したら相手がその手を取る」 | OK |
+| 23 | みんなで文字を作ってみよう！ | shows 「これで撮る」, 「ほかの案」; shows 「1枚ごとに少しずつ移動」 / 「最後にハートなどの形を作る」 | OK |
+| 24 | 未来で完成させる動画を撮ろう！ | shows 「これで撮る」, 「ほかの案」; shows 「全員で「せーの……」まで撮って終了」 / 「再会した日に続きを撮る」 | OK |
+| 25 | 違う場所で撮ってみよう！ | shows 「これで撮る」, 「ほかの案」; shows 「いろんな場所で」 / 「同じポーズ・同じ構図で撮る」 | OK |
+| 26 | みんなで歩こう！ | shows 「これで撮る」, 「ほかの案」; shows 「少しずつ前に進みながら撮る」 / 「最後に大きな一歩！」 | OK |
+
+### camera-hint-result — `/camera` after AIに撮り方を聞く → 聞いてみる
+
+| # | Control | Does what | OK |
+| --- | --- | --- | --- |
+| 1 | 閉じる | covered by 「AIに撮り方を聞く」 in this state (reachable again once that is closed) | OK |
+| 2 | 写真ライブラリから選ぶ | covered by 「AIに撮り方を聞く」 in this state (reachable again once that is closed) | OK |
+| 3 | AIに撮り方を聞く | covered by 「AIに撮り方を聞く (open sheet)」 in this state (reachable again once that is closed) | OK |
+| 4 | アルバムを作成 | covered by 「AIに撮り方を聞く (open sheet)」 in this state (reachable again once that is closed) | OK |
+| 5 | 写真を撮る | covered by 「AIに撮り方を聞く (open sheet)」 in this state (reachable again once that is closed) | OK |
+| 6 | カメラを切り替える | covered by 「AIに撮り方を聞く (open sheet)」 in this state (reachable again once that is closed) | OK |
+| 7 | 閉じる | removes 「AIに撮り方を聞く」 / 「3人でくっついてわちゃわちゃ感を全開に出そう」 | OK |
+| 8 | ほかの案 | shows 「考え中…」; shows 「考え中…」 | OK |
+| 9 | これで撮る | shows 「撮り方を消す」 | OK |
+
 ### album-create — `/album/new`
 
 | # | Control | Does what | OK |
@@ -274,173 +359,6 @@ Each state is loaded fresh (reload, log in through the stored refresh token, rep
 | 13 | やめる | shows 「編集」; shows 「編集」 | OK |
 | 14 | 保存 | shows 「編集」; shows 「編集」 | OK |
 
-### share — `/album/18/share`
-
-| # | Control | Does what | OK |
-| --- | --- | --- | --- |
-| 1 | 戻る | opens `/album/18/decorate/61` | OK |
-| 2 | その他のオプション | sets その他のオプション expanded=true; shows 「マイページ」, 「ログアウト」; shows 「マイページ」 / 「ログアウト」 | OK |
-| 3 | あやかを見せる相手にする | sets あやかを見せる相手にする pressed=true; shows 「2人」 | OK |
-| 4 | みきを見せる相手にする | sets みきを見せる相手にする pressed=true; shows 「2人」 | OK |
-| 5 | りんを見せる相手にする | sets りんを見せる相手にする pressed=true; shows 「2人」 | OK |
-| 6 | 監査を見せる相手にする | sets 監査を見せる相手にする pressed=true; shows 「2人」 | OK |
-| 7 | 監査を見せる相手にする | sets 監査を見せる相手にする pressed=true; shows 「2人」 | OK |
-| 8 | 監査を見せる相手にする | sets 監査を見せる相手にする pressed=true; shows 「2人」 | OK |
-| 9 | 監査を見せる相手にする | sets 監査を見せる相手にする pressed=true; shows 「2人」 | OK |
-| 10 | 友達と共有する | shows 「http://localhost:8080/s/5rQBASFSi9z01bd0F14jJBVHvECnGwNs」, 「タイムカプセルを作成する」; shows 「http://localhost:8080/s/」 / 「タイムカプセルを作成する」 | OK |
-
-### me-friends-search — `/me?tab=friends` after type 「r」 in 友達をさがす → さがす
-
-| # | Control | Does what | OK |
-| --- | --- | --- | --- |
-| 1 | 名前を変える | shows 「やめる」, 「保存」; shows 「やめる」 / 「保存」 | OK |
-| 2 | アルバム | opens `/me?tab=albums`; sets アルバム selected=true, 友達 selected=false | OK |
-| 3 | カプセル | opens `/me?tab=capsules`; sets カプセル selected=true, 友達 selected=false | OK |
-| 4 | 友達 | already selected here; pressing it again keeps it selected | OK |
-| 5 | QRで友達を追加 | opens `/friends/qr` | OK |
-| 6 | さがす | searches again for the same word, so the same results stay | OK |
-| 7 | 登録に友達申請 | shows 「申請しました」 | OK |
-| 8 | あやか @ayaka | opens `/reunion/2` | OK |
-| 9 | みき @miki | opens `/reunion/3` | OK |
-| 10 | りん @rin | opens `/reunion/4` | OK |
-| 11 | 監査 @auda0cad6 | opens `/reunion/5` | OK |
-| 12 | 監査 @auda565d4 | opens `/reunion/6` | OK |
-| 13 | 監査 @auddf24e0 | opens `/reunion/7` | OK |
-| 14 | 監査 @aud58b21d | opens `/reunion/8` | OK |
-| 15 | 写真を撮る | opens `/camera` | OK |
-
-### capsule-create — `/album/18/capsule/new`
-
-| # | Control | Does what | OK |
-| --- | --- | --- | --- |
-| 1 | 戻る | opens `/album/18/share` | OK |
-| 2 | その他のオプション | sets その他のオプション expanded=true; shows 「マイページ」, 「ログアウト」; shows 「マイページ」 / 「ログアウト」 | OK |
-| 3 | 1年後 | already selected here; pressing it again keeps it selected | OK |
-| 4 | 卒業式（半年後） | sets 1年後 checked=false, 卒業式（半年後） checked=true; shows 「卒業式（半年後）の自分へ」 / 「2027.03.28」 | OK |
-| 5 | タイムカプセルを作成する | opens `/capsule/8` | OK |
-
-### capsule-done — `/capsule/6`
-
-| # | Control | Does what | OK |
-| --- | --- | --- | --- |
-| 1 | 戻る | opens `/me?tab=capsules` | OK |
-| 2 | その他のオプション | sets その他のオプション expanded=true; shows 「マイページ」, 「ログアウト」; shows 「マイページ」 / 「ログアウト」 | OK |
-| 3 | タイムカプセルを開ける | console error: Failed to load resource: the server responded with a status of 409 () — the 409 CAPSULE_NOT_YET_OPEN is expected: the capsule opens in a year, so the screen then calls the dev-only unseal-now and shows the opened album | OK |
-
-### me-albums — `/me`
-
-| # | Control | Does what | OK |
-| --- | --- | --- | --- |
-| 1 | 名前を変える | shows 「やめる」, 「保存」; shows 「やめる」 / 「保存」 | OK |
-| 2 | アルバム | opens `/me?tab=albums` | OK |
-| 3 | カプセル | opens `/me?tab=capsules`; sets アルバム selected=false, カプセル selected=true | OK |
-| 4 | 友達 | opens `/me?tab=friends`; sets アルバム selected=false, 友達 selected=true | OK |
-| 5 | 彩り豊かな日 2026.09.27 | opens `/album/30` | OK |
-| 6 | 桜と花火の一日 2026.09.27 | opens `/album/18` | OK |
-| 7 | 青空と笑顔 2026.09.27 | opens `/album/14` | OK |
-| 8 | 青空と笑顔 2026.09.27 | opens `/album/13` | OK |
-| 9 | 青空と笑顔の日 2026.09.27 | opens `/album/12` | OK |
-| 10 | 友達と青空日和 2026.09.27 | opens `/album/11` | OK |
-| 11 | 青空と笑顔の日 2026.09.27 | opens `/album/10` | OK |
-| 12 | 季節をこえた思い出 2026.09.27 | opens `/album/9` | OK |
-| 13 | 友との特別な日 2026.09.27 | opens `/album/6` | OK |
-| 14 | 青春の一日 2026.09.25 | opens `/album/8` | OK |
-| 15 | 仲間と過ごした一日 2026.09.25 | opens `/album/5` | OK |
-| 16 | お昼のピース 2026.09.25 | opens `/album/2` | OK |
-| 17 | 秋晴れと笑顔の一日 2026.09.24 | opens `/album/7` | OK |
-| 18 | 青空とはしゃぐ午後 2026.09.24 | opens `/album/4` | OK |
-| 19 | 2026.09.24 のアルバム 2026.09.24 | opens `/album/3` | OK |
-| 20 | 最高の1日 2026.09.24 | opens `/album/1` | OK |
-| 21 | 2026.09.22 のアルバム 2026.09.22 | opens `/album/24` | OK |
-| 22 | 2026.09.22 のアルバム 2026.09.22 | opens `/album/21` | OK |
-| 23 | 友達との思い出 2026.09.22 | opens `/album/16` | OK |
-| 24 | 特別な一日 2026.09.21 | opens `/album/28` | OK |
-| 25 | 青空と笑顔の日 2026.09.21 | opens `/album/27` | OK |
-| 26 | 友達と特別な一日 2026.09.21 | opens `/album/26` | OK |
-| 27 | 秋晴れの遠足日和 2026.09.21 | opens `/album/25` | OK |
-| 28 | 友達との思い出 2026.09.21 | opens `/album/23` | OK |
-| 29 | 青空と笑顔の遠足 2026.09.21 | opens `/album/22` | OK |
-| 30 | 友達との時間 2026.09.21 | opens `/album/20` | OK |
-| 31 | 青空とはしゃぐ休日 2026.09.21 | opens `/album/19` | OK |
-| 32 | 夕焼けと青空の一日 2026.09.21 | opens `/album/17` | OK |
-| 33 | 友達と青空日和 2026.09.21 | opens `/album/15` | OK |
-| 34 | 夕焼けと青春 2026.09.20 | opens `/album/29` | OK |
-| 35 | 写真を撮る | opens `/camera` | OK |
-
-### generating-failed — `/album/generating/999999999`
-
-| # | Control | Does what | OK |
-| --- | --- | --- | --- |
-| 1 | 写真を選び直す | opens `/album/new` | OK |
-
-### camera-hint — `/camera` after AIに撮り方を聞く
-
-| # | Control | Does what | OK |
-| --- | --- | --- | --- |
-| 1 | 閉じる | covered by 「AIに撮り方を聞く」 in this state (reachable again once that is closed) | OK |
-| 2 | 写真ライブラリから選ぶ | covered by 「AIに撮り方を聞く」 in this state (reachable again once that is closed) | OK |
-| 3 | AIに撮り方を聞く | covered by 「AIに撮り方を聞く (open sheet)」 in this state (reachable again once that is closed) | OK |
-| 4 | アルバムを作成 | covered by 「AIに撮り方を聞く (open sheet)」 in this state (reachable again once that is closed) | OK |
-| 5 | 写真を撮る | covered by 「AIに撮り方を聞く (open sheet)」 in this state (reachable again once that is closed) | OK |
-| 6 | カメラを切り替える | covered by 「AIに撮り方を聞く (open sheet)」 in this state (reachable again once that is closed) | OK |
-| 7 | 閉じる | removes 「AIに撮り方を聞く」 / 「何人？」 | OK |
-| 8 | 1人減らす | shows 「2人」 | OK |
-| 9 | 1人増やす | shows 「4人」 | OK |
-| 10 | わちゃわちゃ | already selected here; pressing it again keeps it selected | OK |
-| 11 | エモく | sets わちゃわちゃ checked=false, エモく checked=true | OK |
-| 12 | かわいく | sets わちゃわちゃ checked=false, かわいく checked=true | OK |
-| 13 | かっこよく | sets わちゃわちゃ checked=false, かっこよく checked=true | OK |
-| 14 | 聞いてみる | shows 「考え中…」; shows 「考え中…」 | OK |
-| 15 | みんなで一斉にジャンプ！ | shows 「これで撮る」, 「ほかの案」; shows 「3、2、1でジャンプ」 / 「スロー再生すると青春っぽい」 | OK |
-| 16 | 今度は一人ずつ増えてみよう！ | shows 「これで撮る」, 「ほかの案」; shows 「最初は一人だけ」 / 「1枚撮るごとに一人ずつ増える」 | OK |
-| 17 | 空中で止まろう！ | shows 「これで撮る」, 「ほかの案」; shows 「ジャンプした瞬間を連写」 / 「つなげると空中に浮いて見える」 | OK |
-| 18 | みんなで瞬間移動！ | shows 「これで撮る」, 「ほかの案」; shows 「同じポーズのまま」 / 「場所を少しずつずらして撮る」 | OK |
-| 19 | 全員で変なことして！ | shows 「これで撮る」, 「ほかの案」; shows 「全員で変な動き」 / 「数年後に見返すと絶対笑う」 | OK |
-| 20 | カメラを順番にのぞき込んで！ | shows 「これで撮る」, 「ほかの案」; shows 「一人ずつ画面に顔を出す」 / 「最後に全員集合」 | OK |
-| 21 | 秘密の合言葉を決めよう！ | shows 「これで撮る」, 「ほかの案」; shows 「その場で謎の言葉を決める」 / 「全員で一緒に叫ぶ」 | OK |
-| 22 | この続きを未来で撮ろう！ | shows 「これで撮る」, 「ほかの案」; shows 「一人が手を差し出すところまで撮る」 / 「再会したら相手がその手を取る」 | OK |
-| 23 | みんなで文字を作ってみよう！ | shows 「これで撮る」, 「ほかの案」; shows 「1枚ごとに少しずつ移動」 / 「最後にハートなどの形を作る」 | OK |
-| 24 | 未来で完成させる動画を撮ろう！ | shows 「これで撮る」, 「ほかの案」; shows 「全員で「せーの……」まで撮って終了」 / 「再会した日に続きを撮る」 | OK |
-| 25 | 違う場所で撮ってみよう！ | shows 「これで撮る」, 「ほかの案」; shows 「いろんな場所で」 / 「同じポーズ・同じ構図で撮る」 | OK |
-| 26 | みんなで歩こう！ | shows 「これで撮る」, 「ほかの案」; shows 「少しずつ前に進みながら撮る」 / 「最後に大きな一歩！」 | OK |
-
-### camera-hint-result — `/camera` after AIに撮り方を聞く → 聞いてみる
-
-| # | Control | Does what | OK |
-| --- | --- | --- | --- |
-| 1 | 閉じる | covered by 「AIに撮り方を聞く」 in this state (reachable again once that is closed) | OK |
-| 2 | 写真ライブラリから選ぶ | covered by 「AIに撮り方を聞く」 in this state (reachable again once that is closed) | OK |
-| 3 | AIに撮り方を聞く | covered by 「AIに撮り方を聞く (open sheet)」 in this state (reachable again once that is closed) | OK |
-| 4 | アルバムを作成 | covered by 「AIに撮り方を聞く (open sheet)」 in this state (reachable again once that is closed) | OK |
-| 5 | 写真を撮る | covered by 「AIに撮り方を聞く (open sheet)」 in this state (reachable again once that is closed) | OK |
-| 6 | カメラを切り替える | covered by 「AIに撮り方を聞く (open sheet)」 in this state (reachable again once that is closed) | OK |
-| 7 | 閉じる | removes 「AIに撮り方を聞く」 / 「3人でくっついてわちゃわちゃ感を全開に出そう」 | OK |
-| 8 | ほかの案 | shows 「考え中…」; shows 「考え中…」 | OK |
-| 9 | これで撮る | shows 「撮り方を消す」 | OK |
-
-### share-sent — `/album/30/share` after 友達と共有する
-
-| # | Control | Does what | OK |
-| --- | --- | --- | --- |
-| 1 | 戻る | opens `/album/30/decorate/105` | OK |
-| 2 | その他のオプション | sets その他のオプション expanded=true; shows 「マイページ」, 「ログアウト」; shows 「マイページ」 / 「ログアウト」 | OK |
-| 3 | あやかを見せる相手にする | sets あやかを見せる相手にする pressed=true; shows 「あやか」 / 「2人」 | OK |
-| 4 | みきを見せる相手にする | sets みきを見せる相手にする pressed=true; shows 「みき」 / 「2人」 | OK |
-| 5 | りんを見せる相手にする | sets りんを見せる相手にする pressed=true; shows 「りん」 / 「2人」 | OK |
-| 6 | 監査を見せる相手にする | sets 監査を見せる相手にする pressed=true; shows 「監査」 / 「2人」 | OK |
-| 7 | 監査を見せる相手にする | sets 監査を見せる相手にする pressed=true; shows 「監査」 / 「2人」 | OK |
-| 8 | 監査を見せる相手にする | sets 監査を見せる相手にする pressed=true; shows 「監査」 / 「2人」 | OK |
-| 9 | 監査を見せる相手にする | sets 監査を見せる相手にする pressed=true; shows 「監査」 / 「2人」 | OK |
-| 10 | 友達と共有する | busy while the share sheet from the first press is open; headless Chrome never closes that sheet. With the sheet closing after 0.5 s the button is enabled again and the link stays shown | OK |
-| 11 | http://localhost:8080/s/ww70FEzOSL_I4P7ipaEtsRwZKYLbcm6R | opens `/s/ww70FEzOSL_I4P7ipaEtsRwZKYLbcm6R` in a new tab | OK |
-| 12 | タイムカプセルを作成する | opens `/album/30/capsule/new` | OK |
-
-### public-share — `/s/ww70FEzOSL_I4P7ipaEtsRwZKYLbcm6R`
-
-| # | Control | Does what | OK |
-| --- | --- | --- | --- |
-| 0 | (none) | the page has no buttons or links | OK |
-
 ### decorate — `/album/30/decorate/105`
 
 | # | Control | Does what | OK |
@@ -492,6 +410,88 @@ Each state is loaded fresh (reload, log in through the stored refresh token, rep
 | 10 | 色 #14264d | sets 色 #ff7fb0 pressed=false, 色 #14264d pressed=true | OK |
 | 11 | 色 #ffd166 | sets 色 #ff7fb0 pressed=false, 色 #ffd166 pressed=true | OK |
 | 12 | 保存して友達とシェア | opens `/album/30/share` | OK |
+
+### share — `/album/18/share`
+
+| # | Control | Does what | OK |
+| --- | --- | --- | --- |
+| 1 | 戻る | opens `/album/18/decorate/61` | OK |
+| 2 | その他のオプション | sets その他のオプション expanded=true; shows 「マイページ」, 「ログアウト」; shows 「マイページ」 / 「ログアウト」 | OK |
+| 3 | あやかを見せる相手にする | sets あやかを見せる相手にする pressed=true; shows 「2人」 | OK |
+| 4 | みきを見せる相手にする | sets みきを見せる相手にする pressed=true; shows 「2人」 | OK |
+| 5 | りんを見せる相手にする | sets りんを見せる相手にする pressed=true; shows 「2人」 | OK |
+| 6 | 監査を見せる相手にする | sets 監査を見せる相手にする pressed=true; shows 「2人」 | OK |
+| 7 | 監査を見せる相手にする | sets 監査を見せる相手にする pressed=true; shows 「2人」 | OK |
+| 8 | 監査を見せる相手にする | sets 監査を見せる相手にする pressed=true; shows 「2人」 | OK |
+| 9 | 監査を見せる相手にする | sets 監査を見せる相手にする pressed=true; shows 「2人」 | OK |
+| 10 | 友達と共有する | shows 「http://localhost:8080/s/5rQBASFSi9z01bd0F14jJBVHvECnGwNs」, 「タイムカプセルを作成する」; shows 「http://localhost:8080/s/」 / 「タイムカプセルを作成する」 | OK |
+
+### share-sent — `/album/30/share` after 友達と共有する
+
+| # | Control | Does what | OK |
+| --- | --- | --- | --- |
+| 1 | 戻る | opens `/album/30/decorate/105` | OK |
+| 2 | その他のオプション | sets その他のオプション expanded=true; shows 「マイページ」, 「ログアウト」; shows 「マイページ」 / 「ログアウト」 | OK |
+| 3 | あやかを見せる相手にする | sets あやかを見せる相手にする pressed=true; shows 「あやか」 / 「2人」 | OK |
+| 4 | みきを見せる相手にする | sets みきを見せる相手にする pressed=true; shows 「みき」 / 「2人」 | OK |
+| 5 | りんを見せる相手にする | sets りんを見せる相手にする pressed=true; shows 「りん」 / 「2人」 | OK |
+| 6 | 監査を見せる相手にする | sets 監査を見せる相手にする pressed=true; shows 「監査」 / 「2人」 | OK |
+| 7 | 監査を見せる相手にする | sets 監査を見せる相手にする pressed=true; shows 「監査」 / 「2人」 | OK |
+| 8 | 監査を見せる相手にする | sets 監査を見せる相手にする pressed=true; shows 「監査」 / 「2人」 | OK |
+| 9 | 監査を見せる相手にする | sets 監査を見せる相手にする pressed=true; shows 「監査」 / 「2人」 | OK |
+| 10 | 友達と共有する | busy while the share sheet from the first press is open; headless Chrome never closes that sheet. With the sheet closing after 0.5 s the button is enabled again and the link stays shown | OK |
+| 11 | http://localhost:8080/s/ww70FEzOSL_I4P7ipaEtsRwZKYLbcm6R | opens `/s/ww70FEzOSL_I4P7ipaEtsRwZKYLbcm6R` in a new tab | OK |
+| 12 | タイムカプセルを作成する | opens `/album/30/capsule/new` | OK |
+
+### me-friends-search — `/me?tab=friends` after type 「r」 in 友達をさがす → さがす
+
+| # | Control | Does what | OK |
+| --- | --- | --- | --- |
+| 1 | 名前を変える | shows 「やめる」, 「保存」; shows 「やめる」 / 「保存」 | OK |
+| 2 | アルバム | opens `/me?tab=albums`; sets アルバム selected=true, 友達 selected=false | OK |
+| 3 | カプセル | opens `/me?tab=capsules`; sets カプセル selected=true, 友達 selected=false | OK |
+| 4 | 友達 | already selected here; pressing it again keeps it selected | OK |
+| 5 | QRで友達を追加 | opens `/friends/qr` | OK |
+| 6 | さがす | searches again for the same word, so the same results stay | OK |
+| 7 | 登録に友達申請 | shows 「申請しました」 | OK |
+| 8 | あやか @ayaka | opens `/reunion/2` | OK |
+| 9 | みき @miki | opens `/reunion/3` | OK |
+| 10 | りん @rin | opens `/reunion/4` | OK |
+| 11 | 監査 @auda0cad6 | opens `/reunion/5` | OK |
+| 12 | 監査 @auda565d4 | opens `/reunion/6` | OK |
+| 13 | 監査 @auddf24e0 | opens `/reunion/7` | OK |
+| 14 | 監査 @aud58b21d | opens `/reunion/8` | OK |
+| 15 | 写真を撮る | opens `/camera` | OK |
+
+### capsule-create — `/album/18/capsule/new`
+
+| # | Control | Does what | OK |
+| --- | --- | --- | --- |
+| 1 | 戻る | opens `/album/18/share` | OK |
+| 2 | その他のオプション | sets その他のオプション expanded=true; shows 「マイページ」, 「ログアウト」; shows 「マイページ」 / 「ログアウト」 | OK |
+| 3 | 1年後 | already selected here; pressing it again keeps it selected | OK |
+| 4 | 卒業式（半年後） | sets 1年後 checked=false, 卒業式（半年後） checked=true; shows 「卒業式（半年後）の自分へ」 / 「2027.03.28」 | OK |
+| 5 | タイムカプセルを作成する | opens `/capsule/8` | OK |
+
+### capsule-done — `/capsule/6`
+
+| # | Control | Does what | OK |
+| --- | --- | --- | --- |
+| 1 | 戻る | opens `/me?tab=capsules` | OK |
+| 2 | その他のオプション | sets その他のオプション expanded=true; shows 「マイページ」, 「ログアウト」; shows 「マイページ」 / 「ログアウト」 | OK |
+| 3 | タイムカプセルを開ける | console error: Failed to load resource: the server responded with a status of 409 () — the 409 CAPSULE_NOT_YET_OPEN is expected: the capsule opens in a year, so the screen then calls the dev-only unseal-now and shows the opened album | OK |
+
+### generating-failed — `/album/generating/999999999`
+
+| # | Control | Does what | OK |
+| --- | --- | --- | --- |
+| 1 | 写真を選び直す | opens `/album/new` | OK |
+
+### public-share — `/s/ww70FEzOSL_I4P7ipaEtsRwZKYLbcm6R`
+
+| # | Control | Does what | OK |
+| --- | --- | --- | --- |
+| 0 | (none) | the page has no buttons or links | OK |
 
 ## Notes
 

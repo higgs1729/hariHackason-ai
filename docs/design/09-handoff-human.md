@@ -16,6 +16,12 @@
 - [ ] **Keep this PC awake and logged in** for the whole event: power plan "never
       sleep", lid open or external display, Windows Update paused. The server, MySQL,
       the tunnel and Claude Code all run on it.
+- [ ] **Start `demo.ps1` once from a cold boot.** Every run so far found Docker
+      Desktop already up, so its restart branch (stop Docker, move
+      `%LOCALAPPDATA%\Docker\run` and `%LOCALAPPDATA%\docker-secrets-engine` aside,
+      start Docker Desktop, wait up to 240 s) has never run. Reboot, run
+      `demo.ps1`, and confirm it reaches the Phone URL. If Docker Desktop still
+      does not start, moving those two folders aside by hand is the known fix.
 - [ ] **Decide whether to reset the data.** The automated runs left their albums,
       capsules and throwaway accounts (`aud…`, `reg…`) in MySQL, so nao's My page
       shows many albums. Resetting deletes everything, so it was not done

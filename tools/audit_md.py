@@ -17,6 +17,8 @@ import re
 import sys
 from pathlib import Path
 
+import audit  # tools/audit.py: the state list
+
 ROOT = Path(__file__).resolve().parent.parent
 AUDIT = ROOT / 'docs/audit'
 OUT = ROOT / 'docs/design/09-audit.md'
@@ -210,7 +212,10 @@ def main():
     by_screen = {}
     for r in ctl:
         by_screen.setdefault(r['screen'], []).append(r)
-    for screen, rows in by_screen.items():
+    # the order of states() in audit.py, whatever order --only reruns left in the file
+    order = [key for key, *_ in audit.states(json.loads((AUDIT / 'controls.json').read_text(encoding='utf-8'))['fixtures'])]
+    for screen in sorted(by_screen, key=lambda k: order.index(k) if k in order else len(order)):
+        rows = by_screen[screen]
         first = rows[0]
         setup = ' → '.join(s if isinstance(s, str) else f'tap {s[1]}' if s[0] == 'tap' else f'type 「{s[2]}」 in {s[1]}'
                            for s in first.get('setup', []))
