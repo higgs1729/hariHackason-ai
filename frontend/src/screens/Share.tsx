@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { IconCheck, IconChevronRight, IconCopy, IconSend } from '@tabler/icons-react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { api, type ApiError } from '../api'
+import { Doodle } from '../components/Doodle'
 import { ErrorNote, Loading } from '../components/Notice'
 import { MoreMenu } from '../components/MoreMenu'
 import { Photo } from '../components/Photo'
@@ -111,11 +112,17 @@ export function Share() {
         )}
 
         <div className={styles.sectionHeading}>
-          <h1>{a?.title ?? '…'}</h1>
+          <h1>
+            {a?.title ?? '…'}
+            <Doodle kind="heart" className={styles.headingHeart} />
+          </h1>
+          <Doodle kind="sparkle" className={styles.headingSparkle} />
           <IconChevronRight size={21} stroke={1.8} aria-hidden="true" />
         </div>
 
         <article className={styles.albumCard}>
+          <span className={styles.tape} aria-hidden="true" />
+          <Doodle kind="loops" className={styles.cardLoops} />
           <div className={styles.chips}>
             {chips.map((c) => (
               <span key={c}>{c}</span>
@@ -133,7 +140,10 @@ export function Share() {
         </article>
 
         <div className={styles.sectionHeading}>
-          <h2>見せる相手</h2>
+          <h2>
+            見せる相手
+            <Doodle kind="notes" className={styles.headingNotes} />
+          </h2>
           <IconChevronRight size={21} stroke={1.8} aria-hidden="true" />
         </div>
 
@@ -169,7 +179,10 @@ export function Share() {
           </>
         )}
         <ErrorNote error={album.error ?? friends.error ?? error} />
-        <p className={styles.caption}>友達と一緒に思い出を作れる！</p>
+        <p className={styles.caption}>
+          友達と一緒に思い出を作れる！
+          <Doodle kind="wave" className={styles.captionWave} />
+        </p>
       </main>
     </Screen>
   )

@@ -1,7 +1,8 @@
 .screen {
   min-height: 100%;
-  /* watercolor clouds (public/bg/clouds.jpg, generated like the other backgrounds) */
-  background: linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.55)), url('/bg/clouds.jpg') center top / cover;
+  /* white watercolor page with blue painted edges (public/bg/paper-soft.jpg,
+     local ComfyUI). Stretched so all four edges show at any height. */
+  background: url('/bg/paper-soft.jpg') 0 0 / 100% 100% no-repeat, var(--white);
 }
 
 .header {
@@ -247,4 +248,79 @@
   color: var(--white);
   font-size: 15px;
   font-weight: 800;
+}
+
+/* poster doodles */
+.sectionHeading h1,
+.sectionHeading h2 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--blue-500);
+  font-family: var(--font-hand-ja);
+  font-weight: 400;
+}
+
+.sectionHeading h1 {
+  font-size: 22px;
+}
+
+.sectionHeading h2 {
+  font-size: 18px;
+}
+
+.headingHeart {
+  width: 24px;
+  flex: none;
+  color: var(--pink-400);
+  transform: rotate(14deg);
+}
+
+.headingSparkle {
+  width: 20px;
+  margin: 0 8px 0 auto;
+  color: var(--pink-400);
+}
+
+.headingNotes {
+  width: 22px;
+  flex: none;
+  color: var(--blue-500);
+}
+
+.albumCard {
+  position: relative;
+}
+
+.tape {
+  position: absolute;
+  z-index: 2;
+  top: -10px;
+  left: 50%;
+  width: 78px;
+  height: 22px;
+  background: repeating-linear-gradient(45deg, rgba(255, 170, 205, 0.75) 0 6px, rgba(255, 214, 230, 0.75) 6px 12px);
+  box-shadow: 0 1px 2px rgba(20, 38, 77, 0.12);
+  transform: translateX(-50%) rotate(-4deg);
+}
+
+.cardLoops {
+  position: absolute;
+  z-index: 2;
+  top: -18px;
+  right: -8px;
+  width: 64px;
+  color: var(--pink-400);
+  transform: rotate(10deg);
+}
+
+.caption {
+  position: relative;
+}
+
+.captionWave {
+  display: block;
+  width: 150px;
+  margin: 2px auto 0;
+  color: var(--pink-400);
 }

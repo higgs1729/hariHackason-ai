@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { IconCheck, IconHeart, IconPhoto, IconSparkles } from '@tabler/icons-react'
+import { IconCheck, IconHeart, IconPhoto } from '@tabler/icons-react'
 import { useNavigate } from 'react-router-dom'
 import { api, type ApiError } from '../api'
+import { Doodle } from '../components/Doodle'
 import { ErrorNote, Loading } from '../components/Notice'
 import { MoreMenu } from '../components/MoreMenu'
 import { Photo } from '../components/Photo'
@@ -75,18 +76,25 @@ export function AlbumCreate() {
             <MoreMenu className={styles.more} />
           }
         />
-        <span className={styles.scribble} aria-hidden="true" />
+        <Doodle kind="loops" className={styles.scribble} strokeWidth={2.5} />
         <div className={styles.lettering}>
           Best Friends ♡
-          <IconSparkles className={styles.letterSparkle} size={24} stroke={1.6} aria-hidden="true" />
+          <Doodle kind="sparkle" className={styles.letterSparkle} />
         </div>
-        <IconHeart className={styles.heroHeart} size={29} stroke={1.5} aria-hidden="true" />
-        <IconSparkles className={styles.heroSparkle} size={24} stroke={1.3} aria-hidden="true" />
+        <Doodle kind="wave" className={styles.letterWave} strokeWidth={2} />
+        <Doodle kind="heart" className={styles.heroHeart} strokeWidth={2.5} />
+        <Doodle kind="heartFilled" className={styles.heroHeartPink} strokeWidth={2.5} />
+        <Doodle kind="notes" className={styles.heroNotes} strokeWidth={2} />
+        <Doodle kind="sparkle" className={styles.heroSparkle} />
+        <Doodle kind="sparkle" className={styles.heroSparkleSmall} />
       </Photo>
 
       <div className={styles.editor}>
         <div className={styles.dateRow}>
-          <h1>{hero ? fmtDate(hero.takenTime) : 'まだ写真がありません'}</h1>
+          <h1>
+            {hero ? fmtDate(hero.takenTime) : 'まだ写真がありません'}
+            <Doodle kind="heart" className={styles.dateHeart} />
+          </h1>
           <span className={styles.count}>
             <IconPhoto size={20} stroke={1.7} aria-hidden="true" />
             {selected.length}/{items.length}

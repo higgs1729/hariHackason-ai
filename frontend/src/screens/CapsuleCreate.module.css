@@ -115,3 +115,45 @@
 .primary:disabled {
   opacity: 0.5;
 }
+
+/* poster doodles on the frosted card */
+.card {
+  position: relative;
+  backdrop-filter: blur(6px);
+}
+
+.card h1 {
+  color: var(--blue-500);
+  font-family: var(--font-hand-ja);
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.cardSparkle,
+.cardSparkleSmall,
+.cardHeart {
+  position: absolute;
+}
+
+.cardSparkle {
+  top: -16px;
+  right: 18px;
+  width: 34px;
+  color: var(--white);
+  filter: drop-shadow(0 1px 3px rgba(20, 38, 77, 0.35));
+}
+
+.cardSparkleSmall {
+  top: 20px;
+  right: 14px;
+  width: 16px;
+  color: var(--blue-500);
+}
+
+.cardHeart {
+  top: -14px;
+  left: 16px;
+  width: 38px;
+  color: var(--pink-400);
+  transform: rotate(-14deg);
+}

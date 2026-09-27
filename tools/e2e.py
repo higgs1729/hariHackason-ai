@@ -91,9 +91,9 @@ def unique_photo(stem: str, out: Path) -> Path:
 
 
 def fake_camera_feed(out: Path) -> Path:
-    """One Y4M frame of the camera placeholder art, so the viewfinder shows the
+    """One Y4M frame of the camera placeholder photo, so the viewfinder shows the
     poster's scene instead of Chrome's green test pattern."""
-    img = Image.open(ROOT / 'frontend/public/bg/friends.jpg').convert('YCbCr')
+    img = Image.open(ROOT / 'frontend/public/photos/s1r1c2.jpg').convert('YCbCr')
     w, h = img.width // 2 * 2, img.height // 2 * 2
     y, cb, cr = img.crop((0, 0, w, h)).split()
     half = (w // 2, h // 2)

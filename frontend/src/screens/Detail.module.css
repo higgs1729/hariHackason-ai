@@ -1,7 +1,8 @@
 .screen {
   min-height: 100%;
-  /* watercolor clouds (public/bg/clouds.jpg, generated like the other backgrounds) */
-  background: linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.55)), url('/bg/clouds.jpg') center top / cover;
+  /* white watercolor page with blue painted edges (public/bg/paper-soft.jpg,
+     local ComfyUI). Stretched so all four edges show at any height. */
+  background: url('/bg/paper-soft.jpg') 0 0 / 100% 100% no-repeat, var(--white);
 }
 
 .header {
@@ -304,3 +305,68 @@
   background: var(--navy-900);
   color: var(--white);
 }
+
+/* poster doodles */
+.albumHeader {
+  position: relative;
+}
+
+.title {
+  color: var(--blue-500);
+  font-family: var(--font-hand-ja);
+  font-size: 24px !important;
+  font-weight: 400 !important;
+}
+
+.titleHeart {
+  width: 26px;
+  flex: none;
+  margin-left: 4px;
+  color: var(--pink-400);
+  transform: rotate(14deg);
+}
+
+.headerLoops,
+.headerSparkle,
+.headerSparkleSmall,
+.headerWave {
+  position: absolute;
+}
+
+.headerLoops {
+  top: 6px;
+  left: -6px;
+  width: 60px;
+  color: var(--pink-400);
+  transform: rotate(-10deg);
+}
+
+.headerSparkle {
+  top: 8px;
+  right: 60px;
+  width: 24px;
+  color: var(--blue-500);
+}
+
+.headerSparkleSmall {
+  top: 30px;
+  right: 88px;
+  width: 13px;
+  color: var(--pink-400);
+}
+
+.headerWave {
+  bottom: 14px;
+  left: 0;
+  width: 170px;
+  color: var(--pink-400);
+}
+
+.stripPhoto {
+  border: 3px solid var(--white);
+  border-radius: 3px !important;
+  box-shadow: 0 3px 9px rgba(20, 38, 77, 0.14);
+}
+
+.stripItem:nth-child(odd) .stripPhoto { transform: rotate(-3deg); }
+.stripItem:nth-child(even) .stripPhoto { transform: rotate(3deg); }

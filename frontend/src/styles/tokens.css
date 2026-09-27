@@ -29,6 +29,8 @@
 
   --font-ui: 'BIZ UDPGothic', 'Meiryo UI', 'Yu Gothic UI', system-ui, sans-serif;
   --font-hand: 'Segoe Script', 'Segoe Print', 'Brush Script MT', cursive;
+  /* Japanese handwriting (bundled via @fontsource, no network needed) */
+  --font-hand-ja: 'Hachi Maru Pop', 'Segoe Print', cursive;
 
   --phone-w: 390px;
   --phone-h: 844px;

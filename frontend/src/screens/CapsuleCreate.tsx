@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { api, apiMode, type ApiError } from '../api'
+import { Doodle } from '../components/Doodle'
 import { ErrorNote } from '../components/Notice'
 import { MoreMenu } from '../components/MoreMenu'
 import { Photo } from '../components/Photo'
@@ -69,6 +70,9 @@ export function CapsuleCreate() {
 
       <Photo asset="skySunset" className={styles.sky}>
         <main className={styles.card}>
+          <Doodle kind="sparkle" className={styles.cardSparkle} />
+          <Doodle kind="sparkle" className={styles.cardSparkleSmall} />
+          <Doodle kind="heartFilled" className={styles.cardHeart} />
           <h1>{choice.label}の自分へ</h1>
           <p className={styles.message}>
             この思い出を、

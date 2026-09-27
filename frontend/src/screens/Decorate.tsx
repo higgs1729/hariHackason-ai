@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
-import { IconArrowBackUp, IconDeviceFloppy, IconHeart, IconPencil, IconSparkles, IconTypography } from '@tabler/icons-react'
+import { IconArrowBackUp, IconDeviceFloppy, IconHeart, IconPencil, IconTypography } from '@tabler/icons-react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { api, type ApiError, type DecorationElement } from '../api'
+import { Doodle } from '../components/Doodle'
 import { DoodleCanvas, renderImages } from '../components/DoodleCanvas'
 import { ErrorNote, Loading } from '../components/Notice'
 import { Photo } from '../components/Photo'
@@ -103,19 +104,24 @@ export function Decorate() {
       />
 
       <main className={styles.paper}>
+        <Doodle kind="loops" className={styles.titleLoops} />
+        <Doodle kind="sparkle" className={styles.titleSparkle} />
         <h1 className={styles.heading}>
-          <IconHeart className={styles.headingHeart} size={24} stroke={1.5} aria-hidden="true" />
-          {album.data?.title ?? '…'} <span>♡</span>
+          {album.data?.title ?? '…'}
+          <Doodle kind="heart" className={styles.headingHeart} />
         </h1>
 
         {album.loading || deco.loading ? (
           <Loading />
         ) : (
           <div className={styles.canvas}>
-            <IconSparkles className={styles.sparkleLeft} size={36} stroke={1.3} aria-hidden="true" />
-            <IconHeart className={styles.heartRight} size={39} stroke={1.6} aria-hidden="true" />
+            <Doodle kind="loops" className={styles.loopsTop} />
+            <Doodle kind="sparkle" className={styles.sparkleTop} />
+            <Doodle kind="sparkle" className={styles.sparkleSmall} />
+            <Doodle kind="heartFilled" className={styles.heartRight} />
 
             <div className={`${styles.polaroid} ${styles.firstPolaroid}`}>
+              <span className={styles.tape} aria-hidden="true" />
               <div className={styles.target}>
                 <Photo src={target?.photoUrl} className={styles.targetPhoto} label={target?.caption ?? '写真'} />
                 {target && (
@@ -133,14 +139,17 @@ export function Decorate() {
             </div>
 
             <div className={styles.notes}>
-              <IconHeart className={styles.noteHeart} size={31} stroke={1.7} aria-hidden="true" />
+              <Doodle kind="heartFilled" className={styles.noteHeart} />
               <span className={styles.best}>BEST</span>
               <span className={styles.date}>{album.data?.albumDate.replace(/-/g, '.')}</span>
-              <span className={styles.scribble} aria-hidden="true" />
+              <Doodle kind="notes" className={styles.noteMusic} />
+              <Doodle kind="writing" className={styles.writing} />
             </div>
 
             {others.length > 0 && (
               <div className={`${styles.polaroid} ${styles.secondPolaroid}`}>
+                <span className={`${styles.tape} ${styles.tapeBlue}`} aria-hidden="true" />
+                <Doodle kind="heart" className={styles.heartOver} />
                 <div className={styles.collage}>
                   {others.map((p) => (
                     <button key={p.id} type="button" className={styles.collageButton} onClick={() => navigate(routes.decorate(albumId, p.id))} aria-label={`${p.caption ?? '写真'}を編集する`}>
@@ -151,8 +160,10 @@ export function Decorate() {
               </div>
             )}
 
-            <IconHeart className={styles.heartLeft} size={40} stroke={1.5} aria-hidden="true" />
-            <IconSparkles className={styles.sparkleRight} size={30} stroke={1.5} aria-hidden="true" />
+            <Doodle kind="zigzag" className={styles.zigzag} />
+            <Doodle kind="heart" className={styles.heartLeft} />
+            <Doodle kind="wave" className={styles.waveBottom} />
+            <Doodle kind="sparkle" className={styles.sparkleRight} />
           </div>
         )}
         <ErrorNote error={album.error ?? deco.error ?? error} />

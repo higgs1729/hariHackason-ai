@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react'
 import { IconChevronRight, IconClock, IconCloud, IconMessage, IconMusic, IconPencil, IconSend, IconUser, IconUsers } from '@tabler/icons-react'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
 import { api, type AlbumPhoto, type ApiError } from '../api'
+import { Doodle } from '../components/Doodle'
 import { ErrorNote, Loading } from '../components/Notice'
 import { MoreMenu } from '../components/MoreMenu'
 import { Photo } from '../components/Photo'
@@ -103,10 +104,15 @@ export function Detail() {
             </blockquote>
           )}
           <header className={styles.albumHeader}>
+            <Doodle kind="loops" className={styles.headerLoops} />
+            <Doodle kind="sparkle" className={styles.headerSparkle} />
+            <Doodle kind="sparkle" className={styles.headerSparkleSmall} />
+            <Doodle kind="wave" className={styles.headerWave} />
             <div className={styles.titleRow}>
               {titleDraft === null ? (
                 <h1 className={styles.title}>
                   {a.title}
+                  <Doodle kind="heart" className={styles.titleHeart} />
                   <button type="button" className={styles.titleEdit} onClick={() => setTitleDraft(a.title)} aria-label="タイトルを編集">
                     <IconPencil size={16} stroke={1.8} />
                   </button>

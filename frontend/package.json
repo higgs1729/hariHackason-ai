@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fontsource/hachi-maru-pop": "^5.3.0",
     "@tabler/icons-react": "^3.47.0",
     "jsqr": "^1.4.0",
     "qrcode": "^1.5.4",

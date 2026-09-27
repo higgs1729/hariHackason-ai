@@ -230,7 +230,7 @@ def main():
     lines += ['## Notes', '',
               '- Browser automation here is Playwright, not `C:\\agents\\tools\\bh.py`: these runs need a headless Chrome '
               'with a fake camera device and one isolated profile per run, which the shared Chrome lease of bh.py does not give.',
-              '- The camera is a fake device fed from `frontend/public/bg/friends.jpg`; there is one camera, so switching '
+              '- The camera is a fake device fed from `frontend/public/photos/s1r1c2.jpg`; there is one camera, so switching '
               'cameras changes nothing on the desktop.',
               '- The one console error in the e2e runs is the expected `409 CAPSULE_NOT_YET_OPEN` when the capsule is opened '
               'before its date; the screen then calls the dev-only `unseal-now` so the demo can show the opened capsule.',

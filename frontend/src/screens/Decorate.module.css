@@ -1,7 +1,8 @@
 .screen {
   min-height: 100%;
-  /* watercolor clouds (public/bg/clouds.jpg, generated like the other backgrounds) */
-  background: linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.55)), url('/bg/clouds.jpg') center top / cover;
+  /* watercolor page with a blue painted border (public/bg/paper-frame.jpg, local
+     ComfyUI, centre washed out). Stretched, not cropped, so all four edges show. */
+  background: url('/bg/paper-frame.jpg') 0 0 / 100% 100% no-repeat, var(--blue-50);
 }
 
 .save {
@@ -24,26 +25,39 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 3px;
+  gap: 6px;
   min-height: 64px;
-  color: var(--navy-900);
-  font-size: 24px;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-}
-
-.heading span {
-  color: var(--pink-400);
-  font-family: var(--font-hand);
-  font-size: 34px;
+  color: var(--blue-500);
+  font-family: var(--font-hand-ja);
+  font-size: 30px;
   font-weight: 400;
-  transform: rotate(14deg);
+  letter-spacing: 0.04em;
+  transform: rotate(-2deg);
 }
 
 .headingHeart {
-  margin-right: 7px;
+  width: 30px;
+  flex: none;
   color: var(--pink-400);
-  transform: rotate(-19deg);
+  transform: rotate(12deg);
+}
+
+.titleLoops {
+  position: absolute;
+  top: 4px;
+  left: 6px;
+  width: 58px;
+  color: var(--pink-400);
+  opacity: 0.85;
+  transform: rotate(-28deg);
+}
+
+.titleSparkle {
+  position: absolute;
+  top: 14px;
+  right: 26px;
+  width: 22px;
+  color: var(--blue-500);
 }
 
 .canvas {
@@ -107,7 +121,8 @@
   align-items: center;
   justify-content: center;
   gap: 16px;
-  height: 66px;
+  height: 84px;
+  padding-bottom: 20px;
   color: var(--navy-800);
 }
 
@@ -126,58 +141,124 @@
 }
 
 .noteHeart {
+  width: 30px;
   color: var(--pink-400);
   transform: rotate(-17deg);
 }
 
-.scribble {
-  position: absolute;
-  bottom: 8px;
-  left: 41%;
-  width: 120px;
-  height: 10px;
-  border-top: 1.5px solid var(--navy-700);
-  border-radius: 50%;
-  transform: rotate(-7deg);
+.noteMusic {
+  width: 26px;
+  color: var(--blue-500);
+  transform: rotate(8deg);
 }
 
-.sparkleLeft,
+.writing {
+  position: absolute;
+  right: 22px;
+  bottom: 2px;
+  width: 150px;
+  color: var(--blue-500);
+  opacity: 0.8;
+}
+
+/* washi tape holding each polaroid */
+.tape {
+  position: absolute;
+  z-index: 2;
+  top: -11px;
+  left: 50%;
+  width: 78px;
+  height: 22px;
+  background: repeating-linear-gradient(45deg, rgba(255, 170, 205, 0.75) 0 6px, rgba(255, 214, 230, 0.75) 6px 12px);
+  box-shadow: 0 1px 2px rgba(20, 38, 77, 0.12);
+  transform: translateX(-50%) rotate(-5deg);
+}
+
+.tapeBlue {
+  left: 30%;
+  background: repeating-linear-gradient(45deg, rgba(157, 195, 242, 0.75) 0 6px, rgba(220, 234, 249, 0.8) 6px 12px);
+  transform: translateX(-50%) rotate(6deg);
+}
+
+.loopsTop,
+.sparkleTop,
+.sparkleSmall,
+.heartRight,
+.heartOver,
+.heartLeft,
+.zigzag,
+.waveBottom,
 .sparkleRight {
   position: absolute;
+  z-index: 2;
+}
+
+.loopsTop {
+  top: -6px;
+  left: -8px;
+  width: 92px;
+  color: var(--pink-400);
+  transform: rotate(-14deg);
+}
+
+.sparkleTop {
+  top: 6px;
+  right: 16px;
+  width: 30px;
   color: var(--blue-500);
 }
 
-.sparkleLeft {
-  z-index: 2;
-  top: 6px;
-  right: 6px;
-  transform: rotate(15deg);
-}
-
-.sparkleRight {
+.sparkleSmall {
+  top: 44px;
   right: 2px;
-  bottom: 21px;
-  transform: rotate(-15deg);
+  width: 16px;
+  color: var(--pink-400);
 }
 
-.heartLeft,
 .heartRight {
-  position: absolute;
+  top: 168px;
+  right: 0;
+  width: 46px;
+  color: var(--pink-400);
+  transform: rotate(16deg);
+}
+
+.heartOver {
+  bottom: -24px;
+  left: -32px;
+  width: 62px;
+  color: var(--pink-400);
+  transform: rotate(-14deg);
+}
+
+.zigzag {
+  bottom: 44px;
+  left: 4px;
+  width: 18px;
+  height: 104px;
   color: var(--pink-400);
 }
 
 .heartLeft {
-  z-index: 2;
-  bottom: 90px;
-  left: 1px;
-  transform: rotate(-26deg);
+  top: 372px;
+  left: -2px;
+  width: 38px;
+  color: var(--blue-500);
+  transform: rotate(-20deg);
 }
 
-.heartRight {
-  z-index: 2;
-  top: 172px;
+.waveBottom {
+  right: 16px;
+  bottom: 2px;
+  width: 190px;
+  color: var(--pink-400);
+}
+
+.sparkleRight {
   right: 2px;
-  transform: rotate(20deg);
+  bottom: 70px;
+  width: 24px;
+  color: var(--blue-500);
 }
 
 .footer {
@@ -186,7 +267,7 @@
   bottom: 0;
   margin-top: auto;
   padding: 12px 16px max(18px, env(safe-area-inset-bottom));
-  background: var(--blue-50);
+  background: rgba(238, 245, 252, 0.82);
 }
 
 .primary {
@@ -222,8 +303,8 @@
   display: block;
   margin-top: 6px;
   color: var(--navy-800);
-  font-family: var(--font-hand);
-  font-size: 14px;
+  font-family: var(--font-hand-ja);
+  font-size: 15px;
   text-align: center;
 }
 
@@ -237,7 +318,7 @@
   align-items: center;
   gap: 8px;
   padding: 6px 16px;
-  background: var(--blue-50);
+  background: rgba(238, 245, 252, 0.82);
 }
 
 .toolbar > button {
@@ -287,7 +368,7 @@
   display: flex;
   gap: 8px;
   padding: 0 16px 6px;
-  background: var(--blue-50);
+  background: rgba(238, 245, 252, 0.82);
 }
 
 .textEntry input {
