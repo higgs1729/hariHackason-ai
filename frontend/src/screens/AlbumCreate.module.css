@@ -1,8 +1,6 @@
 .screen {
   min-height: 100%;
-  /* white watercolor page with blue painted edges (public/bg/paper-soft.jpg,
-     local ComfyUI). Stretched so all four edges show at any height. */
-  background: url('/bg/paper-soft.jpg') 0 0 / 100% 100% no-repeat, var(--white);
+  background: var(--white);
 }
 
 .hero {
@@ -50,7 +48,6 @@
   color: var(--white);
 }
 
-.letterWave,
 .heroHeart,
 .heroHeartPink,
 .heroNotes,
@@ -58,14 +55,6 @@
 .heroSparkleSmall {
   position: absolute;
   filter: drop-shadow(0 1px 3px rgba(20, 38, 77, 0.3));
-}
-
-.letterWave {
-  top: 196px;
-  left: 60px;
-  width: 170px;
-  color: var(--pink-400);
-  transform: rotate(-8deg);
 }
 
 .heroHeart {
@@ -113,9 +102,7 @@
   margin-top: -22px;
   padding: 4px 16px 16px;
   border-radius: 24px 24px 0 0;
-  /* white watercolor page with blue painted edges (public/bg/paper-soft.jpg,
-     local ComfyUI). Stretched so all four edges show at any height. */
-  background: url('/bg/paper-soft.jpg') 0 0 / 100% 100% no-repeat, transparent;
+  background: var(--white);
 }
 
 .tools {

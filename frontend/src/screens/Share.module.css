@@ -1,8 +1,6 @@
 .screen {
   min-height: 100%;
-  /* white watercolor page with blue painted edges (public/bg/paper-soft.jpg,
-     local ComfyUI). Stretched so all four edges show at any height. */
-  background: url('/bg/paper-soft.jpg') 0 0 / 100% 100% no-repeat, var(--white);
+  background: var(--white);
 }
 
 .header {

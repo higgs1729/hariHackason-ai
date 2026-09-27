@@ -8,7 +8,7 @@
       "step": "home",
       "note": "",
       "url": "/",
-      "t": 1.5,
+      "t": 1.7,
       "shot": "01-home.jpg"
     },
     {
@@ -16,7 +16,7 @@
       "step": "login-form",
       "note": "",
       "url": "/",
-      "t": 1.6,
+      "t": 1.9,
       "shot": "02-login-form.jpg"
     },
     {
@@ -24,7 +24,7 @@
       "step": "my-page",
       "note": "",
       "url": "/me",
-      "t": 1.9,
+      "t": 2.2,
       "shot": "03-my-page.jpg"
     },
     {
@@ -32,7 +32,7 @@
       "step": "camera",
       "note": "",
       "url": "/camera",
-      "t": 3.0,
+      "t": 3.2,
       "shot": "04-camera.jpg"
     },
     {
@@ -40,7 +40,7 @@
       "step": "shoot-hint",
       "note": "aiGenerated=1",
       "url": "/camera",
-      "t": 9.0,
+      "t": 9.7,
       "shot": "05-shoot-hint.jpg"
     },
     {
@@ -48,7 +48,7 @@
       "step": "camera-3-shots",
       "note": "",
       "url": "/camera",
-      "t": 9.5,
+      "t": 10.1,
       "shot": "06-camera-3-shots.jpg"
     },
     {
@@ -56,108 +56,108 @@
       "step": "album-create",
       "note": "AIでアルバムにまとめる（3枚）",
       "url": "/album/new",
-      "t": 10.1,
+      "t": 10.6,
       "shot": "07-album-create.jpg"
     },
     {
       "n": 8,
       "step": "album-generating",
       "note": "",
-      "url": "/album/generating/26",
-      "t": 11.8,
+      "url": "/album/generating/27",
+      "t": 12.3,
       "shot": "08-album-generating.jpg"
     },
     {
       "n": 9,
       "step": "album-detail",
       "note": "「青空と笑顔の一日」 aiGenerated=1",
-      "url": "/album/41",
-      "t": 22.6,
+      "url": "/album/42",
+      "t": 24.5,
       "shot": "09-album-detail.jpg"
     },
     {
       "n": 10,
       "step": "decorate",
       "note": "",
-      "url": "/album/41/decorate/142",
-      "t": 23.9,
+      "url": "/album/42/decorate/145",
+      "t": 25.8,
       "shot": "10-decorate.jpg"
     },
     {
       "n": 11,
       "step": "share",
       "note": "",
-      "url": "/album/41/share",
-      "t": 24.5,
+      "url": "/album/42/share",
+      "t": 27.2,
       "shot": "11-share.jpg"
     },
     {
       "n": 12,
       "step": "share-link",
-      "note": "http://localhost:8080/s/TISlldc6eI7EurfX-DSVMQm1jLvG7rHm",
-      "url": "/album/41/share",
-      "t": 24.7,
+      "note": "http://localhost:8080/s/G8PNGISFqc-UHTwg47xyuPGNvN0oLZ8r",
+      "url": "/album/42/share",
+      "t": 27.4,
       "shot": "12-share-link.jpg"
     },
     {
       "n": 13,
       "step": "friend-view-logged-out",
-      "note": "/s/TISlldc6eI7EurfX-DSVMQm1jLvG7rHm",
-      "url": "/s/TISlldc6eI7EurfX-DSVMQm1jLvG7rHm",
-      "t": 25.2,
+      "note": "/s/G8PNGISFqc-UHTwg47xyuPGNvN0oLZ8r",
+      "url": "/s/G8PNGISFqc-UHTwg47xyuPGNvN0oLZ8r",
+      "t": 27.8,
       "shot": "13-friend-view-logged-out.jpg"
     },
     {
       "n": 14,
       "step": "capsule-create",
       "note": "",
-      "url": "/album/41/capsule/new",
-      "t": 25.5,
+      "url": "/album/42/capsule/new",
+      "t": 28.1,
       "shot": "14-capsule-create.jpg"
     },
     {
       "n": 15,
       "step": "capsule-done",
       "note": "",
-      "url": "/capsule/16",
-      "t": 25.8,
+      "url": "/capsule/17",
+      "t": 28.3,
       "shot": "15-capsule-done.jpg"
     },
     {
       "n": 16,
       "step": "capsule-opened",
       "note": "",
-      "url": "/album/41?capsule=16",
-      "t": 26.0,
+      "url": "/album/42?capsule=17",
+      "t": 28.5,
       "shot": "16-capsule-opened.jpg"
     }
   ],
   "facts": {
     "shootHint": {
-      "hint": "3人でくっついてジャンプの瞬間を撮ろう!",
+      "hint": "3人で顔を寄せて弾ける笑顔を見せよう",
       "poses": [
-        "せーので同時にジャンプ",
-        "3人で顔を寄せて笑う",
-        "真ん中の子を囲んで指差し"
+        "肩組んでジャンプの瞬間",
+        "顔寄せ合ってピース",
+        "真ん中の子を囲んで笑う"
       ],
       "aiGenerated": 1
     },
     "selectedForAlbum": "AIでアルバムにまとめる（3枚）",
-    "generationSeconds": 12.3,
+    "generationSeconds": 13.7,
     "album": {
-      "id": 41,
+      "id": 42,
       "title": "青空と笑顔の一日",
       "aiGenerated": 1,
       "aiModel": "claude-cli:sonnet",
-      "summary": "制服姿の3人で出かけた一日。青空の下でピースサインを決めたり、屋台っぽい食べ物にかぶりついたり、笑顔いっぱいの時間が写真から伝わってくる。",
+      "summary": "秋晴れの空の下、制服姿の3人が笑顔いっぱいに過ごした一日。ピースサインや食べ歩きなど、楽しい時間がたっぷり詰まったアルバムです。",
       "captions": [
-        "3ショット",
+        "青空ピース",
         "食べ歩き",
-        "2ショット"
+        "仲良し2人"
       ]
     },
-    "shareUrl": "http://localhost:8080/s/TISlldc6eI7EurfX-DSVMQm1jLvG7rHm",
-    "ogImage": "http://localhost:8080/og/TISlldc6eI7EurfX-DSVMQm1jLvG7rHm.jpg",
+    "shareUrl": "http://localhost:8080/s/G8PNGISFqc-UHTwg47xyuPGNvN0oLZ8r",
+    "ogImage": "http://localhost:8080/og/G8PNGISFqc-UHTwg47xyuPGNvN0oLZ8r.jpg",
     "capsuleSealed": {
       "status": "SEALED",
       "daysRemaining": 364,
@@ -167,7 +167,7 @@
     "consoleErrors": [
       "Failed to load resource: the server responded with a status of 409 ()"
     ],
-    "totalSeconds": 26.3
+    "totalSeconds": 28.7
   },
-  "finished": "2026-09-27 10:03:49"
+  "finished": "2026-09-27 10:09:35"
 }

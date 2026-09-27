@@ -1,26 +1,26 @@
 # e2e run — PASS
 
-Finished 2026-09-27 10:03:49 against `http://localhost:8080`, 26.3 s in total.
+Finished 2026-09-27 10:09:35 against `http://localhost:8080`, 28.7 s in total.
 
-Album 「青空と笑顔の一日」 — aiGenerated=1, model claude-cli:sonnet, generated in 12.3 s. Captions: 3ショット, 食べ歩き, 2ショット
+Album 「青空と笑顔の一日」 — aiGenerated=1, model claude-cli:sonnet, generated in 13.7 s. Captions: 青空ピース, 食べ歩き, 仲良し2人
 
-Shoot hint — aiGenerated=1: 3人でくっついてジャンプの瞬間を撮ろう!
+Shoot hint — aiGenerated=1: 3人で顔を寄せて弾ける笑顔を見せよう
 
 | # | Step | t (s) | Note | Screenshot |
 | --- | --- | --- | --- | --- |
-| 1 | home | 1.5 |  | ![](01-home.jpg) |
-| 2 | login-form | 1.6 |  | ![](02-login-form.jpg) |
-| 3 | my-page | 1.9 |  | ![](03-my-page.jpg) |
-| 4 | camera | 3.0 |  | ![](04-camera.jpg) |
-| 5 | shoot-hint | 9.0 | aiGenerated=1 | ![](05-shoot-hint.jpg) |
-| 6 | camera-3-shots | 9.5 |  | ![](06-camera-3-shots.jpg) |
-| 7 | album-create | 10.1 | AIでアルバムにまとめる（3枚） | ![](07-album-create.jpg) |
-| 8 | album-generating | 11.8 |  | ![](08-album-generating.jpg) |
-| 9 | album-detail | 22.6 | 「青空と笑顔の一日」 aiGenerated=1 | ![](09-album-detail.jpg) |
-| 10 | decorate | 23.9 |  | ![](10-decorate.jpg) |
-| 11 | share | 24.5 |  | ![](11-share.jpg) |
-| 12 | share-link | 24.7 | http://localhost:8080/s/TISlldc6eI7EurfX-DSVMQm1jLvG7rHm | ![](12-share-link.jpg) |
-| 13 | friend-view-logged-out | 25.2 | /s/TISlldc6eI7EurfX-DSVMQm1jLvG7rHm | ![](13-friend-view-logged-out.jpg) |
-| 14 | capsule-create | 25.5 |  | ![](14-capsule-create.jpg) |
-| 15 | capsule-done | 25.8 |  | ![](15-capsule-done.jpg) |
-| 16 | capsule-opened | 26.0 |  | ![](16-capsule-opened.jpg) |
+| 1 | home | 1.7 |  | ![](01-home.jpg) |
+| 2 | login-form | 1.9 |  | ![](02-login-form.jpg) |
+| 3 | my-page | 2.2 |  | ![](03-my-page.jpg) |
+| 4 | camera | 3.2 |  | ![](04-camera.jpg) |
+| 5 | shoot-hint | 9.7 | aiGenerated=1 | ![](05-shoot-hint.jpg) |
+| 6 | camera-3-shots | 10.1 |  | ![](06-camera-3-shots.jpg) |
+| 7 | album-create | 10.6 | AIでアルバムにまとめる（3枚） | ![](07-album-create.jpg) |
+| 8 | album-generating | 12.3 |  | ![](08-album-generating.jpg) |
+| 9 | album-detail | 24.5 | 「青空と笑顔の一日」 aiGenerated=1 | ![](09-album-detail.jpg) |
+| 10 | decorate | 25.8 |  | ![](10-decorate.jpg) |
+| 11 | share | 27.2 |  | ![](11-share.jpg) |
+| 12 | share-link | 27.4 | http://localhost:8080/s/G8PNGISFqc-UHTwg47xyuPGNvN0oLZ8r | ![](12-share-link.jpg) |
+| 13 | friend-view-logged-out | 27.8 | /s/G8PNGISFqc-UHTwg47xyuPGNvN0oLZ8r | ![](13-friend-view-logged-out.jpg) |
+| 14 | capsule-create | 28.1 |  | ![](14-capsule-create.jpg) |
+| 15 | capsule-done | 28.3 |  | ![](15-capsule-done.jpg) |
+| 16 | capsule-opened | 28.5 |  | ![](16-capsule-opened.jpg) |

@@ -81,7 +81,6 @@ export function AlbumCreate() {
           Best Friends ♡
           <Doodle kind="sparkle" className={styles.letterSparkle} />
         </div>
-        <Doodle kind="wave" className={styles.letterWave} strokeWidth={2} />
         <Doodle kind="heart" className={styles.heroHeart} strokeWidth={2.5} />
         <Doodle kind="heartFilled" className={styles.heroHeartPink} strokeWidth={2.5} />
         <Doodle kind="notes" className={styles.heroNotes} strokeWidth={2} />
